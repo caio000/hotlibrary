@@ -1,0 +1,29 @@
+{
+  "name": "hotlibrary",
+  "homepage": "https://github.com/cronodev/hotlibrary",
+  "authors": [
+    "Caio de Freitas <caiof.adriano@hotmail.com>"
+  ],
+  "description": "Hotlibrary is a library management system. The users can be consultation all the library collection and make book loan request.",
+  "main": "",
+  "keywords": [
+    "hotlibrary",
+    "book",
+    "school",
+    "college",
+    "student",
+    "university"
+  ],
+  "license": "Apache",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.5",
+    "bootstrap": "^3.3.7"
+  }
+}
