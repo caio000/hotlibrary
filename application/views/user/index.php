@@ -15,13 +15,18 @@
         <div class="col-lg-offset-3 col-lg-6">
           <h2 class="text-center">{{ Page.title }}</h2>
 
+          <div ng-class="alert.type">
+            <h4 class="text-center">{{ alert.title }}</h4>
+            <p class="text-center">{{ alert.text }}</p>
+          </div>
+
           <form class="form-horizontal" name="newUser" autocomplete="off" novalidate>
 
             <div class="form-group">
               <div ng-class="{'has-error':newUser.name.$invalid && (newUser.name.$dirty || newUser.$submitted), 'has-success':newUser.name.$valid}">
                 <label for="name" class="control-label">Nome:</label>
                 <?php // TODO: arrumar a expressão regular para validar o campo nome ?>
-                <input id="name" class="form-control" type="text" name="name" placeholder="Fulano de tal" ng-model="User.name" ng-required="true" ng-minlength="10" ng-maxlength="50" ng-pattern="/[a-z]+/g" autofocus>
+                <input id="name" class="form-control" type="text" name="name" placeholder="Fulano de tal" ng-model="User.name" ng-required="true" ng-minlength="10" ng-maxlength="50" ng-pattern="/[a-z]+/g" ng-trim="true" autofocus>
                 <span ng-if="newUser.name.$error.required && (newUser.name.$dirty || newUser.$submitted)" class="help-block"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> O campo nome é obrigatório</span>
                 <span ng-if="newUser.name.$error.minlength && newUser.name.$dirty" class="help-block"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> O nome deve conter no minimo 10 caracteres</span>
                 <span ng-if="newUser.name.$error.maxlength && newUser.name.$dirty" class="help-block"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> O nome deve conter no maximo 50 caracteres</span>
@@ -66,6 +71,7 @@
     <script src="/hotlibrary/js/controller/User.js" charset="utf-8"></script>
     <!-- Services -->
     <script src="/hotlibrary/js/services/config.js" charset="utf-8"></script>
+    <script src="/hotlibrary/js/services/userAPI.js" charset="utf-8"></script>
 
   </body>
 </html>
