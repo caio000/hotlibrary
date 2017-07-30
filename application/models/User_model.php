@@ -15,7 +15,7 @@ class User_model extends CI_Model {
    * @return Retorna um BOOLEAN TRUE caso o objeto usuário sejá persistido com sucesso.
    */
   public function insert($User) {
-    return $this->db->insert("user",$User);
+    return $this->db->insert("User",$User);
   }
 }
 

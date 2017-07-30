@@ -15,7 +15,7 @@
         <div class="col-lg-offset-3 col-lg-6">
           <h2 class="text-center">{{ Page.title }}</h2>
 
-          <div ng-class="alert.type">
+          <div ng-if="alert.show" ng-class="alert.type">
             <h4 class="text-center">{{ alert.title }}</h4>
             <p class="text-center">{{ alert.text }}</p>
           </div>

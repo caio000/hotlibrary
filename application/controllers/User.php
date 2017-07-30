@@ -20,12 +20,14 @@ class User extends CI_Controller {
     // Transforma o objeto Json em um objeto PHP
     $User = json_decode($post);
 
-    // Apartir desse ponto vamos fazer as manipuções necessarias nos dados
+    // Apartir desse ponto vamos fazer as manipuções necessárias nos dados
     // Deixando o nome do usuário em minisculo
     $User->name = strtolower($User->name);
     $User->password = hash('SHA512',$User->password);
 
-    echo $this->User_model->insert($User);
+    // Caso ocorra um problema na persistencia a requisição retorna com um erro 404
+    if ( !$this->User_model->insert($User) )
+      header('HTTP/1.1 404 Ocorreu um erro inesperado. Tente novamente ou entre em contato com o administrador do sistema');
 
   }
 }
