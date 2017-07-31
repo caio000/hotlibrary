@@ -1,4 +1,4 @@
-hotlibrary.controller('User', function ($scope, UserAPI) {
+hotlibrary.controller('User', function ($scope, UserAPI, $timeout) {
   $scope.Page = {title:'Hotlibrary - Cadastrar Usuário'};
   $scope.btnNewUser = {};
   $scope.alert = {
@@ -13,7 +13,7 @@ hotlibrary.controller('User', function ($scope, UserAPI) {
     if (valid) {
       $scope.btnNewUser.disabled = true;
       // Espera de 2 segundos
-      setTimeout(function () {
+      $timeout(function () {
         UserAPI.saveUser(User).then(function success (response) {
           $scope.alert.type = 'alert alert-success';
           $scope.alert.show = true;
@@ -27,7 +27,7 @@ hotlibrary.controller('User', function ($scope, UserAPI) {
         });
 
         $scope.btnNewUser.disabled = false;
-      }, 2000);
+      },2000);
     }
   }
 });

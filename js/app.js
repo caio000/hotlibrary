@@ -1,1 +1,1 @@
-var hotlibrary = angular.module('hotlibrary',[]);
+var hotlibrary = angular.module('hotlibrary',['ngRoute']);

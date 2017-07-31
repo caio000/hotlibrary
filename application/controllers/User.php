@@ -7,10 +7,6 @@
  */
 class User extends CI_Controller {
 
-  function index() {
-    $this->load->view("user/index");
-  }
-
   public function saveUser() {
 
     $this->load->model('User_model');
