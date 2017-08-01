@@ -1,38 +1,37 @@
-<!DOCTYPE html>
-<html ng-app="hotlibrary">
-  <head>
-    <meta charset="utf-8">
-    <title>Hotlibrary</title>
-    <!-- Bootstrap Core -->
-    <link rel="stylesheet" href="/hotlibrary/bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <!-- Bootstrap Theme -->
-    <link rel="stylesheet" href="/hotlibrary/bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="/hotlibrary/bower_components/font-awesome/css/font-awesome.css">
-  </head>
-  <body>
+<div class="row">
+  <div class="col-sm-offset-3 col-md-offset-3 col-lg-offset-3 col-lg-6 col-md-6 col-sm-6">
+    <div class="col-lg-12 box-circle bg-white" style="margin-top: 25%;">
+      <div class="col-lg-6">
+        <img class="img-responsive" ng-src="{{Application.rootURL+'img/hotlibrary-logo.png'}}" alt="HotLibrary Logo" title="Logo">
+      </div>
 
-    <div class="container-fluid">
-      <h1 class="page-header">Página principal</h1>
-      <ng-view></ng-view>
+      <div class="col-lg-6">
+        <form class="form-horizontal" name="login" novalidate>
+          <div class="form-group">
+            <div ng-class="{'has-error':login.email.$invalid && (login.email.$dirty || login.$submitted),'has-success':login.email.$valid}">
+              <label class="control-label" for="email">Email:</label>
+              <input id="email" class="form-control" type="email" name="email" ng-model="User.email" ng-required="true" ng-trim="true" autofocus="">
+              <span ng-if="login.email.$error.required && (login.email.$dirty || login.$submitted)" class="help-block"><i class="fa fa-exclamation-circle"> O campo email é obrigatório</i></span>
+              <span ng-if="login.email.$error.email" class="help-block"><i class="fa fa-exclamation-circle"> Informe um email válido</i></span>
+              <span ng-if="login.email.$valid" class="help-block"><i class="fa fa-check"></i></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div ng-class="{'has-error':login.password.$invalid && (login.password.$dirty || login.$submitted), 'has-success':login.password.$valid}">
+              <label class="control-label" for="password">Senha:</label>
+              <input id="password" class="form-control" type="password" name="password" ng-model="User.password" ng-minlength="8" ng-required="true" ng-trim="true">
+              <span ng-if="login.password.$error.required && (login.password.$dirty || login.$submitted)" class="help-block"><i class="fa fa-exclamation-circle"> O campo senha é obrigatório</i></span>
+              <span ng-if="login.password.$error.minlength" class="help-block"><i class="fa fa-exclamation-circle"> A senha deve possuir no minimo 8 caracteres</i></span>
+              <span ng-if="login.password.$valid" class="help-block"><i class="fa fa-check"></i></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-default btn-block" type="submit" name="btnMakeLogin" ng-click="makeLogin(User, login.$valid)">Fazer Login</button>
+          </div>
+        </form>
+      </div>
     </div>
-
-    <!-- Jquery Core -->
-    <script type="text/javascript" src="/hotlibrary/bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
-    <!-- Bootstrap Javascript -->
-    <script type="text/javascript" src="/hotlibrary/bower_components/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
-    <!-- Angular Core -->
-    <script type="text/javascript" src="/hotlibrary/bower_components/angular/angular.min.js" charset="utf-8"></script>
-    <!-- Angular Modules -->
-    <script type="text/javascript" src="/hotlibrary/bower_components/angular-route/angular-route.min.js" charset="utf-8"></script>
-    <!-- Angular App -->
-    <script type="text/javascript" src="/hotlibrary/js/app.js" charset="utf-8"></script>
-    <!-- Angular Services -->
-    <script type="text/javascript" src="/hotlibrary/js/services/config.js" charset="utf-8"></script>
-    <script type="text/javascript" src="/hotlibrary/js/services/userAPI.js" charset="utf-8"></script>
-    <!-- Angular Config -->
-    <script type="text/javascript" src="/hotlibrary/js/config/route.js" charset="utf-8"></script>
-    <!-- Angular Controllers -->
-    <script type="text/javascript" src="/hotlibrary/js/controller/User.js" charset="utf-8"></script>
-  </body>
-</html>
+  </div>
+</div>

@@ -18,7 +18,15 @@ class Template extends CI_Controller {
     // Procura pelo character '-' e troca pelo character '/'
     $template = str_replace('-','/',$template);
     // Carrega o template solicitado.
-    $this->load->view($template);
+    $html = $this->load->view($template,NULL,TRUE);
+    if ( empty($html) )
+      header('HTTP/1.1 404 Not Found');
+    else
+      echo $html;
+  }
+
+  public function index() {
+    $this->load->view('mainPage.html');
   }
 }
 

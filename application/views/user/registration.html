@@ -28,7 +28,7 @@
           <label for="email" class="control-label">Email:</label>
           <input id="email" class="form-control" type="email" name="email" placeholder="example@example.com" ng-model="User.email" ng-required="true">
           <span ng-if="newUser.email.$error.required && (newUser.email.$dirty || newUser.$submitted)" class="help-block"><i class="fa fa-exclamation-circle"> O campo email é obrigatório</i></span>
-          <span ng-if="newUser.email.$error.email && newUser.email.$dirty" class="help-block"><i class="fa fa-exclamation-circle"> Informa um email válido</i></span>
+          <span ng-if="newUser.email.$error.email && newUser.email.$dirty" class="help-block"><i class="fa fa-exclamation-circle"> Informe um email válido</i></span>
           <span ng-if="newUser.email.$valid" class="help-block"><i class="fa fa-check"></i></span>
         </div>
       </div>
