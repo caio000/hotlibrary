@@ -6,6 +6,7 @@
       </div>
 
       <div class="col-lg-6">
+
         <form class="form-horizontal" name="login" novalidate>
           <div class="form-group">
             <div ng-class="{'has-error':login.email.$invalid && (login.email.$dirty || login.$submitted),'has-success':login.email.$valid}">
@@ -28,7 +29,13 @@
           </div>
 
           <div class="form-group">
-            <button class="btn btn-default btn-block" type="submit" name="btnMakeLogin" ng-click="makeLogin(User, login.$valid)">Fazer Login</button>
+            <button class="btn btn-default btn-block" type="submit" name="btnMakeLogin" ng-click="makeLogin(User, login.$valid)" ng-disabled="btnLogin">Fazer Login</button>
+          </div>
+
+          <div ng-if="alert.show" class="form-group">
+            <div class="alert alert-danger">
+              <p class="text-center">Email ou senha incorretos</p>
+            </div>
           </div>
         </form>
       </div>
