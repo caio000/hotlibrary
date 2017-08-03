@@ -68,9 +68,9 @@ class User extends CI_Controller {
 
     // Verifica se o usuário existe no banco de dados
     $user_array = get_object_vars($User);
-    $result = $this->User_model->exist($user_array);
+    $response['result'] = $this->User_model->exist($user_array);
 
-    echo json_encode($result);
+    echo json_encode($response);
 
   }
 }

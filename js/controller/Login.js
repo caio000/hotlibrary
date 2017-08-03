@@ -7,10 +7,10 @@ hotlibrary.controller('Login', function ($scope, $document, Application, Auth, $
     $scope.btnLogin = true;
 
     if (formValid) {
-      Auth.login(User, function (data) {
+      Auth.login(User, function (response) {
         // verifica se retornou um usuário na requisição
-        if ( data != null ) {
-          // TODO: Gerar as credenciais do usuário
+        if ( response.result != null ) {
+          Auth.setCredentials(response.result);
           $location.path('/usuario/cadastrar');
         } else {
           $scope.alert.show = true;
