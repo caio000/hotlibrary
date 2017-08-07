@@ -14,7 +14,7 @@ hotlibrary.factory('Auth',function ($http, Application, $base64, $cookies, $root
 
   var _setCredentials = function (User) {
     // Gera um token para sessão do usuário
-    var authData = $base64.encode( User.email + ':' + User.password );
+    var authData = $base64.encode( User.id + ':' + User.email + ':' + User.password );
     User.authData = authData;
 
     $rootScope.globals = {currentUser: User};
