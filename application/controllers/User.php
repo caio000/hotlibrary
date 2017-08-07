@@ -16,24 +16,32 @@ class User extends CI_Controller {
    */
   public function saveUser() {
 
-    $this->load->model('User_model');
-    $this->load->database();
+    $this->load->model(array('User_model'));
     // pega os dados da requisição HTTP do angular
     $post = file_get_contents("php://input");
     // Transforma o objeto Json em um objeto PHP
     $User = json_decode($post);
 
-    // Apartir desse ponto vamos fazer as manipuções necessárias nos dados
+    // Apartir desse ponto vamos fazer as manipulações necessárias nos dados
     // Deixando o nome do usuário em minusculo
     $User->name = strtolower($User->name);
     $User->email = strtolower($User->email);
     // Gera um hash na senha do usuário
     $User->password = hash('SHA512',$User->password);
 
+    $token = getToken();
+
     // Caso ocorra um problema na persistencia a requisição retorna com um erro 404
-    if ( !$this->User_model->insert($User) )
+    if ( !$this->User_model->insert($User) ) {
       header('HTTP/1.1 500 Ocorreu um erro inesperado. Tente novamente ou entre em contato com o administrador do sistema');
 
+      $log = createLog($token[0], 'Ocorreu um erro ao cadastrar um novo usuário');
+      $this->Log_model->insert($log);
+      exit();
+    }
+
+    $log = createLog($token[0], 'Novo usuário cadastrado no sistema');
+    $this->Log_model->insert($log);
   }
 
   /**
@@ -46,7 +54,6 @@ class User extends CI_Controller {
   public function validate () {
 
     $this->load->model(array('User_model'));
-    $this->load->database();
 
     $post = file_get_contents('php://input');
     $User = json_decode($post);
@@ -69,6 +76,13 @@ class User extends CI_Controller {
     // Verifica se o usuário existe no banco de dados
     $user_array = get_object_vars($User);
     $response['result'] = $this->User_model->exist($user_array);
+
+    if ( $response['result'] ) {
+      // Pega o id do usuário que está fazendo o login.
+      $idUser = $response['result']->id;
+      $log = createLog($idUser,'Fez login');
+      $this->Log_model->insert($log);
+    }
 
     echo json_encode($response);
 
