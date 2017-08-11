@@ -9,7 +9,7 @@ hotlibrary.factory('Auth',function ($http, Application, $base64, $cookies, $root
   }
 
   var _validate = function (User) {
-    return $http.post(Application.baseURL + 'User/validate',User);
+    return $http.post(Application.baseURL + 'Login/administration',User);
   }
 
   var _setCredentials = function (User) {

@@ -28,8 +28,9 @@ class User_model extends CI_Model {
    * Query sejá executada com sucesso e o usuário foi encontrado, é retornado
    * um objeto com os dados do usuário.
    */
-  public function exist ($User) {
+  public function exist ($User, $level) {
     $this->db->where($User);
+    $this->db->where_in('level',$level);
     $query = $this->db->get('User');
 
     return $query->row();
