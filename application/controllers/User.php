@@ -16,7 +16,6 @@ class User extends CI_Controller {
    */
   public function saveUser() {
 
-    $this->load->model(array('User_model'));
     // pega os dados da requisição HTTP do angular
     $post = file_get_contents("php://input");
     // Transforma o objeto Json em um objeto PHP
@@ -44,6 +43,36 @@ class User extends CI_Controller {
     $this->Log_model->insert($log);
   }
 
+  /**
+   * Cria uma solicitação para alterar a senha do usuário.
+   * @author Caio de Freitas
+   * @since 2017/08/16
+   */
+  public function forgotPassword () {
+    $response['email'] = file_get_contents('php://input');
+    // Gerar um token para a troca de senha
+    $request['token'] = hash('SHA256',uniqid(rand(),TRUE));
+    print_r($response);
+
+    echo json_encode($response);
+
+  }
+
+  /**
+   * Verifica se o email informado está cadastrado no sistema.
+   * @author Caio de Freitas
+   * @since 2017/08/16
+   * @param String $email: email informado;
+   * @return Retorna um boolean true caso o email informado já esteja cadastrado
+   * no sistema.
+   */
+  public function existEmail () {
+    $email = file_get_contents('php://input');
+
+    $response['result'] = $this->User_model->existEmail($email);
+    echo json_encode($response);
+
+  }
 }
 
 

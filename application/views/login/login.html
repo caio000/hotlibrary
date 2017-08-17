@@ -7,18 +7,19 @@
 
       <div class="col-lg-6">
 
-        <form class="form-horizontal" name="login" novalidate>
+        <form ng-submit="forgotPassword? forgot(User, login.$valid) : makeLogin(User, login.$valid)" class="form-horizontal" name="login" novalidate autocomplete="off">
           <div class="form-group">
             <div ng-class="{'has-error':login.email.$invalid && (login.email.$dirty || login.$submitted),'has-success':login.email.$valid}">
               <label class="control-label" for="email">Email:</label>
-              <input id="email" class="form-control" type="email" name="email" ng-model="User.email" ng-required="true" ng-trim="true" autofocus="">
+              <input id="email" class="form-control" type="email" name="email" ng-model="User.email" ng-exist-email="forgotPassword" ng-required="true" ng-trim="true" autofocus="">
               <span ng-if="login.email.$error.required && (login.email.$dirty || login.$submitted)" class="help-block"><i class="fa fa-exclamation-circle"> O campo email é obrigatório</i></span>
               <span ng-if="login.email.$error.email" class="help-block"><i class="fa fa-exclamation-circle"> Informe um email válido</i></span>
               <span ng-if="login.email.$valid" class="help-block"><i class="fa fa-check"></i></span>
+              <span ng-if="login.email.$error.emailAsync" class="help-block"><i class="fa fa-exclamation-circle"> O email informado não esta cadastrado no sistema</i></span>
             </div>
           </div>
 
-          <div class="form-group">
+          <div ng-if="!forgotPassword" class="form-group">
             <div ng-class="{'has-error':login.password.$invalid && (login.password.$dirty || login.$submitted), 'has-success':login.password.$valid}">
               <label class="control-label" for="password">Senha:</label>
               <input id="password" class="form-control" type="password" name="password" ng-model="User.password" ng-minlength="8" ng-required="true" ng-trim="true">
@@ -29,7 +30,12 @@
           </div>
 
           <div class="form-group">
-            <button class="btn btn-default btn-block" type="submit" name="btnMakeLogin" ng-click="makeLogin(User, login.$valid)" ng-disabled="btnLogin">Fazer Login</button>
+            <input id="forgotPassword" type="checkbox" name="forgotPassword" ng-value="false" ng-model="forgotPassword">
+            <label class="control-label" for="forgotPassword">Esqueçeu sua senha?</label>
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-default btn-block" type="submit" name="btnMakeLogin" ng-disabled="btnLogin">Fazer Login</button>
           </div>
 
           <div ng-if="alert.show" class="form-group">

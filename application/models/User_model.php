@@ -35,6 +35,20 @@ class User_model extends CI_Model {
 
     return $query->row();
   }
+
+  /**
+   * Verifica se existe o email informado existe no banco de dados.
+   * @author Caio de Freitas
+   * @since 2017/08/16
+   * @param String $email: email do usuário
+   * @return retorna um boolean true caso o email esteja cadastrado.
+   */
+  public function existEmail($email) {
+    $this->db->where('email',$email);
+    $result = $this->db->get('User')->num_rows();
+
+    return ($result == 1) ? TRUE : FALSE;
+  }
 }
 
 ?>
