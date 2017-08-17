@@ -33,3 +33,14 @@ CREATE TABLE "Log" (
   CONSTRAINT fk_log_user
     FOREIGN KEY ("idUser") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
+
+CREATE TABLE "ForgotPassword" (
+  "id"        SERIAL    NOT NULL,
+  "expireAt"  TIMESTAMP NOT NULL,
+  "token"     CHAR(64)  NOT NULL  UNIQUE,
+  "idUser"    INTEGER   NOT NULL,
+  "valid"     BOOLEAN   NOT NULL DEFAULT TRUE,
+  PRIMARY KEY ("id"),
+  CONSTRAINT fk_forgot_password_user
+    FOREIGN KEY ("idUser") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
