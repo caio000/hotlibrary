@@ -7,6 +7,12 @@
  */
 class User extends CI_Controller {
 
+  public function changePassword ($token) {
+    echo $token;
+
+    // TODO: Validar o token de troca de senha
+  }
+
   /**
    * Cadastra um usuário no sistema.
    * @author Caio de Freitas
@@ -58,11 +64,16 @@ class User extends CI_Controller {
     // verifica se a solicitação foi criada para enviar um email para o usuário
     // com um link da página para alteração da senha
     if ( $this->ForgotPassword_model->insert($request) ) {
+      // busca o html do email
+      $user = $this->User_model->getUserByEmail($request['email']);
+      $token = $request['token'];
+      $html = $this->load->view('email/forgotpassword',compact('user','token'),TRUE);
 
       $email = new PHPMailer;
 
       $email->isSMTP();
       $email->Host = 'smtp.gmail.com';
+      $email->CharSet = 'UTF-8';
       $email->SMTPAuth = TRUE;
       $email->Username = 'cronodevcaragua@gmail.com';
       $email->Password = '#cronodev2017#';
@@ -70,10 +81,10 @@ class User extends CI_Controller {
       $email->Port = 587;
 
       $email->setFrom('cronodevcaragua@gmail.com','Equipe Cronodev');
-      $email->addAddress($request['email'],'');
+      $email->addAddress($user->email,$user->name);
       $email->Subject = 'Email test';
       $email->isHTML(TRUE);
-      $email->msgHTML('<h2>Testing email class</h2>'); // TODO: criar email
+      $email->msgHTML($html);
 
       $result = $email->send();
 

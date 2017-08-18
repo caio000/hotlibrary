@@ -13,8 +13,7 @@ class ForgotPassword_model extends CI_Model {
    */
   function insert ($request) {
     $this->db->trans_start();
-    $this->db->where('email',$request['email']);
-    $user = $this->db->get("User")->row();
+    $user = $this->User_model->getUserByEmail($request['email']);
     // Cria a solicitação no banco
     $this->db->insert('ForgotPassword',array(
       'expireAt'  => $request['datetime'],

@@ -19,6 +19,19 @@ class User_model extends CI_Model {
   }
 
   /**
+   * Busca um usuário pelo email
+   * @author Caio de Freitas
+   * @since 2017/08/18
+   * @param String $email: email do usuário
+   * @return Retorna um objeto User com os dados do usuário.
+   */
+  public function getUserByEmail ($email) {
+    $this->db->where('email',$email);
+    $user = $this->db->get("User")->row();
+    return $user;
+  }
+
+  /**
    * Verifica se o usuário informado existe na base de dados.
    * @author Caio de Freitas
    * @since 2017/08/02
