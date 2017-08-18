@@ -35,12 +35,12 @@
           </div>
 
           <div class="form-group">
-            <button class="btn btn-default btn-block" type="submit" name="btnMakeLogin" ng-disabled="btnLogin">Fazer Login</button>
+            <button class="btn btn-default btn-block" type="submit" name="btnMakeLogin" ng-disabled="btnLogin">Fazer Login <i ng-if="btnLogin" class="fa fa-spinner fa-pulse" aria-hidden="false"></i></button>
           </div>
 
           <div ng-if="alert.show" class="form-group">
-            <div class="alert alert-danger">
-              <p class="text-center">Email ou senha incorretos</p>
+            <div ng-class="alert.class">
+              <p class="text-center">{{ alert.message }}</p>
             </div>
           </div>
         </form>

@@ -1,13 +1,18 @@
 hotlibrary.controller('Login', function ($scope, $document, Application, Auth, $location, UserAPI) {
   $scope.Application = Application;
-  $scope.alert = {show:false};
+  $scope.alert = {show:false,'class':'alert alert-success'};
   $scope.btnLogin = false;
 
   $scope.forgot = function (User, formValid) {
 
     if (formValid) {
-      console.log('controller');
-      UserAPI.forgotPassword(User);
+      $scope.btnLogin = true;
+      UserAPI.forgotPassword(User).then(function (response) {
+        $scope.btnLogin = false;
+        $scope.alert.show = true;
+        $scope.alert.message = 'Foi enviado um email para recuperação da sua senha';
+        $scope.alert.class = "alert alert-success";
+      });
     }
   }
 
@@ -22,6 +27,8 @@ hotlibrary.controller('Login', function ($scope, $document, Application, Auth, $
           $location.path('/usuario/cadastrar');
         } else {
           $scope.alert.show = true;
+          $scope.alert.message = "Email ou senha incorretos";
+          $scope.alert.class = 'alert alert-danger';
         }
 
       });

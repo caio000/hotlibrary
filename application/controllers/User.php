@@ -58,7 +58,26 @@ class User extends CI_Controller {
     // verifica se a solicitação foi criada para enviar um email para o usuário
     // com um link da página para alteração da senha
     if ( $this->ForgotPassword_model->insert($request) ) {
-      // TODO: enviar email para o usuário
+
+      $email = new PHPMailer;
+
+      $email->isSMTP();
+      $email->Host = 'smtp.gmail.com';
+      $email->SMTPAuth = TRUE;
+      $email->Username = 'cronodevcaragua@gmail.com';
+      $email->Password = '#cronodev2017#';
+      $email->SMTPSecure = 'tls';
+      $email->Port = 587;
+
+      $email->setFrom('cronodevcaragua@gmail.com','Equipe Cronodev');
+      $email->addAddress($request['email'],'');
+      $email->Subject = 'Email test';
+      $email->isHTML(TRUE);
+      $email->msgHTML('<h2>Testing email class</h2>'); // TODO: criar email
+
+      $result = $email->send();
+
+      echo json_encode(compact('result'));
     }
 
 
