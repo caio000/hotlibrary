@@ -1,6 +1,6 @@
 var hotlibrary = angular.module('hotlibrary',['ngRoute','base64','ngCookies']);
 
-hotlibrary.run(function ($rootScope, $cookies, $http, $location) {
+hotlibrary.run(function ($rootScope, $cookies, $http, $location, Auth, $route) {
   // Pega os dados do usuário no cookie caso exista, caso contrario é atribuido
   // um objeto vazio.
   $rootScope.globals = $cookies.getObject('globals') || {};
@@ -9,13 +9,14 @@ hotlibrary.run(function ($rootScope, $cookies, $http, $location) {
     $http.defaults.headers.common.Authorization = 'Basic ' + $rootScope.globals.currentUser.authData;
 
   // Essa função é chamada em toda transição de view
-  $rootScope.$on('$locationChangeStart', function (event, next, current) {
-    // Verifica se estamos em uma rota diferente da rota '/' (página de login) e
-    //  se existe um usuário na sessão
-    if ( $location.path() !== '/' && !$rootScope.globals.currentUser )
+  $rootScope.$on('$routeChangeStart', function (event, next, current) {
+    var theme = ( $location.path() == '/' ) ? 'bg-dark' : 'bg-white';
+    $rootScope.globals.Page = {background: theme};
+
+    if (!Auth.checkAuthForView(next))
       $location.path('/');
-    else if ( $location.path() === '/' && $rootScope.globals.currentUser )
-      $location.path('usuario/cadastrar');
+    else if (!Auth.userHasPermissionForView(next))
+      $location.path('/erro/acesso_negado');
   });
 
 });

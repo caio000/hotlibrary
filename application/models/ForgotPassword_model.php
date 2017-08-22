@@ -32,6 +32,37 @@ class ForgotPassword_model extends CI_Model {
     return $status;
   }
 
+  /**
+   * Verifica se o token é valido
+   * @author Caio de Freitas
+   * @since 2017/08/22
+   * @param String token
+   * @return
+   */
+  function checkTokenValidation ($token) {
+
+    $this->checkExpiredToken();
+
+    $this->db->where('token',$token);
+    $this->db->where('expireAt >= now()');
+    $this->db->where('valid',TRUE);
+    $result = $this->db->get("ForgotPassword")->num_rows();
+
+    return $result;
+  }
+
+  /**
+   * Verifica a validade dos tokens
+   * @author Caio de Freitas
+   * @since 2017/08/22
+   */
+  function checkExpiredToken () {
+    $this->db->where('expireAt < now()');
+    $this->db->where('valid',TRUE);
+    $result = $this->db->update('ForgotPassword',['valid'=>FALSE]);
+
+    return $result;
+  }
 
 }
 

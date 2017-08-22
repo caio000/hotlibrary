@@ -13,7 +13,7 @@
           <p class="text-justify">
             Recebemos uma solicitação para recuperar sua senha de acesso ao sistema
             <strong>Hotlibrary</strong>, para alterar sua senha
-            <?= anchor('usuario/alterar/senha/'.$token,'clique aqui.') ?>
+            <?= anchor('#!/usuario/alterar/senha/'.$token,'clique aqui.') ?>
           </p>
 
           <p class="text-justify">Caso você não tenha feito a solicitação, ignore esse email.</p>

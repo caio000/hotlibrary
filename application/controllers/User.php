@@ -8,9 +8,9 @@
 class User extends CI_Controller {
 
   public function changePassword ($token) {
-    echo $token;
 
     // TODO: Validar o token de troca de senha
+    $isValid = $this->ForgotPassword_model->checkTokenValidation($token);
   }
 
   /**
