@@ -6,7 +6,7 @@
 class ForgotPassword_model extends CI_Model {
 
   /**
-   * Essa função cria uma nova solicitação de traca de senha no banco de dados.
+   * Essa função cria uma nova solicitação de troca de senha no banco de dados.
    * @author Caio de Freitas
    * @since 2017/08/17
    * @param ARRAY $request: Vetor com os dados da requisição (email, token, Data e hora)
@@ -48,7 +48,7 @@ class ForgotPassword_model extends CI_Model {
     $this->db->where('valid',TRUE);
     $result = $this->db->get("ForgotPassword")->num_rows();
 
-    return $result;
+    return (boolean) $result;
   }
 
   /**
@@ -56,7 +56,7 @@ class ForgotPassword_model extends CI_Model {
    * @author Caio de Freitas
    * @since 2017/08/22
    */
-  function checkExpiredToken () {
+  private function checkExpiredToken () {
     $this->db->where('expireAt < now()');
     $this->db->where('valid',TRUE);
     $result = $this->db->update('ForgotPassword',['valid'=>FALSE]);

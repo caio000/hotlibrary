@@ -8,17 +8,15 @@
 class User extends CI_Controller {
 
   public function changePassword ($token) {
-
-    // TODO: Validar o token de troca de senha
-    $isValid = $this->ForgotPassword_model->checkTokenValidation($token);
+    // TODO: Criar lógica para alterar a senha do usuário
   }
 
   /**
    * Cadastra um usuário no sistema.
    * @author Caio de Freitas
    * @since 2017/07/30
-   * @param
-   * @return
+   * @param objeto json com os dados do usuário
+   * @return Retorna um boolean True caso o usuário sejá cadastrado com sucesso
    */
   public function saveUser() {
 

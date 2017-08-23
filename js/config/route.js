@@ -11,15 +11,17 @@ hotlibrary.config(function ($routeProvider, Application) {
     permissions: [1]
   });
   $routeProvider.when('/usuario/alterar/senha/:token',{
-    templateUrl: Application.baseURL + 'template/view/user-forgotpassword.html',
+    templateUrl: Application.baseURL + 'template/view/user-alterPassword.html',
     controller: "AlterPassword",
     resolve: {
-      checkToken: function (userAPI, $route) {
-        // TODO: Validar token no back-end
-        return;
+      checkToken: function (tokenAPI, $route) {
+        return tokenAPI.checkToken($route.current.params.token);
       }
     }
   });
+
+  // Rotas de erro =============================================================
+
   $routeProvider.when('/erro/acesso_negado',{
     templateUrl: Application.baseURL + 'template/view/error-accessDenied.html'
   });
