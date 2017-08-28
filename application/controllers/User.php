@@ -57,7 +57,7 @@ class User extends CI_Controller {
     // Gerar um token para a troca de senha
     $request['token'] = hash('SHA256',uniqid(rand(),TRUE));
     // pega o horario atual e soma 30 minutos
-    $request['datetime'] = date('Y-m-d h:i:s',strtotime('+30 minutes'));
+    $request['datetime'] = date('Y-m-d H:i:s',strtotime('+30 minutes'));
 
     // verifica se a solicitação foi criada para enviar um email para o usuário
     // com um link da página para alteração da senha
