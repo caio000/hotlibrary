@@ -14,7 +14,6 @@ class Token extends CI_Controller {
    * alteração da senha.
    */
   public function checkToken($token) {
-    // TODO: Validar o token de troca de senha
     $isValid = $this->ForgotPassword_model->checkTokenValidation($token);
 
     if (!$isValid){
@@ -22,7 +21,9 @@ class Token extends CI_Controller {
       exit();
     }
 
-    // Caso o token sejá valido 
+    $user = $this->ForgotPassword_model->getUserByToken($token);
+    $user->token = $token;
+    echo json_encode($user);
   }
 }
 

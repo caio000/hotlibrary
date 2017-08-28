@@ -57,6 +57,6 @@ $route['template/view/(:any)'] = 'Template/getTemplate/$1';
 $route['usuario/cadastrar'] = 'User/index';
 $route['usuario/esqueceu/senha']['post'] = 'User/forgotPassword';
 $route['usuario/existe/email']['post'] = 'User/existEmail';
-$route['usuario/alterar/senha/(:any)']['get'] = 'User/changePassword/$1';
+$route['usuario/alterar/senha']['post'] = 'User/changePassword';
 
 $route['valida/token/(:any)'] = 'Token/checkToken/$1';

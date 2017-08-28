@@ -12,9 +12,14 @@ hotlibrary.factory('UserAPI', function ($http, Application, $base64) {
     return $http.post(Application.baseURL + 'usuario/existe/email', email);
   }
 
+  var _alterPassword = function (User) {
+    return $http.post(Application.baseURL + "usuario/alterar/senha", User);
+  }
+
   return {
     saveUser: _saveUser,
     forgotPassword: _forgotPassword,
-    existEmail: _existEmail
+    existEmail: _existEmail,
+    alterPassword: _alterPassword
   };
 });

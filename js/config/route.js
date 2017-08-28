@@ -14,7 +14,7 @@ hotlibrary.config(function ($routeProvider, Application) {
     templateUrl: Application.baseURL + 'template/view/user-alterPassword.html',
     controller: "AlterPassword",
     resolve: {
-      checkToken: function (tokenAPI, $route) {
+      user: function (tokenAPI, $route) {
         return tokenAPI.checkToken($route.current.params.token);
       }
     }

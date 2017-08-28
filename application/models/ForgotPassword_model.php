@@ -64,6 +64,36 @@ class ForgotPassword_model extends CI_Model {
     return $result;
   }
 
+  /**
+   * Busca o usuário pelo token
+   * @author Caio de Freitas
+   * @since 2017/08/28
+   * @param String token - token da solicitação de alteração da senha
+   * @return Retorna  um objeto com os dados do usuário
+   */
+  public function getUserByToken($token) {
+    $this->db->select('User.*');
+    $this->db->join("User",'User.id = ForgotPassword.idUser');
+    $this->db->where('token',$token);
+    $result = $this->db->get('ForgotPassword');
+
+    return $result->row();
+  }
+
+  /**
+   * Desativa um token com a solicitação de alterar senha
+   * @author Caio de Freitas
+   * @since 2017/08/28
+   * @param String token: token que será desativado.
+   * @return Retorna um boolean true caso o token sejá desativado com sucesso
+   */
+  public function disable ($token) {
+    $this->db->where('token',$token);
+    $this->db->set('valid',false);
+    $result = $this->db->update('ForgotPassword');
+
+    return $result;
+  }
 }
 
 

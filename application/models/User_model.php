@@ -50,6 +50,17 @@ class User_model extends CI_Model {
   }
 
   /**
+   * @author Caio de Freitas
+   * @since 2017/08/28
+   * @param Object user: objeto com os dados do usuário
+   * @return Retorna um boolean true caso os dados sejam atualizados com sucesso
+   */
+  public function update($user) {
+    $this->db->where('id',$user->id);
+    return $this->db->update('User',$user);
+  }
+
+  /**
    * Verifica se existe o email informado existe no banco de dados.
    * @author Caio de Freitas
    * @since 2017/08/16

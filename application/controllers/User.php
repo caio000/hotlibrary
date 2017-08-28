@@ -7,8 +7,30 @@
  */
 class User extends CI_Controller {
 
-  public function changePassword ($token) {
-    // TODO: Criar lógica para alterar a senha do usuário
+  /**
+   * Altera a senha do usuário.
+   * @author Caio de Freitas
+   * @since 2017/08/28
+   */
+  public function changePassword () {
+    $post = file_get_contents("php://input");
+    $user = json_decode($post);
+    $token = $user->token;
+    unset($user->token); // Deleta o atributo token o objeto user.
+
+    // Gera um hash da nova senha
+    $user->password = hash('SHA512',$user->password);
+
+    // Atualiza os dados do usuário
+    $response['result'] = $this->User_model->update($user);
+
+    // gera o log
+    $log = createLog($user->id,'Usuário alterou a senha');
+    $this->Log_model->insert($log);
+
+    // desativa o token
+    $this->ForgotPassword_model->disable($token);
+    echo json_encode($response);
   }
 
   /**

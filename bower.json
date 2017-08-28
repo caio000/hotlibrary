@@ -28,6 +28,7 @@
     "font-awesome": "fontawesome#^4.7.0",
     "angular-route": "1.6.5",
     "angular-base64": "^2.0.5",
-    "angular-cookies": "1.6.5"
+    "angular-cookies": "1.6.5",
+    "angular-messages": "1.6.5"
   }
 }
