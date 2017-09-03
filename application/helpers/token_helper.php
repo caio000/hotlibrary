@@ -6,7 +6,7 @@ function getToken () {
 
   // Pega o token no cabeçalho da requisição
   $token = $CI->input->get_request_header('Authorization');
-  $token = str_replace(array('basic',' '),'', $token);
+  $token = str_replace(array('Basic',' '),'', $token);
   $token = base64_decode($token);
   $token = explode(':',$token);
 

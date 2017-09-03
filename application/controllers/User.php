@@ -42,6 +42,18 @@ class User extends CI_Controller {
    */
   public function saveUser() {
 
+
+    // pega os dados do usuário que vieram da requisição
+    $token = getToken();
+    $this->auth->setUserLevel($token[3]);
+    $this->auth->setPagePermission([1]);
+    // verifica se o usuário tem permissão para utilizar o serviço
+    if (!$this->auth->hasPermission()) {
+      header('HTTP/1.1 401 Unauthorized');
+      exit();
+    }
+
+
     // pega os dados da requisição HTTP do angular
     $post = file_get_contents("php://input");
     // Transforma o objeto Json em um objeto PHP
@@ -54,7 +66,6 @@ class User extends CI_Controller {
     // Gera um hash na senha do usuário
     $User->password = hash('SHA512',$User->password);
 
-    $token = getToken();
 
     // Caso ocorra um problema na persistencia a requisição retorna com um erro 404
     if ( !$this->User_model->insert($User) ) {

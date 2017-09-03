@@ -25,4 +25,8 @@ hotlibrary.config(function ($routeProvider, Application) {
   $routeProvider.when('/erro/acesso_negado',{
     templateUrl: Application.baseURL + 'template/view/error-accessDenied.html'
   });
+
+  $routeProvider.otherwise({
+    redirectTo:'/',
+  });
 });

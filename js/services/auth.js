@@ -14,12 +14,12 @@ hotlibrary.factory('Auth',function ($http, Application, $base64, $cookies, $root
 
   var _setCredentials = function (User) {
     // Gera um token para sessão do usuário
-    var authData = $base64.encode( User.id + ':' + User.email + ':' + User.password );
+    var authData = $base64.encode( User.id + ':' + User.email + ':' + User.password + ':' + User.level);
     User.authData = authData;
 
     $rootScope.globals = {currentUser: User};
     // Adiciona o token no HEADER de todas as requisições realizadas pelo sistema.
-    $http.defaults.headers.common.Authorization = 'basic ' + authData;
+    $http.defaults.headers.common.Authorization = 'Basic ' + authData;
     // Adiciona o usuário no cookie.
     $cookies.putObject('globals', $rootScope.globals);
   }
