@@ -10,7 +10,7 @@ hotlibrary.run(function ($rootScope, $cookies, $http, $location, Auth, $route) {
 
   // Essa função é chamada em toda transição de view
   $rootScope.$on('$routeChangeStart', function (event, next, current) {
-    var theme = ( $location.path() == '/' ) ? 'bg-dark' : 'bg-white';
+    var theme = ( $location.path() == '/' ) ? 'bg-dark' : '';
     $rootScope.globals.Page = {background: theme};
 
     if (!Auth.checkAuthForView(next))

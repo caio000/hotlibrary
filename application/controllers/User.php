@@ -8,6 +8,17 @@
 class User extends CI_Controller {
 
   /**
+   * Exibe um json com todos os usuários cadastrados no sistema.
+   * @author Caio de Freitas
+   * @since 2017/09/11
+   * @return Json com os dados dos usuários.
+   */
+  public function getAll() {
+    $users = $this->User_model->getAll();
+    echo json_encode($users);
+  }
+
+  /**
    * Altera a senha do usuário.
    * @author Caio de Freitas
    * @since 2017/08/28

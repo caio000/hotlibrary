@@ -6,7 +6,7 @@ CREATE TABLE "Level" (
   PRIMARY KEY ("id")
 );
 
-INSERT INTO "Level" ("type") VALUES ('admin'),('library'),('common');
+INSERT INTO "Level" ("type") VALUES ('administrador'),('biblioteca'),('comum');
 
 CREATE TABLE "User"(
   "id"        SERIAL        NOT NULL,

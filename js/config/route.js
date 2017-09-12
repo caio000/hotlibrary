@@ -4,6 +4,17 @@ hotlibrary.config(function ($routeProvider, Application) {
     templateUrl: Application.baseURL+'template/view/login-login.html',
     controller: 'Login'
   });
+  $routeProvider.when('/usuario',{
+    templateUrl: Application.baseURL + 'template/view/user-list.html',
+    controller: 'UserList',
+    requiresAuthentication: true,
+    permissions: [1],
+    resolve: {
+      users: function (UserAPI) {
+        return UserAPI.getAll();
+      }
+    }
+  });
   $routeProvider.when('/usuario/cadastrar',{
     templateUrl: Application.baseURL+'template/view/user-registration.html',
     controller: 'User',
@@ -24,6 +35,10 @@ hotlibrary.config(function ($routeProvider, Application) {
 
   $routeProvider.when('/erro/acesso_negado',{
     templateUrl: Application.baseURL + 'template/view/error-accessDenied.html'
+  });
+
+  $routeProvider.when('erro/pagina_nao_encontrada',{
+    templateUrl: Application.baseURL + 'template/view/error-notFound.html',
   });
 
   $routeProvider.otherwise({

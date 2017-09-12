@@ -22,9 +22,12 @@ hotlibrary.controller('Login', function ($scope, $document, Application, Auth, $
     if (formValid) {
       Auth.login(User, function (response) {
         // verifica se retornou um usuário na requisição
-        if ( response.result != null ) {
-          Auth.setCredentials(response.result);
-          $location.path('/usuario/cadastrar');
+        User = response.result;
+        if ( User != null ) {
+          Auth.setCredentials(User);
+
+          if (User.level == 1)
+            $location.path('/usuario');
         } else {
           $scope.alert.show = true;
           $scope.alert.message = "Email ou senha incorretos";

@@ -8,6 +8,19 @@
 class User_model extends CI_Model {
 
   /**
+   * Busca todos os usuários cadastrados no banco de dados.
+   * @author Caio de Freitas Adriano
+   * @since 2017/09/11
+   * @return Retorna uma coleção com todos os objetos "User" cadastrados no banco de dados.
+   */
+  public function getAll() {
+    $this->db->select('"User".*, "Level"."type"');
+    $this->db->join('Level','User.level = Level.id');
+    $query = $this->db->get("User");
+    return $query->result();
+  }
+
+  /**
    * Insere um novo usuário na base de dados
    * @author Caio de Freitas adriano
    * @since 2017/07/23

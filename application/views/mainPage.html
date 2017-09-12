@@ -14,6 +14,27 @@
   </head>
   <body ng-class="globals.Page.background">
 
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-targer="#main_navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand">Hotlibrary</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="main_navbar">
+          <ul class="nav navbar-nav">
+            <li><a>Teste 01<span class="sr-only">(current)</span></a></li>
+            <li><a>Teste 02</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
     <div id="page" class="container-fluid">
       <ng-view></ng-view>
     </div>
@@ -48,5 +69,6 @@
     <script type="text/javascript" src="/hotlibrary/js/controller/User.js" charset="utf-8"></script>
     <script type="text/javascript" src="/hotlibrary/js/controller/Login.js" charset="utf-8"></script>
     <script type="text/javascript" src="/hotlibrary/js/controller/AlterPassword.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/hotlibrary/js/controller/UserList.js" charset="utf-8"></script>
   </body>
 </html>
