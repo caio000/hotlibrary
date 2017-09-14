@@ -61,3 +61,5 @@ $route['usuario/alterar/senha']['post'] = 'User/changePassword';
 $route['usuarios/todos']['get'] = 'User/getAll';
 
 $route['valida/token/(:any)'] = 'Token/checkToken/$1';
+
+$route['nivel/todos']['get'] = 'Level/getAll';

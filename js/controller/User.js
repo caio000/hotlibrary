@@ -1,13 +1,17 @@
-hotlibrary.controller('User', function ($scope, UserAPI, $timeout) {
-  $scope.Page = {title:'Hotlibrary - Cadastrar Usuário'};
-  $scope.btnNewUser = {};
-  $scope.alert = {
-    type: '',
-    text: 'Essa é uma mensagem de teste',
-    disabled: true,
-    title: 'Test',
-    show: false
-  };
+hotlibrary.controller('User', function ($scope, UserAPI, $timeout, userLevel) {
+
+  var init = function () {
+    $scope.Page = {title:'Hotlibrary - Cadastrar Usuário'};
+    $scope.btnNewUser = {};
+    $scope.alert = {
+      type: '',
+      text: 'Essa é uma mensagem de teste',
+      disabled: true,
+      title: 'Test',
+      show: false
+    };
+    $scope.levels = userLevel.data;
+  }
 
   $scope.sendUser = function (User, valid) {
     if (valid) {
@@ -30,4 +34,6 @@ hotlibrary.controller('User', function ($scope, UserAPI, $timeout) {
       },2000);
     }
   }
+
+  init();
 });

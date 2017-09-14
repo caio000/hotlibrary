@@ -53,6 +53,8 @@ class User extends CI_Controller {
    */
   public function saveUser() {
 
+    // FIXME: fazer correções para persistir o usuário no banco de dados.
+    // IDEA: tentar fazer um validação dos dados aqui no back-end
 
     // pega os dados do usuário que vieram da requisição
     $token = getToken();

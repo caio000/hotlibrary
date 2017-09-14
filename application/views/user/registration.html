@@ -7,6 +7,8 @@
       <p class="text-center">{{ alert.text }}</p>
     </div>
 
+    <pre>{{ User | json }}</pre>
+
     <form class="form-horizontal" name="newUser" autocomplete="off" novalidate>
 
       <div class="form-group">
@@ -23,12 +25,12 @@
       </div>
 
       <div class="form-group">
-        <!-- TODO: Criar uma validação onde verifica se o email digitado existe na base de dados -->
         <div ng-class="{'has-error':newUser.email.$invalid && (newUser.email.$dirty || newUser.$submitted), 'has-success':newUser.email.$valid}">
           <label for="email" class="control-label">Email:</label>
-          <input id="email" class="form-control" type="email" name="email" placeholder="example@example.com" ng-model="User.email" ng-required="true">
+          <input id="email" class="form-control" type="email" name="email" placeholder="example@example.com" ng-model="User.email" ng-not-exist-email="" ng-required="true">
           <span ng-if="newUser.email.$error.required && (newUser.email.$dirty || newUser.$submitted)" class="help-block"><i class="fa fa-exclamation-circle"> O campo email é obrigatório</i></span>
           <span ng-if="newUser.email.$error.email && newUser.email.$dirty" class="help-block"><i class="fa fa-exclamation-circle"> Informe um email válido</i></span>
+          <span ng-if="newUser.email.$error.emailAsync" class="help-block"><i class="fa fa-exclamation-circle"> O email informado já esta cadastrado no sistema</i></span>
           <span ng-if="newUser.email.$valid" class="help-block"><i class="fa fa-check"></i></span>
         </div>
       </div>
@@ -44,6 +46,16 @@
       </div>
 
       <!-- TODO: Criar campo para nivel de usuário -->
+      <div class="form-group" ng-class="{'has-error': ( newUser.$submitted|| newUser.level.$dirty) && newUser.level.$invalid, 'has-success': newUser.level.$valid}">
+        <label class="control-label" for="level">Lível de acesso:</label>
+        <select id="level" class="form-control" name="level" ng-required="true" ng-model="User.level" ng-options="level.type | uppercase for level in levels | orderBy:'type'">
+          <option value="" selected>Selecione uma opção</option>
+        </select>
+        <div ng-messages="newUser.level.$error" ng-if="newUser.level.$dirty || newUser.$submitted">
+          <span class="help-block" ng-message="required"><i class="fa fa-exclamation-circle"> Selecione um nível de acesso ao usuário</i></span>
+          <span ng-if="newUser.level.$valid" class="help-block"><i class="fa fa-check"></i></span>
+        </div>
+      </div>
 
       <div class="form-group">
         <button id="btnNewUser" class="btn btn-primary" type="submit" name="btnNewUser" ng-click="sendUser(User, newUser.$valid)" ng-disabled="btnNewUser.disabled">Cadastrar Usuário <i ng-show="btnNewUser.disabled" class="fa fa-spinner fa-spin"></i></button>

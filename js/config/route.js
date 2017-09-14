@@ -18,6 +18,11 @@ hotlibrary.config(function ($routeProvider, Application) {
   $routeProvider.when('/usuario/cadastrar',{
     templateUrl: Application.baseURL+'template/view/user-registration.html',
     controller: 'User',
+    resolve: {
+      userLevel: function (levelAPI) {
+        return levelAPI.getAll();
+      }
+    },
     requiresAuthentication: true,
     permissions: [1]
   });
