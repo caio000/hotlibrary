@@ -45,7 +45,6 @@
         </div>
       </div>
 
-      <!-- TODO: Criar campo para nivel de usuário -->
       <div class="form-group" ng-class="{'has-error': ( newUser.$submitted|| newUser.level.$dirty) && newUser.level.$invalid, 'has-success': newUser.level.$valid}">
         <label class="control-label" for="level">Lível de acesso:</label>
         <select id="level" class="form-control" name="level" ng-required="true" ng-model="User.level" ng-options="level.type | uppercase for level in levels | orderBy:'type'">
