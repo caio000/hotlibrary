@@ -33,7 +33,7 @@
           <td>{{ ::user.id }}</td>
           <td>{{ ::user.name }}</td>
           <td>{{ ::user.email }}</td>
-          <td>{{ ::user.type}}</td>
+          <td>{{ ::user.type | firstToUpper }}</td>
           <td>{{ ::user.status | uppercase }}</td>
         </tr>
       </tbody>
