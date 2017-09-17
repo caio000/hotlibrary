@@ -1,5 +1,6 @@
 CREATE DATABASE "HOTLIBRARY";
 
+DROP TABLE "Level";
 CREATE TABLE "Level" (
   "id"        SERIAL        NOT NULL,
   "type"      VARCHAR(100)  NOT NULL UNIQUE,
@@ -8,6 +9,7 @@ CREATE TABLE "Level" (
 
 INSERT INTO "Level" ("type") VALUES ('administrador'),('biblioteca'),('comum');
 
+DROP TABLE "User";
 CREATE TABLE "User"(
   "id"        SERIAL        NOT NULL,
   "name"      VARCHAR(100)  NOT NULL,
@@ -22,6 +24,7 @@ CREATE TABLE "User"(
 -- Usuário admin senha 'teste123'
 INSERT INTO "User" ("name","email","password","level") VALUES('admin','admin@hotlibrary.com','535f56e6447ea0fcf3ef1bf5397066d037e9ebb7fd141068e8de9a23ece8eb6e7acf46d0e6bbf17edf2ebe6c80405991be53366138e835c3153019f164340619',1);
 
+DROP TABLE "Log";
 CREATE TABLE "Log" (
   "id"      SERIAL        NOT NULL,
   "ip"      CIDR          NOT NULL,
@@ -34,6 +37,7 @@ CREATE TABLE "Log" (
     FOREIGN KEY ("idUser") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
+DROP TABLE "ForgotPassword";
 CREATE TABLE "ForgotPassword" (
   "id"        SERIAL    NOT NULL,
   "expireAt"  TIMESTAMP NOT NULL,

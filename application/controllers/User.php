@@ -90,6 +90,13 @@ class User extends CI_Controller {
       exit();
     }
 
+    $mail = $this->load->view('email/confirmRegistration',null,TRUE);
+    $this->cronomail->setContent($mail);
+    $this->cronomail->setSubject('Acesso ao sistema Hotlibrary');
+    $this->cronomail->to($User->email,$User->name);
+
+    $this->cronomail->send();
+
     $log = createLog($token[0], 'Novo usuário cadastrado no sistema');
     $this->Log_model->insert($log);
   }
