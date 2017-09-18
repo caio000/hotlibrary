@@ -28,7 +28,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="user in users">
+        <tr ng-class="{'selected':user.select}" ng-repeat="user in users">
           <td><input type="checkbox" ng-model="user.select"></td>
           <td>{{ ::user.id }}</td>
           <td>{{ ::user.name }}</td>

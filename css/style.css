@@ -1,3 +1,26 @@
+.navbar {
+  border-radius: 0px;
+}
+
+.navbar-hotlibrary {
+  background-color: #8B1E01;
+  border-color: #661500;
+}
+
+.navbar-hotlibrary a {
+  color: rgb(215, 221, 213);
+  transition: color 1s, background-color 1s;
+  cursor: pointer;
+}
+
+.navbar-hotlibrary a:hover, a:focus {
+  color: rgb(48, 48, 48);
+}
+
+.nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+    color: rgb(48, 48, 48);
+}
+
 .hide {
   display: none;
 }
@@ -13,4 +36,9 @@
 .box-circle {
   border-radius: 25px;
   padding: 15px;
+}
+
+.selected {
+  background-color: #8B1E01;
+  color: rgba(217, 212, 212, 0.81);
 }

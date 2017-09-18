@@ -14,10 +14,10 @@
   </head>
   <body ng-class="globals.Page.background">
 
-    <nav class="navbar navbar-default" ng-if="globals.Page.showMenu">
+    <nav class="navbar navbar-hotlibrary">
       <div class="container-fluid">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-targer="#main_navbar">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu-hotlibrary" aria-expanded="false">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -26,13 +26,15 @@
           <a class="navbar-brand">Hotlibrary</a>
         </div>
 
-        <div class="collapse navbar-collapse" id="main_navbar">
+        <div class="collapse navbar-collapse" id="menu-hotlibrary">
           <ul class="nav navbar-nav">
-            <li><a>Teste 01<span class="sr-only">(current)</span></a></li>
-            <li><a>Teste 02</a></li>
+            <li><a href="#!/usuario">Usuários</a></li>
           </ul>
-        </div>
-      </div>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><i class="fa fa-sign-out" aria-hidden="true"> Sair</i></a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
     </nav>
 
     <div id="page" class="container-fluid">

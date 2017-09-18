@@ -14,12 +14,10 @@
       <div class="form-group">
         <div ng-class="{'has-error':newUser.name.$invalid && (newUser.name.$dirty || newUser.$submitted), 'has-success':newUser.name.$valid}">
           <label for="name" class="control-label">Nome:</label>
-          <!-- TODO: arrumar a expressão regular para validar o campo nome -->
-          <input id="name" class="form-control" type="text" name="name" placeholder="Fulano de tal" ng-model="User.name" ng-required="true" ng-minlength="10" ng-maxlength="50" ng-pattern="/[a-z]+/g" ng-trim="true" autofocus>
+          <input id="name" class="form-control" type="text" name="name" placeholder="Fulano de tal" ng-model="User.name" ng-required="true" ng-minlength="10" ng-maxlength="50" ng-trim="true" autofocus>
           <span ng-if="newUser.name.$error.required && (newUser.name.$dirty || newUser.$submitted)" class="help-block"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> O campo nome é obrigatório</span>
           <span ng-if="newUser.name.$error.minlength && newUser.name.$dirty" class="help-block"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> O nome deve conter no minimo 10 caracteres</span>
           <span ng-if="newUser.name.$error.maxlength && newUser.name.$dirty" class="help-block"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> O nome deve conter no maximo 50 caracteres</span>
-          <span ng-if="newUser.name.$error.pattern && newUser.name.$dirty" class="help-block"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Nome inválido</span>
           <span ng-if="newUser.name.$valid" class="help-block"><i class="fa fa-check"></i></span>
         </div>
       </div>
