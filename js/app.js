@@ -12,6 +12,7 @@ hotlibrary.run(function ($rootScope, $cookies, $http, $location, Auth, $route) {
   $rootScope.$on('$routeChangeStart', function (event, next, current) {
     var theme = ( $location.path() == '/' ) ? 'bg-dark' : '';
     $rootScope.globals.Page = {background: theme};
+    $rootScope.globals.Page.showMenu = next.hasMenu;
 
     if (!Auth.checkAuthForView(next))
       $location.path('/');

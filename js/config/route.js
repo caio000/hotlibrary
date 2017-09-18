@@ -2,13 +2,15 @@ hotlibrary.config(function ($routeProvider, Application) {
 
   $routeProvider.when('/',{
     templateUrl: Application.baseURL+'template/view/login-login.html',
-    controller: 'Login'
+    controller: 'Login',
+    hasMenu: false,
   });
   $routeProvider.when('/usuario',{
     templateUrl: Application.baseURL + 'template/view/user-list.html',
     controller: 'UserList',
     requiresAuthentication: true,
     permissions: [1],
+    hasMenu: true,
     resolve: {
       users: function (UserAPI) {
         return UserAPI.getAll();
@@ -24,7 +26,8 @@ hotlibrary.config(function ($routeProvider, Application) {
       }
     },
     requiresAuthentication: true,
-    permissions: [1]
+    permissions: [1],
+    hasMenu: true,
   });
   $routeProvider.when('/usuario/alterar/senha/:token',{
     templateUrl: Application.baseURL + 'template/view/user-alterPassword.html',
@@ -33,7 +36,8 @@ hotlibrary.config(function ($routeProvider, Application) {
       user: function (tokenAPI, $route) {
         return tokenAPI.checkToken($route.current.params.token);
       }
-    }
+    },
+    hasMenu: false,
   });
 
   // Rotas de erro =============================================================
