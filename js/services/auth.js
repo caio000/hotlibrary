@@ -1,4 +1,4 @@
-hotlibrary.factory('Auth',function ($http, Application, $base64, $cookies, $rootScope) {
+hotlibrary.factory('Auth',function ($http, Application, $base64, $cookies, $rootScope, $cookieStore) {
 
   var service = {};
 
@@ -10,6 +10,12 @@ hotlibrary.factory('Auth',function ($http, Application, $base64, $cookies, $root
 
   var _validate = function (User) {
     return $http.post(Application.baseURL + 'Login/administration',User);
+  }
+
+  var _logout = function () {
+    delete($rootScope.globals.currentUser);
+    $cookieStore.remove('globals');
+    $http.defaults.headers.common.Authorization = 'Basic ';
   }
 
   var _setCredentials = function (User) {
@@ -63,6 +69,7 @@ hotlibrary.factory('Auth',function ($http, Application, $base64, $cookies, $root
   service.setCredentials = _setCredentials;
   service.checkAuthForView = _checkAuthForView;
   service.userHasPermissionForView = _userHasPermissionForView;
+  service.logout = _logout;
 
   return service;
 });
