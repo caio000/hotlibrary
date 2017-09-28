@@ -10,7 +10,6 @@ INSERT INTO "Level" ("type") VALUES ('administrador'),('biblioteca'),('comum');
 DROP TABLE IF EXISTS "State";
 CREATE TABLE "State" (
   "id"        SERIAL        NOT NULL,
-  "name"      VARCHAR(100)  NOT NULL,
   "initials"  CHAR(2)       NOT NULL,
   PRIMARY KEY ("id")
 );

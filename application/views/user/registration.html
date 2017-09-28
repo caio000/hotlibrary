@@ -52,6 +52,82 @@
         </div>
       </div>
 
+      <div class="form-group" ng-class="{'has-error': (newUser.$submitted || newUser.zipcode.$dirty) && newUser.zipcode.$invalid, 'has-success': newUser.zipcode.$valid}">
+        <div class="row">
+          <div class="col-md-3">
+            <label for="zipcode" class="control-label">Cep:</label>
+            <input type="text" class="form-control" name="zipcode" ng-model="User.Address.zipcode" ng-blur="checkZipcode(User.Address.zipcode)" ng-pattern="/[0-9]{8}/" ng-maxlength="8" ng-minlength="8" ng-required="true" ng-trim="true">
+            <div ng-messages="newUser.zipcode.$error" ng-if="newUser.zipcode.$dirty || newUser.$submitted">
+              <span class="help-block" ng-message="required"><i class="fa fa-exclamation-circle"> O campo CEP é obrigatório</i></span>
+              <span class="help-block" ng-message="minlength"><i class="fa fa-exclamation-circle"> O CEP possuir 8 caracteres</i></span>
+              <span class="help-block" ng-message="maxlength"><i class="fa fa-exclamation-circle"> O CEP possuir 8 caracteres</i></span>
+              <span class="help-block" ng-message="pattern"><i class="fa fa-exclamation-circle"> O CEP possui apenas números</i></span>
+              <span ng-if="newUser.zipcode.$valid" class="help-block"><i class="fa fa-check"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" ng-class="{'has-error': (newUser.$submitted || newUser.publicplace.$dirty) && newUser.publicplace.$invalid, 'has-success': newUser.publicplace.$valid}">
+        <label for="publicplace" class="control-label">Endereço:</label>
+        <input type="text" name="publicplace" class="form-control" ng-model="User.Address.publicPlace" ng-required="true" ng-maxlength="100" ng-trim="true" ng-disabled="search">
+        <div ng-messages="newUser.publicplace.$error" ng-if="newUser.$submitted || newUser.publicplace.$dirty || User.Address.publicPlace">
+          <span class="help-block" ng-message="required"><i class="fa fa-exclamation-circle"> O campo endereço é obrigatório</i></span>
+          <span class="help-block" ng-message="maxlength"><i class="fa fa-exclamation-circle"> O endereço deve possuir no máximo 100 caracteres</i></span>
+          <span class="help-block" ng-if="newUser.publicplace.$valid"><i class="fa fa-check"></i></span>
+        </div>
+      </div>
+
+      <div class="form-group" ng-class="{'has-error': (newUser.$submitted || newUser.neighborhood.$dirty) && newUser.neighborhood.$invalid, 'has-success': newUser.neighborhood.$valid}">
+        <label for="neighborhood" class="control-label">Bairro</label>
+        <input id="neighborhood" class="form-control" type="text" name="neighborhood" ng-model="User.Address.City.Neighborhood.name" ng-disabled="search" ng-trim="true" ng-required="true" ng-maxlength="100">
+        <div ng-messages="newUser.neighborhood.$error" ng-if="newUser.neighborhood.$dirty || newUser.$submitted || User.Address.City.Neighborhood.name">
+          <span class="help-block" ng-message="required"><i class="fa fa-exclamation-circle"> O campo bairro é obrigatório</i></span>
+          <span class="help-block" ng-message="maxlength"><i class="fa fa-exclamation-circle"> O bairro deve possuir no máximo 100 caracteres</i></span>
+          <span class="help-block" ng-if="newUser.neighborhood.$valid"><i class="fa fa-check"></i></span>
+        </div>
+      </div>
+
+      <div class="form-group" ng-class="{'has-error': (newUser.$submitted || newUser.city.$dirty) && newUser.city.$invalid,'has-success': newUser.city.$valid}">
+        <label for="city" class="control-label">Cidade:</label>
+        <input id="city" class="form-control" type="text" name="city" ng-model="User.Address.City.name" ng-disabled="search" ng-trim="true" ng-required="true" ng-maxlength="100">
+        <div ng-messages="newUser.city.$error" ng-if="newUser.$submitted || newUser.city.$dirty || User.Address.City.name">
+          <span class="help-block" ng-message="required"><i class="fa fa-exclamation-circle"> O campo cidade é obrigatório</i></span>
+          <span class="help-block" ng-message="maxlength"><i class="fa fa-exclamation-circle"></i> A cidade deve possuir no máximo 100 caracteres</span>
+          <span class="help-block" ng-if="newUser.city.$valid"><i class="fa fa-check"></i></span>
+        </div>
+      </div>
+
+      <div class="form-group" ng-class="{'has-error': (newUser.$submitted || newUser.state.$dirty) && newUser.state.$invalid,'has-success':newUser.state.$valid}">
+        <div class="row">
+          <div class="col-md-2 col-lg-2">
+            <label for="state" class="control-label">Estado:</label>
+            <input id="state" class="form-control" type="text" name="state" ng-model="User.Address.City.State.initials" ng-disabled="search" ng-trim="true" ng-required="true" ng-minlength="2" ng-maxlength="2" ng-pattern="/[a-z]{2}/i" placeholder="ex:SP">
+            <div ng-messages="newUser.state.$error" ng-if="newUser.state.$dirty || newUser.$submitted || User.Address.City.State.initials">
+              <span class="help-block" ng-message="required"><i class="fa fa-exclamation-circle"> O campo estado é obrigatório</i></span>
+              <span class="help-block" ng-message="maxlength"><i class="fa fa-exclamation-circle"> O estado possui 2 caracteres</i></span>
+              <span class="help-block" ng-message="minlength"><i class="fa fa-exclamation-circle"> O estado possui 2 caracteres</i></span>
+              <span class="help-block" ng-message="pattern"><i class="fa fa-exclamation-circle"> Estado invalido</i></span>
+              <span class="help-block" ng-if="newUser.state.$valid"><i class="fa fa-check"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" ng-class="{'has-error': (newUser.$submitted || newUser.number.$dirty) && newUser.number.$invalid, 'has-success': newUser.number.$valid}">
+        <div class="row">
+          <div class="col-md-2 col-lg-2">
+            <label for="number" class="control-label">Número:</label>
+            <input id="number" class="form-control" type="number" name="number" ng-model="User.Address.number" ng-required="true" ng-trim="true" ng-disabled="search">
+            <div ng-messages="newUser.number.$error" ng-if="newUser.$submitted || newUser.number.$dirty">
+              <span class="help-block" ng-message="required"><i class="fa fa-exclamation-circle"> O campo número é obrigatório</i></span>
+              <span class="help-block" ng-message="number"><i class="fa fa-exclamation-circle">O campo aceita apenas números</i></span>
+              <span class="help-block" ng-if="newUser.number.$valid"><i class="fa fa-check"></i></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="form-group">
         <button id="btnNewUser" class="btn btn-primary" type="submit" name="btnNewUser" ng-click="sendUser(User, newUser.$valid)" ng-disabled="btnNewUser.disabled">Cadastrar Usuário <i ng-show="btnNewUser.disabled" class="fa fa-spinner fa-spin"></i></button>
       </div>

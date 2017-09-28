@@ -1,4 +1,4 @@
-hotlibrary.controller('User', function ($scope, UserAPI, $timeout, userLevel) {
+hotlibrary.controller('User', function ($scope, UserAPI, $timeout, userLevel, viaCep) {
 
   var init = function () {
     $scope.Page = {title:'Hotlibrary - Cadastrar Usuário'};
@@ -11,6 +11,35 @@ hotlibrary.controller('User', function ($scope, UserAPI, $timeout, userLevel) {
       show: false
     };
     $scope.levels = userLevel.data;
+    $scope.User = {
+      Address:{
+        City:{
+          Neighborhood: {},State: {}
+        }
+      }
+    };
+  }
+
+  /**
+   * Verifica o endereço do cep informado pelo usuário.
+   * @author Caio de Freitas
+   * @since 2017/09/26
+   * @param Cep que será consultado.
+   */
+  $scope.checkZipcode = function (zipcode) {
+    console.log(zipcode);
+
+    $scope.search = true;
+    viaCep.get(zipcode).then(function (response) {
+      $scope.User.Address.City.name = response.localidade;
+      $scope.User.Address.City.Neighborhood.name = response.bairro;
+      $scope.User.Address.City.State.initials = response.uf;
+      $scope.User.Address.publicPlace = response.logradouro;
+
+      $scope.search = false;
+    }, function () {
+      $scope.search = false;
+    });
   }
 
   $scope.sendUser = function (User, valid) {
