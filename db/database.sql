@@ -16,7 +16,7 @@ CREATE TABLE "State" (
 
 DROP TABLE IF EXISTS "Neighborhood";
 CREATE TABLE "Neighborhood" (
-  "id"        INTEGER       NOT NULL,
+  "id"        SERIAL        NOT NULL,
   "name"      VARCHAR(100)  NOT NULL,
   PRIMARY KEY ("id")
 );
@@ -63,7 +63,7 @@ CREATE TABLE "User"(
 );
 -- Usuário admin senha 'teste123'
 INSERT INTO "Neighborhood" VALUES (1,'indaiá');
-INSERT INTO "State" VALUES (1,'São Paulo','SP');
+INSERT INTO "State" VALUES (1,'SP');
 INSERT INTO "City" VALUES (1,'caraguatatuba',1,1);
 INSERT INTO "Address" VALUES (1,1,'11665-030','643','av. rio grande do sul');
 INSERT INTO "User" ("name","address","email","password","level") VALUES('admin',1,'admin@hotlibrary.com','535f56e6447ea0fcf3ef1bf5397066d037e9ebb7fd141068e8de9a23ece8eb6e7acf46d0e6bbf17edf2ebe6c80405991be53366138e835c3153019f164340619',1);

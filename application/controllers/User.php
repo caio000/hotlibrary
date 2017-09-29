@@ -53,8 +53,6 @@ class User extends CI_Controller {
    */
   public function saveUser() {
 
-    // IDEA: tentar fazer um validação dos dados aqui no back-end
-
     // pega os dados do usuário que vieram da requisição
     $token = getToken();
     $this->auth->setUserLevel($token[3]);
@@ -74,12 +72,16 @@ class User extends CI_Controller {
 
     // Apartir desse ponto vamos fazer as manipulações necessárias nos dados
     // Deixando o nome do usuário em minusculo
-    $User->name = strtolower($User->name);
-    $User->email = strtolower($User->email);
+    $User->name = trim(strtolower($User->name));
+    $User->email = trim(strtolower($User->email));
     $User->level = $level->id;
     // Gera um hash na senha do usuário
-    $User->password = hash('SHA512',$User->password);
+    $User->password = hash('SHA512',trim($User->password));
 
+    $User->Address->publicPlace = strtolower(trim($User->Address->publicPlace));
+    $User->Address->City->name = strtolower(trim($User->Address->City->name));
+    $User->Address->City->Neighborhood->name = strtolower(trim($User->Address->City->Neighborhood->name));
+    $User->Address->City->State->initials = strtoupper(trim($User->Address->City->State->initials));
 
     // Caso ocorra um problema na persistencia a requisição retorna com um erro 404
     if ( !$this->User_model->insert($User) ) {
