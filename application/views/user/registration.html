@@ -1,5 +1,6 @@
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
+
     <h2 class="text-center">{{ Page.title }}</h2>
 
     <div ng-if="alert.show" ng-class="alert.type">
@@ -42,7 +43,7 @@
       </div>
 
       <div class="form-group" ng-class="{'has-error': ( newUser.$submitted|| newUser.level.$dirty) && newUser.level.$invalid, 'has-success': newUser.level.$valid}">
-        <label class="control-label" for="level">Lível de acesso:</label>
+        <label class="control-label" for="level">Nível de acesso:</label>
         <select id="level" class="form-control" name="level" ng-required="true" ng-model="User.level" ng-options="level.type | firstToUpper for level in levels | orderBy:'type'">
           <option value="" selected>Selecione uma opção</option>
         </select>
@@ -52,18 +53,19 @@
         </div>
       </div>
 
-      <div class="form-group" ng-class="{'has-error': (newUser.$submitted || newUser.zipcode.$dirty) && newUser.zipcode.$invalid, 'has-success': newUser.zipcode.$valid}">
+      <div class="form-group" ng-class="{'has-warning': zipcodeError,'has-error': (newUser.$submitted || newUser.zipcode.$dirty) && newUser.zipcode.$invalid, 'has-success': newUser.zipcode.$valid}">
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-6">
             <label for="zipcode" class="control-label">Cep:</label>
             <input type="text" class="form-control" name="zipcode" ng-model="User.Address.zipcode" ng-blur="checkZipcode(User.Address.zipcode)" ng-pattern="/[0-9]{8}/" ng-maxlength="8" ng-minlength="8" ng-required="true" ng-trim="true">
             <div ng-messages="newUser.zipcode.$error" ng-if="newUser.zipcode.$dirty || newUser.$submitted">
               <span class="help-block" ng-message="required"><i class="fa fa-exclamation-circle"> O campo CEP é obrigatório</i></span>
-              <span class="help-block" ng-message="minlength"><i class="fa fa-exclamation-circle"> O CEP possuir 8 caracteres</i></span>
-              <span class="help-block" ng-message="maxlength"><i class="fa fa-exclamation-circle"> O CEP possuir 8 caracteres</i></span>
+              <span class="help-block" ng-message="minlength"><i class="fa fa-exclamation-circle"> O CEP deve possuir 8 caracteres</i></span>
+              <span class="help-block" ng-message="maxlength"><i class="fa fa-exclamation-circle"> O CEP deve possuir 8 caracteres</i></span>
               <span class="help-block" ng-message="pattern"><i class="fa fa-exclamation-circle"> O CEP possui apenas números</i></span>
-              <span ng-if="newUser.zipcode.$valid" class="help-block"><i class="fa fa-check"></i></span>
+              <span ng-if="newUser.zipcode.$valid && !zipcodeError" class="help-block"><i class="fa fa-check"></i></span>
             </div>
+            <span ng-if="zipcodeError" class="text-warning"><i class="fa fa-exclamation-triangle"> O CEP informado não foi encontrado</i></span>
           </div>
         </div>
       </div>
@@ -79,7 +81,7 @@
       </div>
 
       <div class="form-group" ng-class="{'has-error': (newUser.$submitted || newUser.neighborhood.$dirty) && newUser.neighborhood.$invalid, 'has-success': newUser.neighborhood.$valid}">
-        <label for="neighborhood" class="control-label">Bairro</label>
+        <label for="neighborhood" class="control-label">Bairro:</label>
         <input id="neighborhood" class="form-control" type="text" name="neighborhood" ng-model="User.Address.City.Neighborhood.name" ng-disabled="search" ng-trim="true" ng-required="true" ng-maxlength="100">
         <div ng-messages="newUser.neighborhood.$error" ng-if="newUser.neighborhood.$dirty || newUser.$submitted || User.Address.City.Neighborhood.name">
           <span class="help-block" ng-message="required"><i class="fa fa-exclamation-circle"> O campo bairro é obrigatório</i></span>
@@ -129,7 +131,7 @@
       </div>
 
       <div class="form-group">
-        <button id="btnNewUser" class="btn btn-primary" type="submit" name="btnNewUser" ng-click="sendUser(User, newUser.$valid)" ng-disabled="btnNewUser.disabled">Cadastrar Usuário <i ng-show="btnNewUser.disabled" class="fa fa-spinner fa-spin"></i></button>
+        <button id="btnNewUser" class="btn btn-hotlibrary btn-lg btn-block" type="submit" name="btnNewUser" ng-click="sendUser(User, newUser.$valid)" ng-disabled="btnNewUser.disabled">Cadastrar Usuário <i ng-show="btnNewUser.disabled" class="fa fa-spinner fa-spin"></i></button>
       </div>
     </form>
   </div>

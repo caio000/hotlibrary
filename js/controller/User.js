@@ -27,8 +27,7 @@ hotlibrary.controller('User', function ($scope, UserAPI, $timeout, userLevel, vi
    * @param Cep que será consultado.
    */
   $scope.checkZipcode = function (zipcode) {
-    console.log(zipcode);
-
+    $scope.zipcodeError = false;
     $scope.search = true;
     viaCep.get(zipcode).then(function (response) {
       $scope.User.Address.City.name = response.localidade;
@@ -38,6 +37,7 @@ hotlibrary.controller('User', function ($scope, UserAPI, $timeout, userLevel, vi
 
       $scope.search = false;
     }, function () {
+      $scope.zipcodeError = true;
       $scope.search = false;
     });
   }

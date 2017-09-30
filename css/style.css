@@ -17,6 +17,11 @@
   transition: background-color 1s, border-color 1s;
 }
 
+.btn-hotlibrary:focus {
+  background-color: rgb(232, 232, 232);
+  border-color: #661500;
+}
+
 .btn-hotlibrary:hover {
   background-color: rgb(232, 232, 232);
   border-color: #661500;
