@@ -1,42 +1,37 @@
 <div class="row">
   <div class="col-lg-offset-1 col-lg-10">
-    <h2 class="page-header">Usuários</h2>
+    <h2 class="page-header">Usuários <a class="btn btn-hotlibrary pull-right" href="#!/usuario/cadastrar"><i class="fa fa-plus"> Novo</i></a></h2>
 
     <div class="row">
-      <div class="col-lg-4">
-        <a class="btn btn-primary btn-block" href="#!/usuario/cadastrar"><i class="fa fa-plus"> Novo</i></a>
-      </div>
-
-      <div class="col-lg-4">
-        <button class="btn btn-warning btn-block" type="button" name="btnEditUser"><i class="fa fa-pencil"> Editar</i></button>
-      </div>
-
-      <div class="col-lg-4">
-        <button class="btn btn-danger btn-block" type="button" name="btnDeleteUser"><i class="fa fa-trash"> Deletar</i></button>
+      <div class="col-md-12">
+        <div class="input-group">
+          <div class="input-group-addon"><i class="fa fa-search"></i></div>
+          <input id="searchFilter" class="form-control" ng-model="searchFilter" type="text" name="searchFilter" placeholder="Procure um usuário...">
+        </div>
       </div>
     </div>
 
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th><i class="fa fa-check-square-o"></i></th>
-          <th>ID</th>
-          <th>Nome</th>
-          <th>Email</th>
-          <th>Tipo</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-class="{'selected':user.select}" ng-repeat="user in users">
-          <td><input type="checkbox" ng-model="user.select"></td>
-          <td>{{ ::user.id }}</td>
-          <td>{{ ::user.name }}</td>
-          <td>{{ ::user.email }}</td>
-          <td>{{ ::user.type | firstToUpper }}</td>
-          <td>{{ ::user.status | uppercase }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Tipo</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="user in users | filter:{name:searchFilter}">
+            <td>{{ ::user.id }}</td>
+            <td>{{ ::user.name }}</td>
+            <td>{{ ::user.email }}</td>
+            <td>{{ ::user.type | firstToUpper }}</td>
+            <td>{{ ::user.status | uppercase }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

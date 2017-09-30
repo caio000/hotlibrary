@@ -7,6 +7,21 @@
   border-color: #661500;
 }
 
+.page-header {
+  border-color: #8B1E01;
+}
+
+.btn-hotlibrary {
+  background-color: #8B1E01;
+  color: rgb(214, 215, 214);
+  transition: background-color 1s, border-color 1s;
+}
+
+.btn-hotlibrary:hover {
+  background-color: rgb(232, 232, 232);
+  border-color: #661500;
+}
+
 .navbar-hotlibrary a {
   color: rgb(215, 221, 213);
   transition: color 1s, background-color 1s;
