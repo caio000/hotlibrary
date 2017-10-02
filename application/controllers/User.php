@@ -163,6 +163,10 @@ class User extends CI_Controller {
     echo json_encode($response);
 
   }
+
+  public function block (id) {
+    // TODO: Criar lógica para bloquear o usuário.
+  }
 }
 
 

@@ -2,6 +2,12 @@
   <div class="col-lg-offset-1 col-lg-10">
     <h2 class="page-header">Usuários <a class="btn btn-hotlibrary pull-right" href="#!/usuario/cadastrar"><i class="fa fa-plus"> Novo</i></a></h2>
 
+    <div id="alert" class="row" style="display:none;">
+      <div class="col-md-12">
+        <hot-alert type="{{ Alert.type }}" title="{{ Alert.title }}" msg="{{ Alert.message }}"></hot-alert>
+      </div>
+    </div>
+
     <div class="row" style="margin-top:10px;margin-bottom:10px;">
       <div class="col-md-12">
         <div class="input-group">
@@ -11,24 +17,27 @@
       </div>
     </div>
 
+
     <div class="table-responsive">
+      <!-- TODO: Criar ordenação na tabela -->
+      <!-- TODO: Criar páginação -->
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Tipo</th>
-            <th>Status</th>
+            <th class="text-center">Nome</th>
+            <th class="text-center">Email</th>
+            <th class="text-center">Tipo</th>
+            <th class="text-center">Status</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="user in users | filter:{name:searchFilter}">
-            <td>{{ ::user.id }}</td>
             <td>{{ ::user.name }}</td>
             <td>{{ ::user.email }}</td>
             <td>{{ ::user.type | firstToUpper }}</td>
-            <td>{{ ::user.status | uppercase }}</td>
+            <td class="text-center"><i ng-class="{'fa fa-unlock-alt text-success': user.isActive, 'fa fa-lock text-danger': !user.isActive}"> {{ ::user.status | uppercase }}</i></td>
+            <td><button class="btn btn-hotlibrary btn-block" title="Bloquear Usuário" type="button" name="btnBlockUser" ng-click="blockUser(user.id)"><i class="fa fa-lock"></i></button></td>
           </tr>
         </tbody>
       </table>

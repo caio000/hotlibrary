@@ -20,11 +20,16 @@ hotlibrary.factory('UserAPI', function ($http, Application, $base64) {
     return $http.get(Application.baseURL + "usuarios/todos");
   }
 
+  var _block = function (id) {
+    return $http.patch(Application.baseURL + "usuario/bloquear", id);
+  }
+
   return {
     saveUser: _saveUser,
     forgotPassword: _forgotPassword,
     existEmail: _existEmail,
     alterPassword: _alterPassword,
     getAll: _getAll,
+    block: _block,
   };
 });
