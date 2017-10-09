@@ -1,4 +1,4 @@
-hotlibrary.controller('UserList',function ($scope, $document, $timeout, users, UserAPI) {
+hotlibrary.controller('UserList',function ($scope, $document, $location, $timeout, users, UserAPI) {
 
   var init = function () {
     $scope.users = checkUserStatus(users.data);
@@ -13,8 +13,15 @@ hotlibrary.controller('UserList',function ($scope, $document, $timeout, users, U
    * @param INT id do usuário
    */
   var blockUser = function (id) {
+
+    // TODO: não deixar o usuário administrador se auto bloquear
+
     UserAPI.block(id).then(function (response) {
-      // TODO: criar comportamento após o usuáriro ter sido bloqueado.
+
+      // busca os dados atualizados dos usuários
+      UserAPI.getAll().then(function (response) {
+        $scope.users = checkUserStatus(response.data);
+      });
     },function (response) {
 
       $scope.Alert.type = 'danger';
@@ -31,7 +38,7 @@ hotlibrary.controller('UserList',function ($scope, $document, $timeout, users, U
 
   var checkUserStatus = function(users) {
     users.forEach(function (user) {
-      user.status = (user.isActive) ? 'Ativo' : 'Bloqueado';
+      user.status = (user.isActive == true) ? 'Ativo' : 'Bloqueado';
     });
 
     return users;

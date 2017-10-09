@@ -14,7 +14,7 @@ class User_model extends CI_Model {
    * @return Retorna uma coleção com todos os objetos "User" cadastrados no banco de dados.
    */
   public function getAll() {
-    $this->db->select('"User".*, "Level"."type"');
+    $this->db->select('"User"."id","User"."name","User"."email","User"."isActive"::int,"Level"."type"',FALSE);
     $this->db->join('Level','User.level = Level.id');
     $query = $this->db->get("User");
     return $query->result();
@@ -112,6 +112,21 @@ class User_model extends CI_Model {
     $result = $this->db->get('User')->num_rows();
 
     return ($result == 1) ? TRUE : FALSE;
+  }
+
+  /**
+   * Altera o status do usuário no banco de dados.
+   * @author Caio de Freitas Adriano
+   * @since 2017/10/09
+   * @param Boolean novo status do usuário
+   * @return Boolean Retorna um TRUE caso o status sejá alterado com sucesso.
+   */
+  public function setActive ($id, $status) {
+    $this->db->where("id",$id);
+    $this->db->set('isActive',$status);
+    $query = $this->db->update('User');
+
+    return $query;
   }
 }
 

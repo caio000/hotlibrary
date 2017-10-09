@@ -164,7 +164,24 @@ class User extends CI_Controller {
 
   }
 
-  public function block (id) {
+  public function block () {
+
+    // pega os dados do usuário que vieram da requisição
+    $token = getToken();
+    $this->auth->setUserLevel($token[3]);
+    $this->auth->setPagePermission([1]);
+    // verifica se o usuário tem permissão para utilizar o serviço
+    if (!$this->auth->hasPermission()) {
+      header('HTTP/1.1 401 Unauthorized');
+      exit();
+    }
+
+    $idUser = file_get_contents("php://input");
+
+    $response['result'] = $this->User_model->setActive($idUser, FALSE);
+
+    echo json_encode($response);
+
     // TODO: Criar lógica para bloquear o usuário.
   }
 }
