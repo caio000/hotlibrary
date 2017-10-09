@@ -24,6 +24,10 @@ hotlibrary.factory('UserAPI', function ($http, Application, $base64) {
     return $http.patch(Application.baseURL + "usuario/bloquear", id);
   }
 
+  var _unlock = function (id) {
+    return $http.patch(Application.baseURL + "usuario/desbloquear",id);
+  }
+
   return {
     saveUser: _saveUser,
     forgotPassword: _forgotPassword,
@@ -31,5 +35,6 @@ hotlibrary.factory('UserAPI', function ($http, Application, $base64) {
     alterPassword: _alterPassword,
     getAll: _getAll,
     block: _block,
+    unlock: _unlock,
   };
 });
