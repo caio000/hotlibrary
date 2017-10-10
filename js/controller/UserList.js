@@ -1,8 +1,7 @@
-hotlibrary.controller('UserList',function ($scope, $document, $location, $timeout, users, UserAPI) {
+hotlibrary.controller('UserList',function ($rootScope, $scope, $document, $location, $timeout, users, UserAPI) {
 
   var init = function () {
     $scope.users = checkUserStatus(users.data);
-    $scope.Alert = {};
     $scope.blockUser = blockUser;
     $scope.unlockUser = unlockUser;
   }
@@ -15,39 +14,25 @@ hotlibrary.controller('UserList',function ($scope, $document, $location, $timeou
    */
   var blockUser = function (id, event) {
 
-    element = event.target;
-    element.firstChild.className = 'fa fa-spinner fa-pulse';
+    if ($rootScope.globals.currentUser.id == id) {
+      $scope.$emit('alert',{type:'danger',title:'Ops!',msg:'Você não pode bloquear o seu usuário'});
+    } else {
+      element = event.target;
+      element.firstChild.className = 'fa fa-spinner fa-pulse';
 
-    // TODO: não deixar o usuário administrador se auto bloquear
+      UserAPI.block(id).then(function (response) {
 
-    UserAPI.block(id).then(function (response) {
+        // busca os dados atualizados dos usuários
+        UserAPI.getAll().then(function (response) {
+          $scope.users = checkUserStatus(response.data);
+        });
 
-      // busca os dados atualizados dos usuários
-      UserAPI.getAll().then(function (response) {
-        $scope.users = checkUserStatus(response.data);
+        $scope.$emit('alert',{type:'success',title:'',msg:'Usuário bloqueado com sucesso!'});
+      },function (response) {
+        $scope.$emit('alert',{type:'danger',title:'Ops!',msg:'Ocorreu um erro ao bloquear o usuário, tente novamente mais tarde'});
       });
+    }
 
-      $scope.Alert.type = 'success';
-      $scope.Alert.title = '';
-      $scope.Alert.message = 'Usuário bloqueado com sucesso!';
-
-      $document.find("#alert").show('slow', function () {
-        $timeout(function () {
-          $document.find("#alert").hide('show');
-        },5000);
-      });
-    },function (response) {
-
-      $scope.Alert.type = 'danger';
-      $scope.Alert.title = 'Ops!';
-      $scope.Alert.message = 'Não foi possivel bloquear esse usuário, tente novamente mais tarde.';
-
-      $document.find("#alert").show('slow', function () {
-        $timeout(function () {
-          $document.find("#alert").hide('slow');
-        },5000);
-      });
-    });
   }
 
   /**
@@ -67,27 +52,9 @@ hotlibrary.controller('UserList',function ($scope, $document, $location, $timeou
         $scope.users = checkUserStatus(response.data);
       });
 
-      $scope.Alert.type = 'success';
-      $scope.Alert.title = '';
-      $scope.Alert.message = 'Usuário desbloqueado com sucesso!';
-
-      $document.find("#alert").show('slow', function () {
-        $timeout(function() {
-          $document.find("#alert").hide('slow');
-        },5000);
-      });
+      $scope.$emit('alert',{type:'success',title:'',msg:'Usuário desbloqueado'});
     }, function (response) {
-
-      // configuração do alert
-      $scope.Alert.type = 'danger';
-      $scope.Alert.title = 'Ops!';
-      $scope.Alert.message = "Não foi possivel desbloquear o usuário, tente novamente mais tarde";
-
-      $document.find("#alert").show('slow', function () {
-        $timeout(function () {
-          $document.find("#alert").hide('slow');
-        },5000);
-      });
+      $scope.$emit('alert',{type:'danger',title:'Ops!',msg:'Não foi possivel desbloquear o usuário, tente novamente mais tarde'});
     });
   }
 

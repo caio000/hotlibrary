@@ -1,3 +1,7 @@
+.alert {
+  display: none;
+}
+
 .navbar {
   border-radius: 0px;
 }

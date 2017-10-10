@@ -3,13 +3,6 @@ hotlibrary.controller('User', function ($scope, UserAPI, $timeout, userLevel, vi
   var init = function () {
     $scope.Page = {title:'Hotlibrary - Cadastrar Usuário'};
     $scope.btnNewUser = {};
-    $scope.alert = {
-      type: '',
-      text: 'Essa é uma mensagem de teste',
-      disabled: true,
-      title: 'Test',
-      show: false
-    };
     $scope.levels = userLevel.data;
     $scope.User = {
       Address:{
@@ -48,15 +41,9 @@ hotlibrary.controller('User', function ($scope, UserAPI, $timeout, userLevel, vi
       // Espera de 2 segundos
       $timeout(function () {
         UserAPI.saveUser(User).then(function success (response) {
-          $scope.alert.type = 'alert alert-success';
-          $scope.alert.show = true;
-          $scope.alert.title = '';
-          $scope.alert.text = 'Usuário cadastrado com sucesso!';
+          $scope.$emit('alert',{type:'success',title:'',msg:'Usuário cadastrado com sucesso!'});
         }, function error (response) {
-          $scope.alert.type = 'alert alert-danger';
-          $scope.alert.title = 'Ops....';
-          $scope.alert.text = response.statusText;
-          $scope.alert.show = true;
+          $scope.$emit('alert',{type:'danger',title:'Ops!',msg:'Não foi possivel cadastrar o usuário, tente novamente mais tarde.'});
         });
 
         $scope.btnNewUser.disabled = false;
