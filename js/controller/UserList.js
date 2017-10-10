@@ -13,7 +13,10 @@ hotlibrary.controller('UserList',function ($scope, $document, $location, $timeou
    * @since 2017/10/02
    * @param INT id do usuário
    */
-  var blockUser = function (id) {
+  var blockUser = function (id, event) {
+
+    element = event.target;
+    element.firstChild.className = 'fa fa-spinner fa-pulse';
 
     // TODO: não deixar o usuário administrador se auto bloquear
 
@@ -24,8 +27,15 @@ hotlibrary.controller('UserList',function ($scope, $document, $location, $timeou
         $scope.users = checkUserStatus(response.data);
       });
 
-      // TODO: colocar um alert de sucesso
+      $scope.Alert.type = 'success';
+      $scope.Alert.title = '';
+      $scope.Alert.message = 'Usuário bloqueado com sucesso!';
 
+      $document.find("#alert").show('slow', function () {
+        $timeout(function () {
+          $document.find("#alert").hide('show');
+        },5000);
+      });
     },function (response) {
 
       $scope.Alert.type = 'danger';
@@ -46,8 +56,10 @@ hotlibrary.controller('UserList',function ($scope, $document, $location, $timeou
    * @since 2017/10/09
    * @param int identificador do usuário
    */
-  var unlockUser = function (id) {
-    $scope.loading = true;
+  var unlockUser = function (id, event) {
+    element = event.target;
+    element.firstChild.className = 'fa fa-spinner fa-pulse';
+
     UserAPI.unlock(id).then(function (response) {
 
       // busca os dados atualizados dos usuários
@@ -55,9 +67,15 @@ hotlibrary.controller('UserList',function ($scope, $document, $location, $timeou
         $scope.users = checkUserStatus(response.data);
       });
 
-      // TODO: Adicionar um alert de sucesso
+      $scope.Alert.type = 'success';
+      $scope.Alert.title = '';
+      $scope.Alert.message = 'Usuário desbloqueado com sucesso!';
 
-      $scope.loading = false;
+      $document.find("#alert").show('slow', function () {
+        $timeout(function() {
+          $document.find("#alert").hide('slow');
+        },5000);
+      });
     }, function (response) {
 
       // configuração do alert
@@ -70,7 +88,6 @@ hotlibrary.controller('UserList',function ($scope, $document, $location, $timeou
           $document.find("#alert").hide('slow');
         },5000);
       });
-      $scope.loading = false;
     });
   }
 

@@ -38,8 +38,8 @@
             <td>{{ ::user.type | firstToUpper }}</td>
             <td class="text-center"><i ng-class="{'fa fa-unlock-alt text-success': user.isActive == true, 'fa fa-lock text-danger': user.isActive == false}"> {{ ::user.status | uppercase }}</i></td>
             <td>
-              <button class="btn btn-hotlibrary btn-block" ng-if="user.isActive == true" title="Bloquear Usuário" type="button" name="btnBlockUser" ng-click="blockUser(user.id)"><i class="fa fa-lock"></i></button>
-              <button class="btn btn-hotlibrary btn-block" ng-if="user.isActive == false" title="Desbloquear usuário" type="button" name="btnUnlockUser" ng-click="unlockUser(user.id)"><i ng-class="{'fa fa-spinner fa-pulse': loading, 'fa fa-unlock': !loading}" class="fa fa-unlock" aria-hidden="true"></i></button>
+              <button class="btn btn-hotlibrary btn-block" ng-if="user.isActive == true" title="Bloquear Usuário" type="button" name="btnBlockUser" ng-click="blockUser(user.id, $event)"><i class="fa fa-lock" aria-hidden="true"></i></button>
+              <button class="btn btn-hotlibrary btn-block" ng-if="user.isActive == false" title="Desbloquear usuário" type="button" name="btnUnlockUser" ng-click="unlockUser(user.id, $event)"><i class="fa fa-unlock" aria-hidden="true"></i></button>
             </td>
           </tr>
         </tbody>
