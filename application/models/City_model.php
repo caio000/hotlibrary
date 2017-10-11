@@ -16,13 +16,13 @@ class City_model extends CI_Model {
   public function insert($city) {
 
     if ($this->exist($city)) {
-      $city = $this->getByName($city->name);
+      $city = $this->getByName($city['name']);
       $result = $city->id;
     } else {
       $data = [
-        'name'          => $city->name,
-        'state'         => $city->State->id,
-        'neighborhood'  => $city->Neighborhood->id
+        'name'          => $city['name'],
+        'state'         => $city['State']['id'],
+        'neighborhood'  => $city['Neighborhood']['id']
       ];
       $this->db->insert('City',$data);
       $result = $this->db->insert_id();
@@ -53,7 +53,7 @@ class City_model extends CI_Model {
    * @return Retorna um boolean true caso a cidade já estejá cadastrada.
    */
   public function exist ($city) {
-    $this->db->where('name',$city->name);
+    $this->db->where('name',$city['name']);
     $query = $this->db->get('City');
 
     return ($query->num_rows() == 1) ? TRUE : FALSE;

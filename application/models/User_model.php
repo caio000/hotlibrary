@@ -29,32 +29,30 @@ class User_model extends CI_Model {
    */
   public function insert($User) {
     $this->db->trans_start();
-    $id = $this->Neighborhood_model->insert($User->Address->City->Neighborhood);
-    $User->Address->City->Neighborhood->id = $id;
+    $id = $this->Neighborhood_model->insert($User['Address']['City']['Neighborhood']);
+    $User['Address']['City']['Neighborhood']['id'] = $id;
 
-    $id = $this->State_model->insert($User->Address->City->State);
-    $User->Address->City->State->id = $id;
+    $id = $this->State_model->insert($User['Address']['City']['State']);
+    $User['Address']['City']['State']['id'] = $id;
 
-    $id = $this->City_model->insert($User->Address->City);
-    $User->Address->City->id = $id;
+    $id = $this->City_model->insert($User['Address']['City']);
+    $User['Address']['City']['id'] = $id;
 
-    $id = $this->Address_model->insert($User->Address);
-    $User->Address->id = $id;
+    $id = $this->Address_model->insert($User['Address']);
+    $User['Address']['id'] = $id;
 
     $data = [
-      'address'   => (integer) $User->Address->id,
-      'name'      => $User->name,
-      'email'     => $User->email,
-      'password'  => $User->password,
-      'level'     => $User->level
+      'address'   => (integer) $User['Address']['id'],
+      'name'      => $User['name'],
+      'email'     => $User['email'],
+      'password'  => hash('SHA512',$User['password']),
+      'level'     => $User['level']['id']
     ];
-    print_r($data);
     $this->db->insert("User",$data);
 
-    echo $this->db->last_query();
     $this->db->trans_complete();
 
-
+    echo 'STATUS = ' . $this->db->trans_status();
     return $this->db->trans_status();
   }
 

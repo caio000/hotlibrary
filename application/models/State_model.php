@@ -16,7 +16,7 @@ class State_model extends CI_Model {
   public function insert($state) {
 
     if ($this->exist($state)) {
-      $state = $this->getByInitials($state->initials);
+      $state = $this->getByInitials($state['initials']);
       $result = $state->id;
     } else {
       $this->db->insert('State',$state);
@@ -48,7 +48,7 @@ class State_model extends CI_Model {
    * @return Retorna um boolean true caso o estado já estejá cadastrado.
    */
   public function exist ($state) {
-    $this->db->where('initials',$state->initials);
+    $this->db->where('initials',$state['initials']);
     $query = $this->db->get('State');
 
     return ($query->num_rows() == 1) ? TRUE : FALSE;

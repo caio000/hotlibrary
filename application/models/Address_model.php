@@ -15,13 +15,14 @@ class Address_model extends CI_Model {
    */
   public function insert ($address) {
     $data = [
-      'city'        => $address->City->id,
-      'zipCode'     => $address->zipcode,
-      'number'      => $address->number,
-      'publicPlace' => $address->publicPlace
+      'city'        => $address['City']['id'],
+      'zipCode'     => $address['zipcode'],
+      'number'      => $address['number'],
+      'publicPlace' => $address['publicPlace']
     ];
 
     $this->db->insert('Address',$data);
+    echo $this->db->last_query();
 
     return $this->db->insert_id();
   }

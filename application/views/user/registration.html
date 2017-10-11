@@ -115,7 +115,7 @@
         <div class="row">
           <div class="col-md-2 col-lg-2">
             <label for="number" class="control-label">Número:</label>
-            <input id="number" class="form-control" type="number" name="number" ng-model="User.Address.number" ng-required="true" ng-trim="true" ng-disabled="search">
+            <input id="number" class="form-control" type="number" name="number" ng-model="User.Address.number" ng-required="true" ng-trim="true">
             <div ng-messages="newUser.number.$error" ng-if="newUser.$submitted || newUser.number.$dirty">
               <span class="help-block" ng-message="required"><i class="fa fa-exclamation-circle"> O campo número é obrigatório</i></span>
               <span class="help-block" ng-message="number"><i class="fa fa-exclamation-circle">O campo aceita apenas números</i></span>

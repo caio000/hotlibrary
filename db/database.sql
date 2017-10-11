@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS "Level";
+﻿DROP TABLE IF EXISTS "Level";
 CREATE TABLE "Level" (
   "id"        SERIAL        NOT NULL,
   "type"      VARCHAR(100)  NOT NULL UNIQUE,
@@ -61,12 +61,6 @@ CREATE TABLE "User"(
   CONSTRAINT fk_user_address
     FOREIGN KEY ("address") REFERENCES "Address" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
--- Usuário admin senha 'teste123'
-INSERT INTO "Neighborhood" VALUES (1,'indaiá');
-INSERT INTO "State" VALUES (1,'SP');
-INSERT INTO "City" VALUES (1,'caraguatatuba',1,1);
-INSERT INTO "Address" VALUES (1,1,'11665-030','643','av. rio grande do sul');
-INSERT INTO "User" ("name","address","email","password","level") VALUES('admin',1,'admin@hotlibrary.com','535f56e6447ea0fcf3ef1bf5397066d037e9ebb7fd141068e8de9a23ece8eb6e7acf46d0e6bbf17edf2ebe6c80405991be53366138e835c3153019f164340619',1);
 
 DROP TABLE IF EXISTS "Log";
 CREATE TABLE "Log" (
@@ -92,3 +86,10 @@ CREATE TABLE "ForgotPassword" (
   CONSTRAINT fk_forgot_password_user
     FOREIGN KEY ("idUser") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
+
+-- Usuário admin senha 'teste123'
+INSERT INTO "Neighborhood" ("name") VALUES ('indaiá');
+INSERT INTO "State" ("initials") VALUES ('SP');
+INSERT INTO "City" ("name","state","neighborhood") VALUES ('caraguatatuba',1,1);
+INSERT INTO "Address" ("city","zipCode","number","publicPlace") VALUES (1,'11665-030','643','av. rio grande do sul');
+INSERT INTO "User" ("name","address","email","password","level") VALUES('admin',1,'admin@hotlibrary.com','535f56e6447ea0fcf3ef1bf5397066d037e9ebb7fd141068e8de9a23ece8eb6e7acf46d0e6bbf17edf2ebe6c80405991be53366138e835c3153019f164340619',1);

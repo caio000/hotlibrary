@@ -38,16 +38,14 @@ hotlibrary.controller('User', function ($scope, UserAPI, $timeout, userLevel, vi
   $scope.sendUser = function (User, valid) {
     if (valid) {
       $scope.btnNewUser.disabled = true;
-      // Espera de 2 segundos
-      $timeout(function () {
-        UserAPI.saveUser(User).then(function success (response) {
-          $scope.$emit('alert',{type:'success',title:'',msg:'Usuário cadastrado com sucesso!'});
-        }, function error (response) {
-          $scope.$emit('alert',{type:'danger',title:'Ops!',msg:'Não foi possivel cadastrar o usuário, tente novamente mais tarde.'});
-        });
 
+      UserAPI.saveUser(User).then(function success (response) {
+        $scope.$emit('alert',{type:'success',title:'',msg:'Usuário cadastrado com sucesso!'});
         $scope.btnNewUser.disabled = false;
-      },2000);
+      }, function error (response) {
+        $scope.$emit('alert',{type:'danger',title:'Ops!',msg:'Não foi possivel cadastrar o usuário, tente novamente mais tarde.'});
+      });
+
     }
   }
 

@@ -66,27 +66,19 @@ class User extends CI_Controller {
 
     // pega os dados da requisição HTTP do angular
     $post = file_get_contents("php://input");
-    // Transforma o objeto Json em um objeto PHP
-    $User = json_decode($post);
-    $level = $User->level;
 
-    // Apartir desse ponto vamos fazer as manipulações necessárias nos dados
-    // Deixando o nome do usuário em minusculo
-    $User->name = trim(strtolower($User->name));
-    $User->email = trim(strtolower($User->email));
-    $User->level = $level->id;
-    // Gera um hash na senha do usuário
-    $User->password = hash('SHA512',trim($User->password));
+    $user = json_decode($post);
+    $user = get_object_vars($user);
+    $user['level'] = get_object_vars($user['level']);
+    $user['Address'] = get_object_vars($user['Address']);
+    $user['Address']['City'] = get_object_vars($user['Address']['City']);
+    $user['Address']['City']['State'] = get_object_vars($user['Address']['City']['State']);
+    $user['Address']['City']['Neighborhood'] = get_object_vars($user['Address']['City']['Neighborhood']);
 
-    $User->Address->publicPlace = strtolower(trim($User->Address->publicPlace));
-    $User->Address->City->name = strtolower(trim($User->Address->City->name));
-    $User->Address->City->Neighborhood->name = strtolower(trim($User->Address->City->Neighborhood->name));
-    $User->Address->City->State->initials = strtoupper(trim($User->Address->City->State->initials));
+    
 
-    // Caso ocorra um problema na persistencia a requisição retorna com um erro 404
-    if ( !$this->User_model->insert($User) ) {
+    if ( !$this->User_model->insert($user) ) {
       header('HTTP/1.1 500 Ocorreu um erro inesperado. Tente novamente ou entre em contato com o administrador do sistema');
-
       $log = createLog($token[0], 'Ocorreu um erro ao cadastrar um novo usuário');
       $this->Log_model->insert($log);
       exit();
@@ -95,7 +87,7 @@ class User extends CI_Controller {
     $mail = $this->load->view('email/confirmRegistration',null,TRUE);
     $this->cronomail->setContent($mail);
     $this->cronomail->setSubject('Acesso ao sistema Hotlibrary');
-    $this->cronomail->to($User->email,$User->name);
+    $this->cronomail->to($user['email'],$user['name']);
 
     $this->cronomail->send();
 
