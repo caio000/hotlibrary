@@ -1,4 +1,8 @@
 
+.table-button {
+  cursor: pointer;
+}
+
 .pagination li a {
   color: #333;
   transition: border-color 1s;

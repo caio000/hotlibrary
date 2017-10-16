@@ -4,6 +4,8 @@ hotlibrary.controller('UserList',function ($rootScope, $scope, $document, $locat
     $scope.users = checkUserStatus(users.data);
     $scope.blockUser = blockUser;
     $scope.unlockUser = unlockUser;
+    $scope.sort = sort;
+    $scope.key = 'name';
   }
 
   /**
@@ -64,6 +66,17 @@ hotlibrary.controller('UserList',function ($rootScope, $scope, $document, $locat
     });
 
     return users;
+  }
+
+  /**
+   * Função para ordenar a tabela
+   * @author Caio de Freitas
+   * @since 2017/10/16
+   * @param String criterio de ordenação da tabela
+   */
+  var sort = function (key) {
+    $scope.key = key;
+    $scope.direction = !$scope.direction;
   }
 
   init ();

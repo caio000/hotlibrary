@@ -23,15 +23,15 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th class="text-center">Nome</th>
-            <th class="text-center">Email</th>
-            <th class="text-center">Tipo</th>
-            <th class="text-center">Status</th>
+            <th class="text-center table-button" ng-click="sort('name')">Nome</th>
+            <th class="text-center table-button" ng-click="sort('email')">Email</th>
+            <th class="text-center table-button" ng-click="sort('type')">Tipo</th>
+            <th class="text-center table-button" ng-click="sort('status')">Status</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr dir-paginate="user in users | filter:{name:searchFilter} | itemsPerPage:5">
+          <tr dir-paginate="user in users | filter:{name:searchFilter} | orderBy:key:direction | itemsPerPage:5">
             <td>{{ ::user.name }}</td>
             <td>{{ ::user.email }}</td>
             <td>{{ ::user.type | firstToUpper }}</td>
