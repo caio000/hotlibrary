@@ -20,7 +20,6 @@
 
     <div class="table-responsive">
       <!-- TODO: Criar ordenação na tabela -->
-      <!-- TODO: Criar páginação -->
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -32,7 +31,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="user in users | filter:{name:searchFilter}">
+          <tr dir-paginate="user in users | filter:{name:searchFilter} | itemsPerPage:5">
             <td>{{ ::user.name }}</td>
             <td>{{ ::user.email }}</td>
             <td>{{ ::user.type | firstToUpper }}</td>
@@ -44,6 +43,8 @@
           </tr>
         </tbody>
       </table>
+
+      <dir-pagination-controls max-size="5"  boundary-links="true"></dir-pagination-controls>
     </div>
   </div>
 </div>

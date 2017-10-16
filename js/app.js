@@ -1,4 +1,4 @@
-var hotlibrary = angular.module('hotlibrary',['ngRoute','base64','ngCookies','ngMessages','angular.viacep']);
+var hotlibrary = angular.module('hotlibrary',['ngRoute','base64','ngCookies','ngMessages','angular.viacep','angularUtils.directives.dirPagination']);
 
 hotlibrary.run(function ($rootScope, $cookies, $http, $location, Auth, $route) {
   // Pega os dados do usuário no cookie caso exista, caso contrario é atribuido
