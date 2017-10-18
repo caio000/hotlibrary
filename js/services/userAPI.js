@@ -20,6 +20,10 @@ hotlibrary.factory('UserAPI', function ($http, Application, $base64) {
     return $http.get(Application.baseURL + "usuarios/todos");
   }
 
+  var _getById = function (id) {
+    return $http.get(Application.baseURL + "usuario/" + id);
+  }
+
   var _block = function (id) {
     return $http.patch(Application.baseURL + "usuario/bloquear", id);
   }
@@ -36,5 +40,6 @@ hotlibrary.factory('UserAPI', function ($http, Application, $base64) {
     getAll: _getAll,
     block: _block,
     unlock: _unlock,
+    getById: _getById,
   };
 });

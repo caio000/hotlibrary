@@ -29,6 +29,21 @@ hotlibrary.config(function ($routeProvider, Application) {
     permissions: [1],
     hasMenu: true,
   });
+  $routeProvider.when('/usuario/editar/:id',{
+    templateUrl: Application.baseURL + 'template/view/user-registration.html',
+    controller: "UserEdit",
+    hasMenu: true,
+    requiresAuthentication: true,
+    permissions: [1],
+    resolve: {
+      user: function(UserAPI, $route) {
+        return UserAPI.getById($route.current.params.id);
+      },
+      level: function (levelAPI) {
+        return levelAPI.getAll();
+      }
+    }
+  });
   $routeProvider.when('/usuario/alterar/senha/:token',{
     templateUrl: Application.baseURL + 'template/view/user-alterPassword.html',
     controller: "AlterPassword",

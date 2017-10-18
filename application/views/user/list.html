@@ -19,8 +19,7 @@
 
 
     <div class="table-responsive">
-      <!-- TODO: Criar ordenação na tabela -->
-      <table class="table table-bordered">
+      <table class="table table-hover table-bordered">
         <thead>
           <tr>
             <th class="text-center table-button" ng-click="sort('name')">Nome</th>
@@ -32,7 +31,7 @@
         </thead>
         <tbody>
           <tr dir-paginate="user in users | filter:{name:searchFilter} | orderBy:key:direction | itemsPerPage:5">
-            <td>{{ ::user.name }}</td>
+            <td><a href="#!/usuario/editar/{{user.id}}">{{ ::user.name }}</a></td>
             <td>{{ ::user.email }}</td>
             <td>{{ ::user.type | firstToUpper }}</td>
             <td class="text-center"><i ng-class="{'fa fa-unlock-alt text-success': user.isActive == true, 'fa fa-lock text-danger': user.isActive == false}"> {{ ::user.status | uppercase }}</i></td>
