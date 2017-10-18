@@ -19,6 +19,19 @@ class User extends CI_Controller {
   }
 
   /**
+   * Exibe os dados de um usuário expecifico do sistema.
+   * @author Caio de Freitas Adriano
+   * @since 2017/10/18
+   * @param INT - Identificador do usuário
+   * @return JSON - Retona os dados do usuário no formato json
+   */
+  public function getById ($id) {
+    $user = $this->User_model->getById($id);
+
+    echo json_encode($user);
+  }
+
+  /**
    * Altera a senha do usuário.
    * @author Caio de Freitas
    * @since 2017/08/28
@@ -75,7 +88,7 @@ class User extends CI_Controller {
     $user['Address']['City']['State'] = get_object_vars($user['Address']['City']['State']);
     $user['Address']['City']['Neighborhood'] = get_object_vars($user['Address']['City']['Neighborhood']);
 
-    
+
 
     if ( !$this->User_model->insert($user) ) {
       header('HTTP/1.1 500 Ocorreu um erro inesperado. Tente novamente ou entre em contato com o administrador do sistema');

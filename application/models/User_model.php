@@ -21,6 +21,20 @@ class User_model extends CI_Model {
   }
 
   /**
+   * Busca os dados do usuário infomado na base de dados.
+   * @author Caio de Freitas Adriano
+   * @since 2017/10/18
+   * @param INT - Id do usuário
+   * @return OBJECT - Retorna um objeto com os dados do usuário.
+   */
+  public function getById ($id) {
+    $this->db->where('id',$id);
+    $query = $this->db->get('User');
+
+    return $query->result();
+  }
+
+  /**
    * Insere um novo usuário na base de dados
    * @author Caio de Freitas adriano
    * @since 2017/07/23

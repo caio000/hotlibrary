@@ -59,6 +59,7 @@ $route['usuario/esqueceu/senha']['post'] = 'User/forgotPassword';
 $route['usuario/existe/email']['post'] = 'User/existEmail';
 $route['usuario/alterar/senha']['post'] = 'User/changePassword';
 $route['usuarios/todos']['get'] = 'User/getAll';
+$route['usuario/(:num)']['get'] = 'User/getById/$1';
 $route['usuario/bloquear']['patch'] = 'User/block';
 $route['usuario/desbloquear']['patch'] = 'User/unlock';
 
