@@ -59,6 +59,17 @@ class City_model extends CI_Model {
     return ($query->num_rows() == 1) ? TRUE : FALSE;
   }
 
+  /**
+   *
+   */
+  public function getById($id) {
+    $this->db->select('name, neighborhood as Neighborhood, state AS State');
+    $this->db->where("id",$id);
+    $query = $this->db->get("City");
+
+    return $query->row();
+  }
+
 }
 
 

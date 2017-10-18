@@ -27,6 +27,11 @@ class User extends CI_Controller {
    */
   public function getById ($id) {
     $user = $this->User_model->getById($id);
+    $user->Address = $this->Address_model->getById($user->Address);
+    $user->Address->City = $this->City_model->getById($user->Address->City);
+    $user->Address->City->Neighborhood = $this->Neighborhood_model->getById($user->Address->City->Neighborhood);
+    $user->Address->City->State = $this->State_model->getById($user->Address->City->State);
+
 
     echo json_encode($user);
   }

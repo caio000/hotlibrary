@@ -57,6 +57,14 @@ class Neighborhood_model extends CI_Model {
 
     return $query->row();
   }
+
+  public function getById ($id) {
+    $this->db->select('name');
+    $this->db->where('id',$id);
+    $query = $this->db->get('Neighborhood');
+
+    return $query->row();
+  }
 }
 
 

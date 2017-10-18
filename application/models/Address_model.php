@@ -26,6 +26,14 @@ class Address_model extends CI_Model {
 
     return $this->db->insert_id();
   }
+
+  public function getById ($id) {
+    $this->db->select("Address.zipCode as zipcode, Address.publicPlace, Address.number, Address.city as City");
+    $this->db->where('id',$id);
+    $query = $this->db->get("Address");
+
+    return $query->row();
+  }
 }
 
 

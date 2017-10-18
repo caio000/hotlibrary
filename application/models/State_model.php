@@ -54,6 +54,14 @@ class State_model extends CI_Model {
     return ($query->num_rows() == 1) ? TRUE : FALSE;
   }
 
+  public function getById($id) {
+    $this->db->select('initials');
+    $this->db->where('id',$id);
+    $query = $this->db->get("State");
+
+    return $query->row();
+  }
+
 }
 
 
