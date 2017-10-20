@@ -28,10 +28,10 @@ class User extends CI_Controller {
   public function getById ($id) {
     $user = $this->User_model->getById($id);
     $user->Address = $this->Address_model->getById($user->Address);
+    $user->Address->Zipcode = $this->Zipcode_model->getById($user->Address->Zipcode);
     $user->Address->City = $this->City_model->getById($user->Address->City);
-    $user->Address->City->Neighborhood = $this->Neighborhood_model->getById($user->Address->City->Neighborhood);
-    $user->Address->City->State = $this->State_model->getById($user->Address->City->State);
-
+    $user->Address->Neighborhood = $this->Neighborhood_model->getById($user->Address->Neighborhood);
+    $user->Address->State = $this->State_model->getById($user->Address->State);
 
     echo json_encode($user);
   }
@@ -86,16 +86,21 @@ class User extends CI_Controller {
     $post = file_get_contents("php://input");
 
     $user = json_decode($post);
-    $user = get_object_vars($user);
-    $user['level'] = get_object_vars($user['level']);
-    $user['Address'] = get_object_vars($user['Address']);
-    $user['Address']['City'] = get_object_vars($user['Address']['City']);
-    $user['Address']['City']['State'] = get_object_vars($user['Address']['City']['State']);
-    $user['Address']['City']['Neighborhood'] = get_object_vars($user['Address']['City']['Neighborhood']);
 
+    $user->password = hash('SHA512',$user->password);
 
+    $this->db->trans_start();
+    $user->Address->city = $this->City_model->insert($user->Address->City);
+    $user->Address->zipcode = $this->Zipcode_model->insert($user->Address->Zipcode);
+    $user->Address->neighborhood = $this->Neighborhood_model->insert($user->Address->Neighborhood);
+    $user->Address->state = $this->State_model->insert($user->Address->State);
 
-    if ( !$this->User_model->insert($user) ) {
+    $user->address = $this->Address_model->insert($user->Address);
+    $user->level = $user->Level->id;
+    $this->User_model->insert($user);
+    $this->db->trans_complete();
+
+    if ( !$this->db->trans_status() ) {
       header('HTTP/1.1 500 Ocorreu um erro inesperado. Tente novamente ou entre em contato com o administrador do sistema');
       $log = createLog($token[0], 'Ocorreu um erro ao cadastrar um novo usuário');
       $this->Log_model->insert($log);
@@ -105,7 +110,7 @@ class User extends CI_Controller {
     $mail = $this->load->view('email/confirmRegistration',null,TRUE);
     $this->cronomail->setContent($mail);
     $this->cronomail->setSubject('Acesso ao sistema Hotlibrary');
-    $this->cronomail->to($user['email'],$user['name']);
+    $this->cronomail->to($user->email,$user->name);
 
     $this->cronomail->send();
 
@@ -220,6 +225,29 @@ class User extends CI_Controller {
 
     echo json_encode($response);
   }
+
+  /**
+   * Edita os dados do usuário no sistema
+   * @author Caio de Freitas Adriano
+   * @since 2017/10/18
+   */
+  public function edit () {
+    $user = file_get_contents('php://input');
+    $user = json_decode($user);
+
+    $this->db->trans_start();
+    $user->Address->neighborhood = $this->Neighborhood_model->insert($user->Address->Neighborhood);
+    $user->Address->city = $this->City_model->insert($user->Address->City);
+    $this->Address_model->update($user->Address);
+    $this->User_model->update($user);
+    $this->db->trans_complete();
+
+    $response['result'] = $this->db->trans_status();
+
+    print(json_encode($response));
+  }
+
+
 }
 
 

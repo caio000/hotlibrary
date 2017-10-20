@@ -19,6 +19,7 @@ class Neighborhood_model extends CI_Model {
       $neighborhood = $this->getByName($neighborhood->name);
       $result = $neighborhood->id;
     } else {
+      unset($neighborhood->id);
       $this->db->insert('Neighborhood',$neighborhood);
       $result = $this->db->insert_id();
     }

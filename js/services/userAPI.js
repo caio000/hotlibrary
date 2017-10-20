@@ -1,5 +1,9 @@
 hotlibrary.factory('UserAPI', function ($http, Application, $base64) {
 
+  var _edit = function (user) {
+    return $http.patch(Application.baseURL + 'usuario/editar',user);
+  }
+
   var _saveUser = function (User) {
     return $http.post(Application.baseURL + 'User/saveUser', User);
   }
@@ -41,5 +45,6 @@ hotlibrary.factory('UserAPI', function ($http, Application, $base64) {
     block: _block,
     unlock: _unlock,
     getById: _getById,
+    edit: _edit,
   };
 });

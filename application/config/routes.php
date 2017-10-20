@@ -62,6 +62,7 @@ $route['usuarios/todos']['get'] = 'User/getAll';
 $route['usuario/(:num)']['get'] = 'User/getById/$1';
 $route['usuario/bloquear']['patch'] = 'User/block';
 $route['usuario/desbloquear']['patch'] = 'User/unlock';
+$route['usuario/editar']['patch'] = "User/edit";
 
 $route['valida/token/(:any)'] = 'Token/checkToken/$1';
 

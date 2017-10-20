@@ -58,6 +58,20 @@
       return $query->row();
     }
 
+    /**
+     * Busca um CEP pelo ID.
+     * @author Caio de Freitas Adriano
+     * @since 2017/10/20
+     * @param INT - ID
+     * @return Object - Retona um objeto da relação Zipcode.
+     */
+    public function getById ($id) {
+      $this->db->where('id',$id);
+      $query = $this->db->get('Zipcode');
+
+      return $query->row();
+    }
+
   }
 
 

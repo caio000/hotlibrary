@@ -19,7 +19,7 @@ class Address_model extends CI_Model {
   }
 
   public function getById ($id) {
-    $this->db->select("id, zipcode, Address.publicPlace, Address.number, Address.city as City");
+    $this->db->select("id, zipcode AS Zipcode, neighborhood AS Neighborhood, publicPlace, number, city as City, state AS State");
     $this->db->where('id',$id);
     $query = $this->db->get("Address");
 

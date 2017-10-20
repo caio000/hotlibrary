@@ -39,7 +39,7 @@
 
       <div class="form-group" ng-if="!isEdit" ng-class="{'has-error': ( newUser.$submitted|| newUser.level.$dirty) && newUser.level.$invalid, 'has-success': newUser.level.$valid}">
         <label class="control-label" for="level">Nível de acesso:</label>
-        <select id="level" class="form-control" name="level" ng-required="true" ng-model="User.level" ng-options="level.type | firstToUpper for level in levels | orderBy:'type'">
+        <select id="level" class="form-control" name="level" ng-required="true" ng-model="User.Level" ng-options="level.type | firstToUpper for level in levels | orderBy:'type'">
           <option value="" selected>Selecione uma opção</option>
         </select>
         <div ng-messages="newUser.level.$error" ng-if="newUser.level.$dirty || newUser.$submitted">
@@ -52,8 +52,8 @@
         <div class="row">
           <div class="col-md-6">
             <label for="zipcode" class="control-label">Cep:</label>
-            <input type="text" class="form-control" name="zipcode" ng-model="User.Address.zipcode" get-address-by-zipcode="" ng-pattern="/[0-9]{8}/" ng-maxlength="8" ng-minlength="8" ng-required="true" ng-trim="true">
-            <div ng-messages="newUser.zipcode.$error" ng-if="newUser.zipcode.$dirty || newUser.$submitted">
+            <input type="text" class="form-control" name="zipcode" ng-model="User.Address.Zipcode.number" get-address-by-zipcode="" ng-pattern="/[0-9]{8}/" ng-maxlength="8" ng-minlength="8" ng-required="true" ng-trim="true">
+            <div ng-messages="newUser.zipcode.$error" ng-if="newUser.zipcode.$dirty || newUser.$submitted || User.Address.Zipcode">
               <span class="help-block" ng-message="required"><i class="fa fa-exclamation-circle"> O campo CEP é obrigatório</i></span>
               <span class="help-block" ng-message="minlength"><i class="fa fa-exclamation-circle"> O CEP deve possuir 8 caracteres</i></span>
               <span class="help-block" ng-message="maxlength"><i class="fa fa-exclamation-circle"> O CEP deve possuir 8 caracteres</i></span>
@@ -77,8 +77,8 @@
 
       <div class="form-group" ng-class="{'has-error': (newUser.$submitted || newUser.neighborhood.$dirty) && newUser.neighborhood.$invalid, 'has-success': newUser.neighborhood.$valid}">
         <label for="neighborhood" class="control-label">Bairro:</label>
-        <input id="neighborhood" class="form-control" type="text" name="neighborhood" ng-model="User.Address.City.Neighborhood.name" ng-disabled="search" ng-trim="true" ng-required="true" ng-maxlength="100">
-        <div ng-messages="newUser.neighborhood.$error" ng-if="newUser.neighborhood.$dirty || newUser.$submitted || User.Address.City.Neighborhood.name">
+        <input id="neighborhood" class="form-control" type="text" name="neighborhood" ng-model="User.Address.Neighborhood.name" ng-disabled="search" ng-trim="true" ng-required="true" ng-maxlength="100">
+        <div ng-messages="newUser.neighborhood.$error" ng-if="newUser.neighborhood.$dirty || newUser.$submitted || User.Address.Neighborhood.name">
           <span class="help-block" ng-message="required"><i class="fa fa-exclamation-circle"> O campo bairro é obrigatório</i></span>
           <span class="help-block" ng-message="maxlength"><i class="fa fa-exclamation-circle"> O bairro deve possuir no máximo 100 caracteres</i></span>
           <span class="help-block" ng-if="newUser.neighborhood.$valid"><i class="fa fa-check"></i></span>
@@ -99,8 +99,8 @@
         <div class="row">
           <div class="col-md-2 col-lg-2">
             <label for="state" class="control-label">Estado:</label>
-            <input id="state" class="form-control" type="text" name="state" ng-model="User.Address.City.State.initials" ng-disabled="search" ng-trim="true" ng-required="true" ng-minlength="2" ng-maxlength="2" ng-pattern="/[a-z]{2}/i" placeholder="ex:SP">
-            <div ng-messages="newUser.state.$error" ng-if="newUser.state.$dirty || newUser.$submitted || User.Address.City.State.initials">
+            <input id="state" class="form-control" type="text" name="state" ng-model="User.Address.State.initials" ng-disabled="search" ng-trim="true" ng-required="true" ng-minlength="2" ng-maxlength="2" ng-pattern="/[a-z]{2}/i" placeholder="ex:SP">
+            <div ng-messages="newUser.state.$error" ng-if="newUser.state.$dirty || newUser.$submitted || User.Address.State.initials">
               <span class="help-block" ng-message="required"><i class="fa fa-exclamation-circle"> O campo estado é obrigatório</i></span>
               <span class="help-block" ng-message="maxlength"><i class="fa fa-exclamation-circle"> O estado possui 2 caracteres</i></span>
               <span class="help-block" ng-message="minlength"><i class="fa fa-exclamation-circle"> O estado possui 2 caracteres</i></span>
@@ -116,7 +116,7 @@
           <div class="col-md-2 col-lg-2">
             <label for="number" class="control-label">Número:</label>
             <input id="number" class="form-control" type="number" name="number" ng-model="User.Address.number" ng-required="true" ng-trim="true">
-            <div ng-messages="newUser.number.$error" ng-if="newUser.$submitted || newUser.number.$dirty">
+            <div ng-messages="newUser.number.$error" ng-if="newUser.$submitted || newUser.number.$dirty || User.Address.number">
               <span class="help-block" ng-message="required"><i class="fa fa-exclamation-circle"> O campo número é obrigatório</i></span>
               <span class="help-block" ng-message="number"><i class="fa fa-exclamation-circle">O campo aceita apenas números</i></span>
               <span class="help-block" ng-if="newUser.number.$valid"><i class="fa fa-check"></i></span>
@@ -132,7 +132,8 @@
       </div>
 
       <div class="form-group">
-        <button id="btnNewUser" class="btn btn-hotlibrary btn-lg btn-block" type="submit" name="btnNewUser" ng-click="sendUser(User, newUser.$valid)" ng-disabled="btnNewUser.disabled">Cadastrar Usuário <i ng-show="btnNewUser.disabled" class="fa fa-spinner fa-spin"></i></button>
+        <button ng-if="!isEdit" id="btnNewUser" class="btn btn-hotlibrary btn-lg btn-block" type="submit" name="btnNewUser" ng-click="sendUser(User, newUser.$valid)" ng-disabled="submit">Cadastrar Usuário <i ng-show="submit" class="fa fa-spinner fa-spin"></i></button>
+        <button ng-if="isEdit" id="btnEditUser" class="btn btn-hotlibrary btn-lg btn-block" type="submit" name="btnEditUser" ng-click="edit(User)" ng-disabled="submit"><i ng-class="{'fa fa-pencil-square-o':!submit, 'fa fa-spinner fa-pulse':submit}"></i> Editar</button>
       </div>
     </form>
 
