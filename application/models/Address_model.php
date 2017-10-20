@@ -10,29 +10,32 @@ class Address_model extends CI_Model {
    * @author Caio de Freitas
    * @since 2017/09/29
    * @param Object Objeto com os dados sobre o endereço.
-   * @return Boolean Retorna um Boolean true caso o endereço sejá cadastrado com
-   * sucesso.
+   * @return INT - Retorna o ID do endereço caso sejá cadastrado com sucesso.
    */
   public function insert ($address) {
-    $data = [
-      'city'        => $address['City']['id'],
-      'zipCode'     => $address['zipcode'],
-      'number'      => $address['number'],
-      'publicPlace' => $address['publicPlace']
-    ];
-
-    $this->db->insert('Address',$data);
-    echo $this->db->last_query();
+    $this->db->insert('Address',$address);
 
     return $this->db->insert_id();
   }
 
   public function getById ($id) {
-    $this->db->select("Address.zipCode as zipcode, Address.publicPlace, Address.number, Address.city as City");
+    $this->db->select("id, zipcode, Address.publicPlace, Address.number, Address.city as City");
     $this->db->where('id',$id);
     $query = $this->db->get("Address");
 
     return $query->row();
+  }
+
+  /**
+   * Atualiza os dados do endereço no banco de dados.
+   * @author Caio de Freitas Adriano
+   * @since 2017/10/19
+   * @param Object - Objeto Address com os dados do endereço.
+   * @return Boolean - Retorna um True caso os dados sejam atualizados com sucesso
+   */
+  public function update ($address) {
+    $this->db->where('id',$address->id);
+    return $this->db->update("Address", $address);
   }
 }
 

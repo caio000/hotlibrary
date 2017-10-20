@@ -15,9 +15,9 @@ class Neighborhood_model extends CI_Model {
   public function insert($neighborhood) {
     $result = null;
 
-    if ($this->exist($neighborhood['name'])) {
-      $neighborhood = $this->getByName($neighborhood['name']);
-      $result = $neighborhood['id'];
+    if ($this->exist($neighborhood->name)) {
+      $neighborhood = $this->getByName($neighborhood->name);
+      $result = $neighborhood->id;
     } else {
       $this->db->insert('Neighborhood',$neighborhood);
       $result = $this->db->insert_id();
@@ -50,16 +50,14 @@ class Neighborhood_model extends CI_Model {
    * @return Retorna um objeto com os dados do bairro.
    */
   public function getByName($name) {
-    $this->db->where('name',utf8_encode($name));
+    $this->db->where('name',$name);
     $query = $this->db->get("Neighborhood");
-
-    echo $this->db->last_query();
 
     return $query->row();
   }
 
   public function getById ($id) {
-    $this->db->select('name');
+    $this->db->select('id, name');
     $this->db->where('id',$id);
     $query = $this->db->get('Neighborhood');
 

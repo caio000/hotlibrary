@@ -28,7 +28,7 @@ class User_model extends CI_Model {
    * @return OBJECT - Retorna um objeto com os dados do usuário.
    */
   public function getById ($id) {
-    $this->db->select('User.name, User.email, User.address as Address');
+    $this->db->select('User.id, User.name, User.address as Address');
     $this->db->where('User.id',$id);
     $query = $this->db->get('User');
 
@@ -42,33 +42,8 @@ class User_model extends CI_Model {
    * @param $User Objeto usuário que será persistido no bando de dados;
    * @return Retorna um BOOLEAN TRUE caso o objeto usuário sejá persistido com sucesso.
    */
-  public function insert($User) {
-    $this->db->trans_start();
-    $id = $this->Neighborhood_model->insert($User['Address']['City']['Neighborhood']);
-    $User['Address']['City']['Neighborhood']['id'] = $id;
-
-    $id = $this->State_model->insert($User['Address']['City']['State']);
-    $User['Address']['City']['State']['id'] = $id;
-
-    $id = $this->City_model->insert($User['Address']['City']);
-    $User['Address']['City']['id'] = $id;
-
-    $id = $this->Address_model->insert($User['Address']);
-    $User['Address']['id'] = $id;
-
-    $data = [
-      'address'   => (integer) $User['Address']['id'],
-      'name'      => $User['name'],
-      'email'     => $User['email'],
-      'password'  => hash('SHA512',$User['password']),
-      'level'     => $User['level']['id']
-    ];
-    $this->db->insert("User",$data);
-
-    $this->db->trans_complete();
-
-    echo 'STATUS = ' . $this->db->trans_status();
-    return $this->db->trans_status();
+  public function insert($user) {
+    return $this->db->insert("User",$user);
   }
 
   /**

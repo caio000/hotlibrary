@@ -25,25 +25,34 @@ DROP TABLE IF EXISTS "City";
 CREATE TABLE "City" (
   "id"            SERIAL        NOT NULL,
   "name"          VARCHAR(100)  NOT NULL,
-  "state"         INTEGER       NOT NULL,
-  "neighborhood"  INTEGER       NOT NULL,
-  PRIMARY KEY ("id"),
-  CONSTRAINT fk_city_state
-    FOREIGN KEY ("state") REFERENCES "State" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT fk_city_neighborhood
-    FOREIGN KEY ("neighborhood") REFERENCES "Neighborhood" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+  PRIMARY KEY ("id")
+);
+
+DROP TABLE IF EXISTS "Zipcode";
+CREATE TABLE "Zipcode" (
+  "id"      SERIAL    NOT NULL,
+  "number"  CHAR(8)   NOT NULL,
+  PRIMARY KEY ("id")
 );
 
 DROP TABLE IF EXISTS "Address";
 CREATE TABLE "Address" (
   "id"            SERIAL        NOT NULL,
   "city"          INTEGER       NOT NULL,
-  "zipCode"       VARCHAR(9)    NOT NULL,
+  "zipcode"       INTEGER       NOT NULL,
+  "neighborhood"  INTEGER       NOT NULL,
+  "state"         INTEGER       NOT NULL,
   "number"        INTEGER       NOT NULL,
   "publicPlace"   VARCHAR(100)  NOT NULL,
   PRIMARY KEY ("id"),
   CONSTRAINT fk_address_city
-    FOREIGN KEY ("city") REFERENCES "City" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    FOREIGN KEY ("city") REFERENCES "City" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT fk_address_zipcode
+    FOREIGN KEY ("zipcode") REFERENCES "Zipcode"("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT fk_address_neighborhood
+    FOREIGN KEY ("neighborhood") REFERENCES "Neighborhood" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT fk_address_state
+    FOREIGN KEY ("state") REFERENCES "State" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS "User";
@@ -88,8 +97,9 @@ CREATE TABLE "ForgotPassword" (
 );
 
 -- Usuário admin senha 'teste123'
-INSERT INTO "Neighborhood" ("name") VALUES ('indaiá');
+INSERT INTO "Neighborhood" ("name") VALUES ('Indaiá');
 INSERT INTO "State" ("initials") VALUES ('SP');
-INSERT INTO "City" ("name","state","neighborhood") VALUES ('caraguatatuba',1,1);
-INSERT INTO "Address" ("city","zipCode","number","publicPlace") VALUES (1,'11665-030','643','av. rio grande do sul');
+INSERT INTO "City" ("name") VALUES ('Caraguatatuba');
+INSERT INTO "Zipcode" ("number") VALUES ('11665030');
+INSERT INTO "Address" ("city","state","neighborhood","zipcode","number","publicPlace") VALUES (1,1,1,1,'643','av. rio grande do sul');
 INSERT INTO "User" ("name","address","email","password","level") VALUES('admin',1,'admin@hotlibrary.com','535f56e6447ea0fcf3ef1bf5397066d037e9ebb7fd141068e8de9a23ece8eb6e7acf46d0e6bbf17edf2ebe6c80405991be53366138e835c3153019f164340619',1);
