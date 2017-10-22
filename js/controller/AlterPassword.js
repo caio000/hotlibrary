@@ -1,4 +1,4 @@
-hotlibrary.controller('AlterPassword',function ($scope, user, UserAPI) {
+hotlibrary.controller('AlterPassword',function ($scope,$location,user,UserAPI) {
 
   init = function () {
     $scope.User = user.data;
@@ -12,16 +12,16 @@ hotlibrary.controller('AlterPassword',function ($scope, user, UserAPI) {
       $scope.User.password = password;
 
       UserAPI.alterPassword($scope.User).then(function (response) {
-        if (response) {
-          $scope.Alert.visible = true;
-          $scope.Alert.class = "alert alert-success";
-          $scope.Alert.message = "Sua senha foi alterada com sucesso";
-        } else {
-          $scope.Alert.visible = true;
-          $scope.Alert.class = "alert alert-danger";
-          $scope.Alert.message = "Não foi possível alterar sua senha. Tente novamente!";
-        }
+        var options;
 
+        if (response)
+          options = {type:'success',msg:'Sua senha foi alterada com sucesso',callback: function () {
+            $location.path('/');
+          }};
+        else
+          options = {type:'success', msg:'Não foi possível alterar sua senha, tente novamente!'};
+
+        $scope.$emit('alert',options);
         $scope.btnSubmit.disabled = false;
       });
     }

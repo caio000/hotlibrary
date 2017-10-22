@@ -4,9 +4,12 @@ hotlibrary.directive('hotAlert',function ($timeout) {
     replace: true,
     link: function (scope, element) {
 
-      var close = function () {
+      var close = function (callback) {
         $timeout(function () {
-          angular.element(element).hide('slow');
+          if (callback)
+            angular.element(element).hide('slow', callback());
+          else
+            angular.element(element).hide('slow');
         },4000);
       };
 
@@ -14,7 +17,7 @@ hotlibrary.directive('hotAlert',function ($timeout) {
         scope.type  = alertData.type;
         scope.title = alertData.title;
         scope.msg   = alertData.msg;
-        angular.element(element).show('slow', close);
+        angular.element(element).show('slow', close(alertData.callback));
       });
     },
     template: `<div class="alert alert-{{ type }} text-center">

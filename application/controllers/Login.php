@@ -47,6 +47,7 @@ class Login extends CI_Controller {
       $this->Log_model->insert($log);
     }
 
+    $response['query'] = $this->db->last_query();
     echo json_encode($response);
 
   }

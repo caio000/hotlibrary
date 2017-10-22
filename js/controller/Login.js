@@ -9,9 +9,8 @@ hotlibrary.controller('Login', function ($scope, $document, Application, Auth, $
       $scope.btnLogin = true;
       UserAPI.forgotPassword(User).then(function (response) {
         $scope.btnLogin = false;
-        $scope.alert.show = true;
-        $scope.alert.message = 'Foi enviado um email para recuperação da sua senha';
-        $scope.alert.class = "alert alert-success";
+        console.log("enviado email");
+        $scope.$emit('alert',{type:'success',msg:'Foi enviado um email para recuperação da sua senha'});
       });
     }
   }
@@ -29,9 +28,7 @@ hotlibrary.controller('Login', function ($scope, $document, Application, Auth, $
           if (User.level == 1)
             $location.path('/usuario');
         } else {
-          $scope.alert.show = true;
-          $scope.alert.message = "Email ou senha incorretos";
-          $scope.alert.class = 'alert alert-danger';
+          $scope.$emit('alert',{type:'danger',msg:'Email ou senha incorretos'});
         }
 
       });
