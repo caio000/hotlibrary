@@ -71,6 +71,82 @@ CREATE TABLE "User"(
     FOREIGN KEY ("address") REFERENCES "Address" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
+DROP TABLE IF EXISTS "Library";
+CREATE TABLE "Library" (
+  "id" INTEGER  NOT NULL,
+  PRIMARY KEY ("id"),
+  CONSTRAINT fk_user_library
+    FOREIGN KEY ("id") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+DROP TABLE IF EXISTS "Author";
+CREATE TABLE "Author" (
+  "id"    SERIAL        NOT NULL,
+  "name"  VARCHAR(100)  NOT NULL,
+  PRIMARY KEY ("id")
+);
+
+DROP TABLE IF EXISTS "PublishingCompany";
+CREATE TABLE "PublishingCompany" (
+  "id"    SERIAL        NOT NULL,
+  "name"  VARCHAR(100)  NOT NULL,
+  PRIMARY KEY ("id")
+);
+
+DROP TABLE IF EXISTS "Category";
+CREATE TABLE "Category" (
+  "id"    SERIAL      NOT NULL,
+  "name"  VARCHAR(50) NOT NULL,
+  PRIMARY KEY ("id")
+);
+
+DROP TABLE IF EXISTS "Book";
+CREATE TABLE "Book" (
+  "id"                SERIAL          NOT NULL,
+  "name"              VARCHAR(150)    NOT NULL,
+  "publishDate"       DATE            NOT NULL,
+  "pages"             INTEGER         NULL,
+  "folder"            VARCHAR(255)    NULL,
+  "edition"           INTEGER         NULL,
+  "publishingCompany" INTEGER         NULL,
+  "synopsis"          VARCHAR(250)    NULL,
+  PRIMARY KEY ("id"),
+  CONSTRAINT fk_book_publishingCompany
+    FOREIGN KEY ("publishingCompany") REFERENCES "PublishingCompany" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+DROP TABLE IF EXISTS "Library_has_Book";
+CREATE TABLE "Library_has_Book" (
+  "library"   INTEGER   NOT NULL,
+  "book"      INTEGER   NOT NULL,
+  PRIMARY KEY ("library","book"),
+  CONSTRAINT fk_library_has_book_library
+    FOREIGN KEY ("library") REFERENCES "Library" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT fk_library_has_book_book
+    FOREIGN KEY ("book") REFERENCES "Book" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+DROP TABLE IF EXISTS "Book_Category";
+CREATE TABLE "Book_Category" (
+  "book"      INTEGER NOT NULL,
+  "category"  INTEGER NOT NULL,
+  PRIMARY KEY ("book","category"),
+  CONSTRAINT fk_book_category_book
+    FOREIGN KEY ("book") REFERENCES "Book" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT fk_book_category_category
+    FOREIGN KEY ("category") REFERENCES "Category" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+DROP TABLE IF EXISTS "Book_Author";
+CREATE TABLE "Book_Author" (
+  "book"    INTEGER NOT NULL,
+  "author"  INTEGER NOT NULL,
+  CONSTRAINT fk_book_author_book
+    FOREIGN KEY ("book") REFERENCES "Book" ("id"),
+  CONSTRAINT fk_book_author_author
+    FOREIGN KEY ("author") REFERENCES "Author" ("id")
+);
+
 DROP TABLE IF EXISTS "Log";
 CREATE TABLE "Log" (
   "id"      SERIAL        NOT NULL,

@@ -98,6 +98,8 @@ class User extends CI_Controller {
     $user->address = $this->Address_model->insert($user->Address);
     $user->level = $user->Level->id;
     $this->User_model->insert($user);
+
+    // TODO: caso o usuário sejá uma biblioteca, gravar no banco a relação Library
     $this->db->trans_complete();
 
     if ( !$this->db->trans_status() ) {
@@ -137,6 +139,8 @@ class User extends CI_Controller {
       $user = $this->User_model->getUserByEmail($request['email']);
       $token = $request['token'];
       $html = $this->load->view('email/forgotpassword',compact('user','token'),TRUE);
+
+      // FIXME: Utilizar a lib cronomail para enviar email
 
       $email = new PHPMailer;
 
@@ -200,6 +204,8 @@ class User extends CI_Controller {
 
     $response['result'] = $this->User_model->setActive($idUser, FALSE);
 
+    // TODO: gerar log para bloqueio de usuários
+
     echo json_encode($response);
   }
 
@@ -223,6 +229,8 @@ class User extends CI_Controller {
     $idUser = file_get_contents("php://input");
     $response['result'] = $this->User_model->setActive($idUser, TRUE);
 
+    // TODO: Criar log para desbloqueio de usuários
+
     echo json_encode($response);
   }
 
@@ -232,6 +240,9 @@ class User extends CI_Controller {
    * @since 2017/10/18
    */
   public function edit () {
+
+    // TODO: verificar se o usuário tem permissão para executar o serviço.
+
     $user = file_get_contents('php://input');
     $user = json_decode($user);
 
@@ -243,6 +254,8 @@ class User extends CI_Controller {
     $this->db->trans_complete();
 
     $response['result'] = $this->db->trans_status();
+
+    // TODO: gerar Log para edição dos dados do usuário
 
     print(json_encode($response));
   }
