@@ -7,6 +7,7 @@ hotlibrary.controller("UserEdit", function ($scope, user, level, UserAPI) {
     $scope.levels = level.data;
     $scope.isEdit = true;
     $scope.submit = false;
+    $scope.Page = {title:'Hotlibrary - Editar usuário'};
   }
 
   var edit = function (user) {
@@ -15,7 +16,7 @@ hotlibrary.controller("UserEdit", function ($scope, user, level, UserAPI) {
 
       UserAPI.edit(user).then(function success (response) {
         var option;
-        
+
         if (response.data.result)
           option = {type:'success',title:'',msg:'Dados editados com sucesso'};
         else

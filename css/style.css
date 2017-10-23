@@ -1,4 +1,20 @@
 
+.dropdown-hotlibrary {
+  background-color: #8B1E01;
+  border-color: #661500;
+}
+
+.dropdown-hotlibrary li a{
+  color: rgb(215, 221, 213);
+  transition: color 1s, background-color 1s;
+  web-kit-transition: background-color 1s;
+}
+
+.dropdown-hotlibrary li a:hover{
+  color: #333;
+  background-color: rgb(232, 232, 232);
+}
+
 .table-button {
   cursor: pointer;
 }

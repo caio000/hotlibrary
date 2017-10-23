@@ -55,6 +55,13 @@ hotlibrary.config(function ($routeProvider, Application) {
     hasMenu: false,
   });
 
+  // Rotas de livros ===========================================================
+  $routeProvider.when('/livro/cadastrar',{
+    templateUrl: Application.baseURL + 'template/view/book-form.html',
+    controller: "BookRegistration",
+    hasMenu: true,
+  });
+
   // Rotas de erro =============================================================
 
   $routeProvider.when('/erro/acesso_negado',{

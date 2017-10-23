@@ -106,7 +106,7 @@ CREATE TABLE "Book" (
   "name"              VARCHAR(150)    NOT NULL,
   "publishDate"       DATE            NOT NULL,
   "pages"             INTEGER         NULL,
-  "folder"            VARCHAR(255)    NULL,
+  "cover"             VARCHAR(255)    NULL,
   "edition"           INTEGER         NULL,
   "publishingCompany" INTEGER         NULL,
   "synopsis"          VARCHAR(250)    NULL,

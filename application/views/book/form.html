@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-lg-offset-1 col-lg-10 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">
+
+    <h2 class="page-header text-center">{{ Page.title }}</h2>
+
+    <pre>
+      {{ book | json }}
+    </pre>
+
+    <form name="bookForm" class="form-horizontal" ng-submit="isEdit ? edit(book) : register(book)" enctype="multipart/form-data" autocomplete="off" novalidate>
+      <div class="col-md-6">
+        <div class="form-group" ng-class="{'has-error':(bookForm.$submitted || bookForm.name.$dirty) && bookForm.name.$invalid, 'has-success':bookForm.name.$valid}">
+          <label for="name" class="control-label">Nome:</label>
+          <input id="name" class="form-control" type="text" name="name" placeholder="Nome do livro" ng-model="book.name" ng-required="true" ng-trim="true" ng-maxlength="150">
+          <div ng-if="bookForm.name.$dirty || bookForm.$submitted" ng-messages="bookForm.name.$error">
+            <span class="help-block" ng-message="required"><i class="fa fa-exclamation-circle"> O campo nome é obrigatório</i></span>
+            <span class="help-block" ng-message="maxlength"><i class="fa fa-exclamation-circle"> O nome deve possuir no máximo 150 caracteres</i></span>
+            <span class="help-block" ng-if="bookForm.name.$valid"><i class="fa fa-check"></i></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="cover">Capa:</label>
+          <input id="cover" class="file" type="file" name="cover" file-model="book.cover" accept="image/jpeg">
+          <!-- TODO: modificar style do botão -->
+        </div>
+      </div>
+
+      <!-- TODO: Criar formulário -->
+
+      <div class="col-md-12">
+        <div class="form-group">
+          <button class="btn btn-hotlibrary btn-lg btn-block" type="submit" name="btn-submit" ng-disabled="bookForm.$invalid">Cadastrar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

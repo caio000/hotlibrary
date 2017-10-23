@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="/hotlibrary/bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="/hotlibrary/bower_components/font-awesome/css/font-awesome.css">
+    <!-- Bootstrap Fileinput -->
+    <link rel="stylesheet" href="/hotlibrary/bower_components/bootstrap-fileinput/css/fileinput.min.css">
     <!-- My CSS -->
     <link rel="stylesheet" href="/hotlibrary/css/style.css">
   </head>
@@ -29,6 +31,20 @@
         <div class="collapse navbar-collapse" id="menu-hotlibrary">
           <ul class="nav navbar-nav">
             <li><a href="#!/usuario">Usuários</a></li>
+            <li class="dropdown">
+              <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Biblioteca <span class="caret"></span></a>
+              <ul class="dropdown-menu dropdown-hotlibrary">
+                <li><a href="">Ver todos</a></li>
+                <li><a href="">Adicionar livro</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Livros <span class="caret"></span></a>
+              <ul class="dropdown-menu dropdown-hotlibrary">
+                <li><a href="#!/usuario">Todos os livros</a></li>
+                <li><a href="#!/livro/cadastrar">Cadastrar Livro</a></li>
+              </ul>
+            </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a ng-click="logout()"><i class="fa fa-sign-out" aria-hidden="true"> Sair</i></a></li>
@@ -45,6 +61,8 @@
     <script type="text/javascript" src="/hotlibrary/bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
     <!-- Bootstrap Javascript -->
     <script type="text/javascript" src="/hotlibrary/bower_components/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
+    <!-- Bootstrap FileInput -->
+    <script type="text/javascript" src="/hotlibrary/bower_components/bootstrap-fileinput/js/fileinput.min.js" charset="utf-8"></script>
     <!-- Angular Core -->
     <script type="text/javascript" src="/hotlibrary/bower_components/angular/angular.min.js" charset="utf-8"></script>
     <!-- Angular Modules -->
@@ -65,6 +83,7 @@
     <script type="text/javascript" src="/hotlibrary/js/directive/notExistEmail.js" charset="utf-8"></script>
     <script type="text/javascript" src="/hotlibrary/js/directive/hotAlert.js" charset="utf-8"></script>
     <script type="text/javascript" src="/hotlibrary/js/directive/GetAddressByZipcode.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/hotlibrary/js/directive/FileModel.js" charset="utf-8"></script>
     <!-- Angular Services -->
     <script type="text/javascript" src="/hotlibrary/js/services/levelAPI.js" charset="utf-8"></script>
     <script type="text/javascript" src="/hotlibrary/js/services/config.js" charset="utf-8"></script>
@@ -83,5 +102,6 @@
     <script type="text/javascript" src="/hotlibrary/js/controller/UserList.js" charset="utf-8"></script>
     <script type="text/javascript" src="/hotlibrary/js/controller/Menu.js" charset="utf-8"></script>
     <script type="text/javascript" src="/hotlibrary/js/controller/UserEdit.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/hotlibrary/js/controller/BookRegistration.js" charset="utf-8"></script>
   </body>
 </html>
