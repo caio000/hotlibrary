@@ -60,6 +60,22 @@ hotlibrary.config(function ($routeProvider, Application) {
     templateUrl: Application.baseURL + 'template/view/book-form.html',
     controller: "BookRegistration",
     hasMenu: true,
+    requiresAuthentication: true,
+    permissions: [1,2],
+    resolve: {
+      authors: function (authorAPI) {
+        return authorAPI.getAll();
+      }
+    }
+  });
+
+  // Rotas de categoria ========================================================
+  $routeProvider.when('/categoria',{
+    templateUrl: Application.baseURL + 'template/view/category-index.html',
+    controller: 'Category',
+    hasMenu: true,
+    requiresAuthentication: true,
+    permissions: [1,2],
   });
 
   // Rotas de erro =============================================================

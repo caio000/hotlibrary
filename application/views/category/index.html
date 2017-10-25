@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
+    <h2 class="page-header text-center">{{ Page.title }}</h2>
+
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+      <form ng-submit="register(category,$event)" class="form-horizontal" name="form" novalidate autocomplete="off">
+        <div class="form-group" ng-class="{'has-error': (form.$submitted || form.name.$dirty) && form.name.$invalid, 'has-success':form.name.$valid}">
+          <label for="name" class="control-label">Categoria:</label>
+          <input id="name" class="form-control" type="text" name="name" only-letters="" ng-model="category.name" ng-maxlength="50" ng-required="true">
+          <div ng-messages="form.name.$error" ng-if="form.$submitted || form.name.$dirty">
+            <span class="help-block" ng-message="required"><i class="fa fa-exclamation-circle"> O campo categoria é obrigatório</i></span>
+            <span class="help-block" ng-message="onlyLetters"><i class="fa fa-exclamation-circle"> O campo categoria aceita apenas letras</i></span>
+            <span class="help-block" ng-message="maxlength"><i class="fa fa-exclamation-circle"> A categoria deve possuir no maximo 50 caracteres</i></span>
+            <span class="help-block" ng-if="form.name.$valid"><i class="fa fa-check"></i></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <hot-alert></hot-alert>
+        </div>
+
+        <div class="form-group">
+          <button class="btn btn-hotlibrary btn-block" type="submit" name="btnSubmit" ng-disabled="registration"><i ng-class="{'fa fa-plus':!registration, 'fa fa-spinner fa-pulse': registration}"></i> Cadastrar</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
