@@ -25,8 +25,15 @@ hotlibrary.controller('Login', function ($scope, $document, Application, Auth, $
         if ( User != null ) {
           Auth.setCredentials(User);
 
-          if (User.level == 1)
-            $location.path('/usuario');
+          switch (parseInt(User.level)) {
+            case 1:
+              $location.path('/usuario');
+              break;
+            case 2:
+              $location.path('/livro/cadastrar');
+              break;
+          }
+
         } else {
           $scope.$emit('alert',{type:'danger',msg:'Email ou senha incorretos'});
         }
