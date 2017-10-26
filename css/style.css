@@ -1,4 +1,9 @@
 
+.btn-clean {
+  background: transparent;
+  border: none;
+}
+
 .dropdown-hotlibrary {
   background-color: #8B1E01;
   border-color: #661500;

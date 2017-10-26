@@ -71,5 +71,6 @@ $route['autores/todos']['get'] = 'Author/getAll';
 // Category routes =============================================================
 $route['categoria/cadastrar']['post'] = 'Category/save';
 $route['categoria/todos']['get'] = 'Category/getAll';
+$route['categoria/deletar/(:num)']['delete'] = 'Category/delete/$1';
 // Level routes ================================================================
 $route['nivel/todos']['get'] = 'Level/getAll';

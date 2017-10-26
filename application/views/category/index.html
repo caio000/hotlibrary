@@ -41,7 +41,10 @@
             <th class="text-center table-button" ng-click="setOrder()">Categorias <i class="fa fa-sort pull-right"></i></th>
           </tr>
           <tr dir-paginate="category in categories | filter:{name:searchFilter} | orderBy:'name':order | itemsPerPage:5">
-            <td>{{ ::category.name | name }}</td>
+            <td>
+              {{ ::category.name | name }}
+              <button class="pull-right btn-clean text-danger" title="Excluir" type="button" name="bgn-delete" ng-click="delete(category, $event)"><i class="fa fa-trash"></i></button>
+            </td>
           </tr>
         </table>
 

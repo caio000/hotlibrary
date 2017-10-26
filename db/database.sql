@@ -95,8 +95,9 @@ CREATE TABLE "PublishingCompany" (
 
 DROP TABLE IF EXISTS "Category";
 CREATE TABLE "Category" (
-  "id"    SERIAL      NOT NULL,
-  "name"  VARCHAR(50) NOT NULL,
+  "id"      SERIAL      NOT NULL,
+  "name"    VARCHAR(50) NOT NULL,
+  "deleted" BOOLEAN     NOT NULL  DEFAULT FALSE,
   PRIMARY KEY ("id")
 );
 

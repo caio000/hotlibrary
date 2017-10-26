@@ -1,5 +1,9 @@
 hotlibrary.factory('categoryAPI', function($http,Application) {
 
+  var _delete = function (id) {
+    return $http.delete(Application.baseURL + 'categoria/deletar/' + id);
+  }
+
   var _save = function (category) {
     return $http.post(Application.baseURL + 'categoria/cadastrar', category);
   }
@@ -11,5 +15,6 @@ hotlibrary.factory('categoryAPI', function($http,Application) {
   return {
     save: _save,
     getAll: _getAll,
+    delete: _delete,
   }
 })
