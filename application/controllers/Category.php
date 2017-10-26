@@ -8,6 +8,17 @@
 class Category extends CI_Controller {
 
   /**
+   * Exibe todas as categoria cadastradas no sistema
+   * @author Caio de Freitas Adriano
+   * @since 2017/10/26
+   * @return Json - retorna um array com todos os
+   */
+  public function getAll() {
+    $categories = $this->Category_model->getAll();
+    print(json_encode($categories));
+  }
+
+  /**
    * Cadastra uma nova categoria no sistema.
    * @author Caio de Freitas Adriano
    * @since 2017/10/25

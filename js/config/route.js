@@ -76,6 +76,11 @@ hotlibrary.config(function ($routeProvider, Application) {
     hasMenu: true,
     requiresAuthentication: true,
     permissions: [1,2],
+    resolve: {
+      categories: function (categoryAPI) {
+        return categoryAPI.getAll();
+      }
+    },
   });
 
   // Rotas de erro =============================================================

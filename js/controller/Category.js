@@ -1,7 +1,13 @@
-hotlibrary.controller('Category',function($scope,categoryAPI){
+hotlibrary.controller('Category',function($scope,categoryAPI,categories){
   var init = function () {
     $scope.Page = {title: 'Hotlibrary - Categoria'};
     $scope.register = _register;
+    $scope.categories = categories.data;
+    $scope.setOrder = _setOrder;
+  }
+
+  var _setOrder = function () {
+    $scope.order = !$scope.order;
   }
 
   var _register  = function (category) {
@@ -18,6 +24,9 @@ hotlibrary.controller('Category',function($scope,categoryAPI){
           $scope.$emit('alert',options);
           delete $scope.category;
           $scope.form.$setPristine();
+
+          // Adiciona ao array de categorias a nova categoria cadastrada.
+          $scope.categories.push(category);
           $scope.registration = false;
         },function error () {
           $scope.$emit('alert',{type:'warning',title:'Ops!',msg:'Problemas de conexão com o servidor'});

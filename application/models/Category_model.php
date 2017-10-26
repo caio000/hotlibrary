@@ -8,6 +8,17 @@
 class Category_model extends CI_Model {
 
   /**
+   * Busca toda as categorias cadastradas no banco de dados.
+   * @author Caio de Freitas Adriano
+   * @since 2017/10/26
+   * @return Array - Retona um array de objetos category com os dados da categoria.
+   */
+  public function getAll() {
+    $query = $this->db->get("Category");
+    return $query->result();
+  }
+
+  /**
    * Insere uma nova categoria no banco de dados.
    * @author Caio de Freitas Adriano
    * @since 2017/10/25
