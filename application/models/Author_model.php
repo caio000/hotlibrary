@@ -23,6 +23,7 @@ class Author_model extends CI_Model {
    * @return ARRAY - Retorna um vetor com objetos Author com os dados dos autores
    */
   public function getAll() {
+    $this->db->where('deleted',false);
     $query = $this->db->get("Author");
 
     return $query->result();

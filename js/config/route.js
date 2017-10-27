@@ -89,7 +89,12 @@ hotlibrary.config(function ($routeProvider, Application) {
     controller: 'Author',
     hasMenu: true,
     requiresAuthentication: true,
-    permissions: [1,2]
+    permissions: [1,2],
+    resolve: {
+      authors: function (authorAPI) {
+        return authorAPI.getAll();
+      }
+    }
   });
 
   // Rotas de erro =============================================================

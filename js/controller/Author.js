@@ -1,8 +1,13 @@
-hotlibrary.controller('Author',function ($scope,authorAPI){
+hotlibrary.controller('Author',function ($scope,authorAPI,authors){
   var init = function () {
-    console.log('controller carregado');
     $scope.Page = {title:'Hotlibrary - Autores'};
     $scope.register = _register;
+    $scope.authors = authors.data;
+    $scope.setOrder = _setOrder;
+  }
+
+  var _setOrder = function () {
+    $scope.order = !$scope.order;
   }
 
   var _register = function (author, event) {
