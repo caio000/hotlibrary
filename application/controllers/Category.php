@@ -74,7 +74,7 @@ class Category extends CI_Controller {
 
 
     $result = $this->Category_model->insert($category);
-    $msg = ($result) ? 'Cadastrou uma nova categoria' : 'Ocorreu uma erro ao cadastrar uma categoria';
+    $msg = ($result) ? 'Cadastrou uma nova categoria' : 'Ocorreu um erro ao cadastrar uma categoria';
     $log = createLog($token[0],'Cadastrou uma nova categoria');
     $this->Log_model->insert($log);
 

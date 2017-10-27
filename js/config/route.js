@@ -83,6 +83,15 @@ hotlibrary.config(function ($routeProvider, Application) {
     },
   });
 
+  // Rotas de autor ============================================================
+  $routeProvider.when('/autor',{
+    templateUrl: Application.baseURL + 'template/view/author-index.html',
+    controller: 'Author',
+    hasMenu: true,
+    requiresAuthentication: true,
+    permissions: [1,2]
+  });
+
   // Rotas de erro =============================================================
 
   $routeProvider.when('/erro/acesso_negado',{
