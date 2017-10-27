@@ -43,7 +43,7 @@
           <tr dir-paginate="author in authors | filter:{name:searchFilter} | orderBy:'name':order | itemsPerPage:5">
             <td>
               {{ ::author.name | name }}
-              <button class="pull-right btn-clean text-danger" title="Excluir" type="button" name="bgn-delete" ng-click="delete(category, $event)"><i class="fa fa-trash"></i></button>
+              <button class="pull-right btn-clean text-danger" title="Excluir" type="button" name="bgn-delete" ng-click="delete(author, $event)"><i class="fa fa-trash"></i></button>
             </td>
           </tr>
         </table>

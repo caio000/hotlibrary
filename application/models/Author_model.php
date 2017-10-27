@@ -6,6 +6,40 @@
 class Author_model extends CI_Model {
 
   /**
+   * Verifica se exise alguma relação entre livros e o autor informado.
+   * @author Caio de Freitas Adriano
+   * @since 2017/10/27
+   * @param INT - id do autor
+   * @return BOOlEAN - returna true caso exista alguma relação entre livros e o
+   * autor informado.
+   */
+  public function has_book($id) {
+    $this->db->where('author',$id);
+    $query = $this->db->get('Book_Author');
+
+    return ($query->num_rows() >= 1) ? true : false;
+  }
+
+  /**
+   * altera o status de deletado para true.
+   * @author Caio de Freitas Adriano
+   * @since 2017/10/27
+   * @param INT - id do autor
+   * @return BOOLEAN - retorna true caso o status seja alterado.
+   */
+  public function delete ($id) {
+    $query = false;
+
+    if (!$this->has_book($id)) {
+      $this->db->set('deleted',true);
+      $this->db->where('id',$id);
+      $query = $this->db->update("Author");
+    }
+
+    return $query;
+  }
+
+  /**
    * Insere um novo(a) autor(a) no banco de dados
    * @author Caio de Freitas Adriano
    * @since 2017/10/27

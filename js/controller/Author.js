@@ -4,6 +4,32 @@ hotlibrary.controller('Author',function ($scope,authorAPI,authors){
     $scope.register = _register;
     $scope.authors = authors.data;
     $scope.setOrder = _setOrder;
+    $scope.delete = _delete;
+  }
+
+  var _delete = function (author, event) {
+    var element = event.currentTarget;
+    element.firstChild.className = 'fa fa-spinner fa-pulse';
+
+    authorAPI.delete(author.id).then(
+      function success (response) {
+
+        if (response.data.result) {
+          config = {type:'success',msg:'Autor(a) deletado'};
+          authorAPI.getAll().then(function (response) {
+            $scope.authors = response.data;
+          });
+        } else {
+          config = {type:'danger',title:'Ops!',msg:'Ocorreu um erro ao deletar o(a) autor(a)'}
+        }
+
+        $scope.$emit('alert',config);
+        element.firstChild.className = 'fa fa-trash';
+      }, function error (response) {
+        element.firstChild.className = 'fa fa-trash';
+        $scope.$emit('alert',{type:'warning',title:'Ops!',msg:'Problemas para se conectar ao servidor, tente novamente mais tarde'});
+      }
+    );
   }
 
   var _setOrder = function () {

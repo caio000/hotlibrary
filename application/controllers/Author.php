@@ -5,6 +5,33 @@
   class Author extends CI_Controller {
 
     /**
+     * deleta uma autor do sistema
+     * @author Caio de Freitas Adriano
+     * @since 2017/10/27
+     * @param INT - id do autor
+     * @return Json - retona um objeto json com os dados de resposta de requisição
+     */
+    public function delete ($id) {
+      // pega os dados do usuário que vieram da requisição
+      $token = getToken();
+      $this->auth->setUserLevel($token[3]);
+      $this->auth->setPagePermission([1,2]);
+      // verifica se o usuário tem permissão para utilizar o serviço
+      if (!$this->auth->hasPermission()) {
+        header('HTTP/1.1 401 Unauthorized');
+        exit();
+      }
+
+      $result = $this->Author_model->delete($id);
+      $msg = ($result) ? 'Deletou um(a) autor(a)' : 'Ocorreu um erro ao deletar o(a) autor(a)';
+      $log = createLog($token[0],$msg);
+      $this->Log_model->insert($log);
+
+      $response['result'] = $result;
+      print(json_encode($response));
+    }
+
+    /**
      * Cadastra um novo(a) autor(a) no sistema.
      * @author Caio de Freitas Adriano
      * @since 2017/10/27

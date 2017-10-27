@@ -69,6 +69,7 @@ $route['valida/token/(:any)'] = 'Token/checkToken/$1';
 // Author routes ===============================================================
 $route['autor/cadastrar']['post'] = "Author/save";
 $route['autores/todos']['get'] = 'Author/getAll';
+$route['autor/deletar/(:num)']['delete'] = "Author/delete/$1";
 // Category routes =============================================================
 $route['categoria/cadastrar']['post'] = 'Category/save';
 $route['categoria/todos']['get'] = 'Category/getAll';
