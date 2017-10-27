@@ -8,7 +8,7 @@ hotlibrary.controller('Category',function($scope,categoryAPI,categories){
   }
 
   var _delete = function (category, event) {
-    var element = event.target;
+    var element = event.currentTarget;
     element.firstChild.className = 'fa fa-spinner fa-pulse';
 
     categoryAPI.delete(category.id).then(

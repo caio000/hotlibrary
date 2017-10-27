@@ -31,6 +31,7 @@
     "angular-cookies": "1.6.5",
     "angular-messages": "1.6.5",
     "angular-viacep": "^1.1.2",
-    "angularUtils-pagination": "angular-utils-pagination#^0.11.1"
+    "angularUtils-pagination": "angular-utils-pagination#^0.11.1",
+    "bootstrap-fileinput": "^4.4.5"
   }
 }
