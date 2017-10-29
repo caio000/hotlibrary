@@ -32,12 +32,37 @@ class PublishingCompany_model extends CI_Model {
     return $this->db->insert('PublishingCompany',$PublishingCompany);
   }
 
+  /**
+   * verifica se exista relação entre algum livro com a editora
+   * @author caio de Freitas Adriano
+   * @since 2017/10/28
+   * @param INTEGER - id da editora
+   * @return Boolean - retorna true caso exista algum relacionamento.
+   */
   public function hasBook ($PublishingCompany) {
-    // TODO: Criar função que verifica se exite relação entre editora e livros
+    $this->db->where('publishingCompany',$PublishingCompany);
+    $query = $this->db->get('Book');
+
+    return ($query->num_rows() >= 1) ? true : false;
   }
 
+  /**
+   * Altera o status de deletado para true.
+   * @author Caio de Freitas Adriano
+   * @since 2017/10/28
+   * @param INTEGER - id da editora
+   * @return Boolean - returna true o status seja alterado
+   */
   public function delete ($PublishingCompany) {
-    // TODO: Criar função para "deletar" uma editora
+    $query = false;
+
+    if (!$this->hasBook($PublishingCompany)) {
+      $this->db->set('deleted',true);
+      $this->db->where('id',$PublishingCompany);
+      $query = $this->db->update('PublishingCompany');
+    }
+
+    return $query;
   }
 }
 

@@ -12,7 +12,33 @@ hotlibrary.controller('PublishingCompany',function($scope,publishingCompanies,pu
     $scope.order = !$scope.order;
   }
 
-  var _delete = function (publishingCompany) {
+  var _delete = function (publishingCompany, event) {
+
+    var element = event.currentTarget;
+    element.firstChild.className = 'fa fa-spinner fa-pulse';
+
+    publishingCompanyAPI.delete(publishingCompany.id).then(
+      function success (response) {
+
+        if (response.data.result) {
+          config = {type:'success',msg:'Editora deletada'};
+
+          // atualiza a lista de editoras
+          publishingCompanyAPI.getAll().then(function (response) {
+            $scope.publishingCompanies = response.data;
+          });
+        } else {
+          config = {type:'danger',title:'Ops!',msg:'Ocorreu um problema ao deletar a editora'};
+        }
+
+        $scope.$emit('alert',config);
+        element.firstChild.className = 'fa fa-trash';
+      }, function error () {
+        config = {type:'warning',title:'Ops!',msg:'Problemas de conexão com o servidor'};
+        $scope.$emit('alert',config);
+        element.firstChild.className = 'fa fa-trash';
+      }
+    );
 
   }
 
