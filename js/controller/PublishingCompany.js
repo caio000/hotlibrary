@@ -1,14 +1,14 @@
 hotlibrary.controller('PublishingCompany',function($scope,publishingCompanies,publishingCompanyAPI) {
 
   var init  = function () {
-    console.log('carregdo controller');
     $scope.Page = {title:'Hotlibrary - Editoras'};
+    $scope.publishingCompanies = publishingCompanies.data;
     $scope.register = _register;
-    $scope.order = _order;
+    $scope.setOrder = _setOrder;
     $scope.delete = _delete;
   }
 
-  var _order = function () {
+  var _setOrder = function () {
     $scope.order = !$scope.order;
   }
 

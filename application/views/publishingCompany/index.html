@@ -25,12 +25,12 @@
 
     <div class="col-xs-12 col-sm-12 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
 
-      <label for="">Categorias cadastradas</label>
+      <label>Editoras cadastradas</label>
       <div class="row" style="margin-top:10px;margin-bottom:10px;">
         <div class="col-md-12">
           <div class="input-group">
             <div class="input-group-addon"><i class="fa fa-search"></i></div>
-            <input id="searchFilter" class="form-control" ng-model="searchFilter" type="text" name="searchFilter" placeholder="Procure uma categoria pelo nome...">
+            <input id="searchFilter" class="form-control" ng-model="searchFilter" type="text" name="searchFilter" placeholder="Procure uma editora pelo nome...">
           </div>
         </div>
       </div>
@@ -38,12 +38,12 @@
       <div class="table-responsive">
         <table class="table table-bordered table-hover">
           <tr>
-            <th class="text-center table-button" ng-click="setOrder()">Categorias <i class="fa fa-sort pull-right"></i></th>
+            <th class="text-center table-button" ng-click="setOrder()">Editoras <i class="fa fa-sort pull-right"></i></th>
           </tr>
-          <tr dir-paginate="category in categories | filter:{name:searchFilter} | orderBy:'name':order | itemsPerPage:5">
+          <tr dir-paginate="publishingCompany in publishingCompanies | filter:{name:searchFilter} | orderBy:'name':order | itemsPerPage:5">
             <td>
-              {{ ::category.name | name }}
-              <button class="pull-right btn-clean text-danger" title="Excluir" type="button" name="bgn-delete" ng-click="delete(category, $event)"><i class="fa fa-trash"></i></button>
+              {{ ::publishingCompany.name | name }}
+              <button class="pull-right btn-clean text-danger" title="Excluir" type="button" name="bgn-delete" ng-click="delete(publishingCompany, $event)"><i class="fa fa-trash"></i></button>
             </td>
           </tr>
         </table>
