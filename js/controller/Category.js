@@ -34,7 +34,6 @@ hotlibrary.controller('Category',function($scope,categoryAPI,categories){
         }
 
         $scope.$emit('alert',config);
-        // TODO: comportamento para caso a requisição sejá executada
       }, function error () {
         element.firstChild.className = 'fa fa-trash';
         $scope.$emit('alert',{type:'warning',title:'Ops!',msg:'Problemas para se conectar ao servidor, tente novamente mais tarde'});

@@ -97,6 +97,19 @@ hotlibrary.config(function ($routeProvider, Application) {
     }
   });
 
+  // Rotas de editoras =========================================================
+  $routeProvider.when('/editora',{
+    templateUrl: Application.baseURL + 'template/view/publishingCompany-index.html',
+    controller: 'PublishingCompany',
+    hasMenu: true,
+    requiresAuthentication: true,
+    permissions: [1,2],
+    resolve: {
+      publishingCompanies: function(publishingCompanyAPI) {
+        return publishingCompanyAPI.getAll();
+      }
+    }
+  });
   // Rotas de erro =============================================================
 
   $routeProvider.when('/erro/acesso_negado',{

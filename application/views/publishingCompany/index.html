@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
+    <h2 class="page-header text-center">{{ Page.title }}</h2>
+
+    <hot-alert></hot-alert>
+
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+      <form ng-submit="register(publishingCompany)" class="form-horizontal" name="form" novalidate autocomplete="off">
+        <div class="form-group" ng-class="{'has-error': (form.$submitted || form.name.$dirty) && form.name.$invalid, 'has-success':form.name.$valid}">
+          <label for="name" class="control-label">Editora:</label>
+          <input id="name" class="form-control" type="text" name="name" only-letters="" ng-model="publishingCompany.name" ng-maxlength="100" ng-required="true" placeholder="Ex..: NerdBooks">
+          <div ng-messages="form.name.$error" ng-if="form.$submitted || form.name.$dirty">
+            <span class="help-block" ng-message="required"><i class="fa fa-exclamation-circle"> O campo editora é obrigatório</i></span>
+            <span class="help-block" ng-message="onlyLetters"><i class="fa fa-exclamation-circle"> O campo editora aceita apenas letras</i></span>
+            <span class="help-block" ng-message="maxlength"><i class="fa fa-exclamation-circle"> A editora deve possuir no maximo 100 caracteres</i></span>
+            <span class="help-block" ng-if="form.name.$valid"><i class="fa fa-check"></i></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <button class="btn btn-hotlibrary btn-block" type="submit" name="btnSubmit" ng-disabled="registration"><i ng-class="{'fa fa-plus':!registration, 'fa fa-spinner fa-pulse': registration}"></i> Cadastrar</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
+
+      <label for="">Categorias cadastradas</label>
+      <div class="row" style="margin-top:10px;margin-bottom:10px;">
+        <div class="col-md-12">
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+            <input id="searchFilter" class="form-control" ng-model="searchFilter" type="text" name="searchFilter" placeholder="Procure uma categoria pelo nome...">
+          </div>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <tr>
+            <th class="text-center table-button" ng-click="setOrder()">Categorias <i class="fa fa-sort pull-right"></i></th>
+          </tr>
+          <tr dir-paginate="category in categories | filter:{name:searchFilter} | orderBy:'name':order | itemsPerPage:5">
+            <td>
+              {{ ::category.name | name }}
+              <button class="pull-right btn-clean text-danger" title="Excluir" type="button" name="bgn-delete" ng-click="delete(category, $event)"><i class="fa fa-trash"></i></button>
+            </td>
+          </tr>
+        </table>
+
+        <dir-pagination-controls max-size="5" boundary-links="true"></dir-pagination-controls>
+      </div>
+    </div>
+
+  </div>
+</div>

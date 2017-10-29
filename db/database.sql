@@ -89,8 +89,9 @@ CREATE TABLE "Author" (
 
 DROP TABLE IF EXISTS "PublishingCompany";
 CREATE TABLE "PublishingCompany" (
-  "id"    SERIAL        NOT NULL,
-  "name"  VARCHAR(100)  NOT NULL,
+  "id"      SERIAL        NOT NULL,
+  "name"    VARCHAR(100)  NOT NULL,
+  "deleted" BOOLEAN       NOT NULL  DEFAULT FALSE,
   PRIMARY KEY ("id")
 );
 

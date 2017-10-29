@@ -65,7 +65,10 @@ $route['usuario/desbloquear']['patch'] = 'User/unlock';
 $route['usuario/editar']['patch'] = "User/edit";
 
 $route['valida/token/(:any)'] = 'Token/checkToken/$1';
-
+// PublishingCompany routes ====================================================
+$route['editora/todos']['get'] = "PublishingCompany/getAll";
+$route['editora/cadastrar']['post'] = "PublishingCompany/save";
+$route['editora/deletar/(:num)']['delete'] = "PublishingCompany/delete/$1";
 // Author routes ===============================================================
 $route['autor/cadastrar']['post'] = "Author/save";
 $route['autores/todos']['get'] = 'Author/getAll';

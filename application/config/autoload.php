@@ -143,5 +143,6 @@ $autoload['model'] = array(
   'Address_model',
   'Zipcode_model',
   'Author_model',
-  'Category_model'
+  'Category_model',
+  'PublishingCompany_model'
 );
