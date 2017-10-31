@@ -1,3 +1,11 @@
+.multiSelect .multiSelectItem {
+  transition: border-color 0.5s;
+}
+.multiSelect .multiSelectItem:hover{
+  border-color: #661500 !important;
+  background: transparent !important;
+  color: #333 !important;
+}
 
 .btn-clean {
   background: transparent;

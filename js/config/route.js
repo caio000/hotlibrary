@@ -65,6 +65,12 @@ hotlibrary.config(function ($routeProvider, Application) {
     resolve: {
       authors: function (authorAPI) {
         return authorAPI.getAll();
+      },
+      publishingCompanies: function(publishingCompanyAPI) {
+        return publishingCompanyAPI.getAll();
+      },
+      categories: function(categoryAPI) {
+        return categoryAPI.getAll();
       }
     }
   });
