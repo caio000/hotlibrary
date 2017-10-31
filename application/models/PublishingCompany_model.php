@@ -14,8 +14,11 @@ class PublishingCompany_model extends CI_Model {
    * @return ARRAY - Retorna um array de objetos PublishingCompany com os dados
    * das editoras.
    */
-  public function getAll () {
+  public function getAll ($order=null) {
     $this->db->where('deleted',false);
+    if ($order) {
+      $this->db->order_by($order->column,$order->type);
+    }
     $query = $this->db->get("PublishingCompany");
 
     return $query->result();

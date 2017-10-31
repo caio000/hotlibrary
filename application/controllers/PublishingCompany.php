@@ -48,7 +48,11 @@ class PublishingCompany extends CI_Controller {
    * @return Json - retona um json com todas as editoras cadastradas no sistema.
    */
   public function getAll() {
-    $publishingCompanies = $this->PublishingCompany_model->getAll();
+    $order = new stdClass();
+    $order->column = 'name';
+    $order->type = "asc";
+
+    $publishingCompanies = $this->PublishingCompany_model->getAll($order);
     print(json_encode($publishingCompanies));
   }
 

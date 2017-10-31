@@ -69,7 +69,10 @@
      * @return Json - retorna um json com todos os autores cadastrados
      */
     public function getAll () {
-      $authors = $this->Author_model->getAll();
+      $order = new stdClass();
+      $order->column = 'name';
+      $order->type = 'asc';
+      $authors = $this->Author_model->getAll($order);
 
       print(json_encode($authors));
     }

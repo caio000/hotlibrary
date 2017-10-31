@@ -46,7 +46,11 @@ class Category extends CI_Controller {
    * @return Json - retorna um array com todos os
    */
   public function getAll() {
-    $categories = $this->Category_model->getAll();
+    $order = new stdClass();
+    $order->column = 'name';
+    $order->type = 'asc';
+
+    $categories = $this->Category_model->getAll($order);
     print(json_encode($categories));
   }
 
