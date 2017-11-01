@@ -3,10 +3,6 @@
 
     <h2 class="page-header text-center">{{ Page.title }}</h2>
 
-    <pre>
-      {{ book | json }}
-    </pre>
-
     <form name="bookForm" class="form-horizontal" ng-submit="isEdit ? edit(book) : register(book)" enctype="multipart/form-data" autocomplete="off" novalidate>
       <div class="col-md-6">
         <div class="form-group" ng-class="{'has-error':(bookForm.$submitted || bookForm.name.$dirty) && bookForm.name.$invalid, 'has-success':bookForm.name.$valid}">
@@ -105,6 +101,10 @@
       </div>
 
       <div class="col-md-12">
+        <div class="form-group">
+          <hot-alert></hot-alert>
+        </div>
+        
         <div class="form-group">
           <button class="btn btn-hotlibrary btn-lg btn-block" type="submit" name="btn-submit">Cadastrar</button>
         </div>

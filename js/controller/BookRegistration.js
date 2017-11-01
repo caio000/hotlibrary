@@ -1,4 +1,4 @@
-hotlibrary.controller('BookRegistration',function ($scope,$document,authors,publishingCompanies,categories,$filter) {
+hotlibrary.controller('BookRegistration',function ($scope,$document,authors,publishingCompanies,categories,bookAPI,$filter) {
 
   var init = function () {
     $document.find("#cover").fileinput({
@@ -48,8 +48,33 @@ hotlibrary.controller('BookRegistration',function ($scope,$document,authors,publ
 
   // envia os dados para o cadastro do livro
   var register = function (book) {
-    console.log(book);
 
+    if ($scope.bookForm.$valid) {
+      var formData = new FormData();
+      var file = book.cover[0]
+      formData.append('cover',file);
+
+      // envia os dados do livro para serem salvos
+      bookAPI.save(book).then(
+        function success (response) {
+          if (response.data.result) {
+            if (file) {
+              // Faz o upload da imagem
+              bookAPI.saveCover(formData).then(function success (response) {
+                var msg = (response.data.result) ? 'Livro cadastrado com sucesso' : 'Livro cadastrado, porém não foi possivel carregar a imagem';
+                config = {type:'success',msg:msg};
+                $scope.$emit('alert',config);
+              });
+            } else {
+              $scope.$emit('alert',{type:'success',msg:'Livro cadastrado com sucesso'});
+            }
+          } else {
+            $scope.$emit('alert',{type:'danger',title:'Ops!',msg:'Ocorreu um erro ao cadastrar um livro'});
+          }
+      }, function error () {
+        $scope.$emit('alert',{type:'warning',title:'Ops!',msg:'Problemas para se conectar ao servidor, tente novamente mais tarde'});
+      });
+    }
     // TODO: Criar função para cadastrar livro
   }
 
