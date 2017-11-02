@@ -66,7 +66,7 @@
 
         <div class="form-group">
           <div class="row">
-            <div class="col-md-6" ng-class="{'has-error':(bookForm.publishDate.$dirty || bookForm.$submitted) && bookForm.publishDate.$invalid, 'has-success':bookForm.publishDate.$valid}">
+            <div class="col-md-4 col-lg-4" ng-class="{'has-error':(bookForm.publishDate.$dirty || bookForm.$submitted) && bookForm.publishDate.$invalid, 'has-success':bookForm.publishDate.$valid}">
               <label class="control-label" for="publishDate">Data de lançamento:</label>
               <input id="publishDate" class="form-control" type="text" name="publishDate" placeholder="Ex..: 25/10/1985" ng-model="book.publishDate" ng-pattern="/[0-9]{2}\/[0-9]{2}\/[0-9]{4}/" ng-required="true" date>
               <div ng-messages="bookForm.publishDate.$error" ng-if="bookForm.$submitted || bookForm.publishDate.$dirty">
@@ -76,13 +76,22 @@
                 <span ng-if="bookForm.publishDate.$valid" class="help-block"><i class="fa fa-check"></i></span>
               </div>
             </div>
-            <div class="col-md-6" ng-class="{'has-error':bookForm.edition.$invalid,'has-success':bookForm.edition.$valid && bookForm.edition.$dirty}">
+            <div class="col-md-4 col-lg-4" ng-class="{'has-error':bookForm.edition.$invalid,'has-success':bookForm.edition.$valid && bookForm.edition.$dirty}">
               <label for="edition" class="control-label">Edição</label>
               <input id="edition" class="form-control" type="number" name="edition" placeholder="Ex..: 2" min="1" ng-trim="true" ng-model="book.edition">
               <div ng-messages="bookForm.edition.$error">
                 <span class="help-block" ng-message="number"><i class="fa fa-exclamation-circle"> Informe apenas números</i></span>
                 <span class="help-block" ng-message="min"><i class="fa fa-exclamation-circle"> O número da edição não pode ser negativo</i></span>
                 <span class="help-block" ng-if="bookForm.edition.$valid && bookForm.edition.$dirty"><i class="fa fa-check"></i></span>
+              </div>
+            </div>
+            <div class="col-md-4 col-lg-4" ng-class="{'has-error':bookForm.pages.$invalid,'has-success':bookForm.pages.$valid && bookForm.pages.$dirty}">
+              <label class="control-label" for="pages">Páginas:</label>
+              <input id="pages" class="form-control" type="number" name="pages" placeholder="Ex..:450" min="1" ng-model="book.pages" ng-trim="true">
+              <div ng-messages="bookForm.pages.$error" ng-if="bookForm.pages.$dirty">
+                <span class="help-block" ng-message="number"><i class="fa fa-exclamation-circle"> Informe apenas números</i></span>
+                <span class="help-block" ng-message="min"><i class="fa fa-exclamation-circle"> O número de páginas deve ser positivo</i></span>
+                <span class="help-block" ng-if="bookForm.pages.$valid"><i class="fa fa-check"></i></span>
               </div>
             </div>
           </div>
@@ -108,7 +117,7 @@
         </div>
 
         <div class="form-group">
-          <button class="btn btn-hotlibrary btn-lg btn-block" type="submit" name="btn-submit">Cadastrar</button>
+          <button class="btn btn-hotlibrary btn-lg btn-block" type="submit" name="btn-submit" ng-disabled="registration">Cadastrar <i ng-if="registration" class="fa fa-spinner fa-pulse"></i></button>
         </div>
       </div>
     </form>
