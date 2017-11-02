@@ -89,7 +89,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('log','token','url','html');
+$autoload['helper'] = array('log','token','url','html','brdate');
 
 /*
 | -------------------------------------------------------------------
@@ -144,5 +144,6 @@ $autoload['model'] = array(
   'Zipcode_model',
   'Author_model',
   'Category_model',
-  'PublishingCompany_model'
+  'PublishingCompany_model',
+  'Book_model'
 );

@@ -51,8 +51,9 @@ hotlibrary.controller('BookRegistration',function ($scope,$document,authors,publ
 
     if ($scope.bookForm.$valid) {
       var formData = new FormData();
-      var file = book.cover[0]
+      var file = book.cover[0];
       formData.append('cover',file);
+      book.cover = file.name;
 
       // envia os dados do livro para serem salvos
       bookAPI.save(book).then(
@@ -68,14 +69,17 @@ hotlibrary.controller('BookRegistration',function ($scope,$document,authors,publ
             } else {
               $scope.$emit('alert',{type:'success',msg:'Livro cadastrado com sucesso'});
             }
+            book.cover = {"0":file};
           } else {
+            book.cover = {"0":file};
             $scope.$emit('alert',{type:'danger',title:'Ops!',msg:'Ocorreu um erro ao cadastrar um livro'});
           }
+
       }, function error () {
+        book.cover = {"0":file};
         $scope.$emit('alert',{type:'warning',title:'Ops!',msg:'Problemas para se conectar ao servidor, tente novamente mais tarde'});
       });
     }
-    // TODO: Criar função para cadastrar livro
   }
 
   init();
