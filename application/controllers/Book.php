@@ -7,6 +7,11 @@
  */
 class Book extends CI_Controller {
 
+  public function getAll () {
+    $books = $this->Book_model->getAll();
+    print(json_encode($books));
+  }
+
   /**
    * função para cadastrar um novo livro no sistema
    * @author Caio de Freitas Adriano

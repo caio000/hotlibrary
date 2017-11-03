@@ -1,3 +1,23 @@
+.thumbnail img {
+  height: 380px;
+}
+
+.thumbnail {
+  height: 523px;
+}
+
+.thumbnail .btn {
+  position: absolute;
+  left: 5%;
+  top: 92%;
+  width: 90%;
+}
+
+.thumbnail:hover {
+  border-color: #661500;
+  box-shadow: 0px 5px 10px black;
+}
+
 .multiSelect .multiSelectItem {
   transition: border-color 0.5s;
 }

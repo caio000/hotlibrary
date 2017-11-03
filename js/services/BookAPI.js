@@ -16,7 +16,7 @@ hotlibrary.factory('bookAPI', function($http,Application) {
   }
 
   var _getAll = function () {
-    // TODO: Colocar a url para o serviço para buscar todos os livros
+    return $http.get(Application.baseURL + 'livro/todos');
   }
 
   var _getById = function () {

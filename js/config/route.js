@@ -74,6 +74,18 @@ hotlibrary.config(function ($routeProvider, Application) {
       }
     }
   });
+  $routeProvider.when('/livro',{
+    templateUrl: Application.baseURL + 'template/view/book-list.html',
+    controller: 'BookList',
+    hasMenu: true,
+    requiresAuthentication: true,
+    permissions: [1],
+    resolve: {
+      books: function (bookAPI) {
+        return bookAPI.getAll();
+      }
+    }
+  });
 
   // Rotas de categoria ========================================================
   $routeProvider.when('/categoria',{

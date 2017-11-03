@@ -68,6 +68,7 @@ $route['valida/token/(:any)'] = 'Token/checkToken/$1';
 // Book route ==================================================================
 $route['livro/cadastrar']['post'] = 'Book/save';
 $route['livro/upload/capa']['post'] = 'Book/saveCover';
+$route['livro/todos']['get'] = 'Book/getAll';
 // PublishingCompany routes ====================================================
 $route['editora/todos']['get'] = "PublishingCompany/getAll";
 $route['editora/cadastrar']['post'] = "PublishingCompany/save";

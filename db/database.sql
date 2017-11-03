@@ -109,10 +109,11 @@ CREATE TABLE "Book" (
   "name"              VARCHAR(150)    NOT NULL,
   "publishDate"       DATE            NOT NULL,
   "pages"             INTEGER         NULL,
-  "cover"             VARCHAR(255)    NULL,
+  "cover"             VARCHAR(255)    NULL      DEFAULT 'default.jpg',
   "edition"           INTEGER         NULL,
   "publishingCompany" INTEGER         NULL,
   "synopsis"          VARCHAR(250)    NULL,
+  "deleted"           BOOLEAN         NOT NULL  DEFAULT FALSE,
   PRIMARY KEY ("id"),
   CONSTRAINT fk_book_publishingCompany
     FOREIGN KEY ("publishingCompany") REFERENCES "PublishingCompany" ("id") ON DELETE RESTRICT ON UPDATE CASCADE

@@ -9,6 +9,17 @@
   class Book_model extends CI_Model {
 
     /**
+     * Busca todos os livros cadastrados no banco de dados
+     * @author Caio de Freitas Adriano
+     * @since 2017/11/02
+     * @return Array - Retorna um vetor com objetos Book com os dados dos livros
+     */
+    public function getAll () {
+      $this->db->where("deleted",false);
+      return $this->db->get("Book")->result();
+    }
+
+    /**
      * faz o vinculo da categoria ao livro.
      * @author Caio de Freitas Adriano
      * @since 2017/11/02
