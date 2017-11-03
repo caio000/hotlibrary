@@ -15,6 +15,8 @@ hotlibrary.controller('User', function ($scope, UserAPI, $timeout, userLevel, vi
       UserAPI.saveUser(User).then(function success (response) {
         $scope.$emit('alert',{type:'success',title:'',msg:'Usuário cadastrado com sucesso!'});
         $scope.submit = false;
+        delete $scope.User;
+        $scope.newUser.$setPristine();
       }, function error (response) {
         $scope.$emit('alert',{type:'danger',title:'Ops!',msg:'Não foi possivel cadastrar o usuário, tente novamente mais tarde.'});
         $scope.submit = false;

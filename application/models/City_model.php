@@ -19,12 +19,7 @@ class City_model extends CI_Model {
       $city = $this->getByName($city->name);
       $result = $city->id;
     } else {
-      $data = [
-        'name'          => $city['name'],
-        'state'         => $city['State']['id'],
-        'neighborhood'  => $city['Neighborhood']['id']
-      ];
-      $this->db->insert('City',$data);
+      $this->db->insert('City',$city);
       $result = $this->db->insert_id();
     }
 

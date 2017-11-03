@@ -135,6 +135,7 @@ $autoload['language'] = array();
 $autoload['model'] = array(
   'Log_model',
   'User_model',
+  'Library_model',
   'ForgotPassword_model',
   'Level_model',
   'Neighborhood_model',

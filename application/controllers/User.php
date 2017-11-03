@@ -98,8 +98,9 @@ class User extends CI_Controller {
     $user->address = $this->Address_model->insert($user->Address);
     $user->level = $user->Level->id;
     $this->User_model->insert($user);
+    $user->id = $this->db->insert_id();
+    $this->Library_model->insert($user);
 
-    // TODO: caso o usuário sejá uma biblioteca, gravar no banco a relação Library
     $this->db->trans_complete();
 
     if ( !$this->db->trans_status() ) {
