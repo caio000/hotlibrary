@@ -36,7 +36,9 @@ class Book extends CI_Controller {
     // Fazer todas as monipulações necessárias no objeto.
     $book->name = strtolower(trim($book->name));
     $book->publishDate = brToSqlDate($book->publishDate);
-    $book->publishingCompany = $book->publishingCompany[0]->id;
+    if ($book->publishingCompany) $book->publishingCompany = $book->publishingCompany[0]->id;
+    $book->cover = filename($book->cover);
+
 
     $this->db->trans_start();
     $this->Book_model->insert($book);
@@ -85,6 +87,7 @@ class Book extends CI_Controller {
     $config['max_size'] = 2048;                 // tamanho máximo do arquivo 2048Kb (2Mb)
     $config['max_filename'] = 255;              // tamanho máximo do nome do arquivo
     $config['overwrite'] = true;                // permite sobrescrever arquivos de mesmo nome
+    $config['file_name'] = filename($_FILES['cover']['name']);
     // TODO: criar função para retirar caracteres com acentuação
     // carrega a lib de upload
     $this->load->library('upload',$config);
