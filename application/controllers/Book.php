@@ -85,7 +85,7 @@ class Book extends CI_Controller {
     $config['max_size'] = 2048;                 // tamanho máximo do arquivo 2048Kb (2Mb)
     $config['max_filename'] = 255;              // tamanho máximo do nome do arquivo
     $config['overwrite'] = true;                // permite sobrescrever arquivos de mesmo nome
-
+    // TODO: criar função para retirar caracteres com acentuação
     // carrega a lib de upload
     $this->load->library('upload',$config);
 

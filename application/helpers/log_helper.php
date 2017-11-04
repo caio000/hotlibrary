@@ -1,9 +1,9 @@
 <?php
 function createLog ($idUser, $message) {
 
-  // FIXME: Definir o fuso horario para o brasil.
-
   $CI = get_instance();
+
+  date_default_timezone_set('America/Sao_Paulo');
 
   $log['ip'] = $CI->input->ip_address();
   $log['message'] = $message;

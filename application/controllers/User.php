@@ -141,26 +141,10 @@ class User extends CI_Controller {
       $token = $request['token'];
       $html = $this->load->view('email/forgotpassword',compact('user','token'),TRUE);
 
-      // FIXME: Utilizar a lib cronomail para enviar email
-
-      $email = new PHPMailer;
-
-      $email->isSMTP();
-      $email->Host = 'smtp.gmail.com';
-      $email->CharSet = 'UTF-8';
-      $email->SMTPAuth = TRUE;
-      $email->Username = 'cronodevcaragua@gmail.com';
-      $email->Password = '#cronodev2017#';
-      $email->SMTPSecure = 'tls';
-      $email->Port = 587;
-
-      $email->setFrom('cronodevcaragua@gmail.com','Equipe Cronodev');
-      $email->addAddress($user->email,$user->name);
-      $email->Subject = 'Email test';
-      $email->isHTML(TRUE);
-      $email->msgHTML($html);
-
-      $result = $email->send();
+      $this->cronomail->setContent($html);
+      $this->cronomail->setSubject('Hotlibrary - Esqueceu a senha');
+      $this->cronomail->to($user->email,$user->name);
+      $result = $this->cronomail->send();
 
       echo json_encode(compact('result'));
     }
@@ -203,9 +187,12 @@ class User extends CI_Controller {
 
     $idUser = file_get_contents("php://input");
 
-    $response['result'] = $this->User_model->setActive($idUser, FALSE);
+    $result = $this->User_model->setActive($idUser, FALSE);
+    $response['result'] = $result
 
-    // TODO: gerar log para bloqueio de usuários
+    $msg = ($result) ? 'Fez o bloqueio de um usuário':'Ocorreu um erro ao bloquear um usuário';
+    $log = createLog($token['id'],$msg);
+    $this->Log_model->insert($log);
 
     echo json_encode($response);
   }
@@ -228,9 +215,11 @@ class User extends CI_Controller {
     }
 
     $idUser = file_get_contents("php://input");
-    $response['result'] = $this->User_model->setActive($idUser, TRUE);
-
-    // TODO: Criar log para desbloqueio de usuários
+    $result = $this->User_model->setActive($idUser, TRUE);
+    $msg = ($result) ? 'Fez o desbloqueio de um usuário' : 'Ocorreu um erro ao desbloquear um usuário';
+    $log = createLog($token[0],$msg);
+    $this->Log_model->insert($log);
+    $response['result'] = $result;
 
     echo json_encode($response);
   }
@@ -242,7 +231,15 @@ class User extends CI_Controller {
    */
   public function edit () {
 
-    // TODO: verificar se o usuário tem permissão para executar o serviço.
+    // pega os dados do usuário que vieram da requisição
+    $token = getToken();
+    $this->auth->setUserLevel($token[3]);
+    $this->auth->setPagePermission([1]);
+    // verifica se o usuário tem permissão para utilizar o serviço
+    if (!$this->auth->hasPermission()) {
+      header('HTTP/1.1 401 Unauthorized');
+      exit();
+    }
 
     $user = file_get_contents('php://input');
     $user = json_decode($user);
@@ -254,9 +251,12 @@ class User extends CI_Controller {
     $this->User_model->update($user);
     $this->db->trans_complete();
 
-    $response['result'] = $this->db->trans_status();
+    $result = $this->db->trans_status();
+    $response['result'] = $result;
 
-    // TODO: gerar Log para edição dos dados do usuário
+    $msg = ($result) ? 'Editou os dados do usuário':'Ocorreu um erro ao editar as dados de um usuário';
+    $log = createLog($token['id'],$msg);
+    $this->Log_model->insert($log);
 
     print(json_encode($response));
   }
