@@ -30,7 +30,7 @@ hotlibrary.controller('Login', function ($scope, $document, Application, Auth, $
               $location.path('/usuario');
               break;
             case 2:
-              $location.path('/livro/cadastrar');
+              $location.path('/biblioteca/' + User.id);
               break;
           }
 

@@ -32,18 +32,12 @@
 
         <div class="collapse navbar-collapse" id="menu-hotlibrary">
           <ul class="nav navbar-nav">
-            <li><a href="#!/usuario">Usuários</a></li>
-            <li class="dropdown">
-              <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Biblioteca <span class="caret"></span></a>
-              <ul class="dropdown-menu dropdown-hotlibrary">
-                <li><a href="">Ver todos</a></li>
-                <li><a href="">Adicionar livro</a></li>
-              </ul>
-            </li>
+            <li ng-show="globals.currentUser.level == 1"><a ng-href="#!/usuario">Usuários</a></li>
+            <li ng-show="globals.currentUser.level == 2"><a ng-href="#!/biblioteca/{{globals.currentUser.id}}">Biblioteca</a></li>
             <li class="dropdown">
               <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Livros <span class="caret"></span></a>
               <ul class="dropdown-menu dropdown-hotlibrary">
-                <li><a href="#!/livro">Todos os livros</a></li>
+                <li ng-show="globals.currentUser.level == 1"><a href="#!/livro">Todos os livros</a></li>
                 <li><a href="#!/livro/cadastrar">Cadastrar Livro</a></li>
                 <li><a href="#!/categoria">Categorias</a></li>
                 <li><a href="#!/autor">Autores</a></li>

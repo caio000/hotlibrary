@@ -36,7 +36,7 @@ class Book extends CI_Controller {
     $books = $this->Book_model->getAll();
 
     // verifica os parametros da requisição
-    if ($params->with_picture) $books = $this->setPicture($books);
+    if (isset($params->with_picture)) $books = $this->setPicture($books);
     print(json_encode($books));
   }
 

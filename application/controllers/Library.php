@@ -59,7 +59,7 @@ class Library extends CI_Controller {
     $this->auth->setUserLevel($token[3]);
     $this->auth->setPagePermission([1,2]);
     // verifica se o usuário tem permissão para utilizar o serviço
-    if (!$this->auth->hasPermission() && ($token[3] !== 1 || $token[0] !== $id)) {
+    if (!$this->auth->hasPermission() || ($token[3] == 1 || $token[0] !== $id)) {
       header('HTTP/1.1 401 Unauthorized');
       exit();
     }
