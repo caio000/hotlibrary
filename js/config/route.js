@@ -65,6 +65,9 @@ hotlibrary.config(function ($routeProvider, Application) {
     resolve: {
       library: function (libraryAPI,$route) {
         return libraryAPI.getAll($route.current.params.id);
+      },
+      books: function (bookAPI) {
+        return bookAPI.getAll({params:{with_picture:true}});
       }
     }
   });

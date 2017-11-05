@@ -8,6 +8,44 @@
 class Library extends CI_Controller {
 
   /**
+   * adiciona livros para uma biblioteca.
+   * @author Caio de Freitas Adriano
+   * @since 2017/11/05
+   * @param Array - Vetor com objetos Book
+   * @return Json - Retorna os dados do resultado da requisição
+   */
+  public function addBooks() {
+    // pega os dados do usuário que vieram da requisição
+    $token = getToken();
+    $this->auth->setUserLevel($token[3]);
+    $this->auth->setPagePermission([1,2]);
+    // verifica se o usuário tem permissão para utilizar o serviço
+    if (!$this->auth->hasPermission()) {
+      header('HTTP/1.1 401 Unauthorized');
+      exit();
+    }
+
+    $post = file_get_contents("php://input");
+    $data = json_decode($post);
+    $library = $data->library;
+    $books = $data->books;
+
+    $this->db->trans_start();
+    foreach ($books as $book) $this->Library_model->addBook($library->id,$book->id);
+    $this->db->trans_complete();
+
+    $result = $this->db->trans_status();
+    $response['result'] = $result;
+
+    $msg = ($result) ? 'Adicionou livro a biblioteca' : 'Ocorreu um erro ao adicionar livros a biblioteca';
+    $log = createLog($token[0],$msg);
+    $this->Log_model->insert($log);
+
+    print(json_encode($response));
+
+  }
+
+  /**
    * Busca todos os dados da biblioteca.
    * @author Caio de Freitas Adriano
    * @since 2017/11/04

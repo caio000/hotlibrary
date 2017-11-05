@@ -6,22 +6,41 @@
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
         <div class="panel panel-hotlibrary">
-          <div class="panel-heading text-center">Meus livros</div>
+          <div class="panel-heading text-center"><strong>Meus livros</strong></div>
           <div class="panel-body">
-            exibe os livros da biblioteca
+
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                <input class="form-control" type="text" name="" value="" placeholder="Pesquisa..." ng-model="search" ng-trim="true">
+              </div>
+            </div>
+
+            <div class="col-md-3 col-lg-3 thumbnail" dir-paginate="book in library.books | filter:search | itemsPerPage:8">
+              <img class="img-responsive" ng-src="upload/books/{{book.cover}}" alt="{{book.name}}" title="{{book.name|uppercase}}">
+              <div class="caption">
+                <h3>{{ book.name | name }}</h3>
+                <a href="#!/livro/detalhe/{{book.id}}" class="btn btn-hotlibrary btn-block">Mais informações</a>
+              </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <dir-pagination-controls max-size="8" boundary-links="true"></dir-pagination-controls>
+            </div>
+
           </div>
         </div>
       </div>
 
       <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 panel-group">
         <div class="panel panel-hotlibrary">
-          <div class="panel-heading text-center">Meus dados</div>
+          <div class="panel-heading text-center"><strong>Meus dados</strong></div>
           <div class="panel-body">
             <ul class="list-group">
               <li class="list-group-item">{{ library.name | name }}</li>
-              <li class="list-group-item"><strong>Email:</strong> {{ library.email }}</li>
-              <li class="list-group-item"><strong>Local:</strong> {{ library.Address.City.name | name }}</li>
-              <li class="list-group-item"><strong>Estado:</strong> {{ library.Address.State.initials | uppercase }}</li>
+              <li class="list-group-item"><strong>Email:</strong> {{ ::library.email }}</li>
+              <li class="list-group-item"><strong>Local:</strong> {{ ::library.Address.City.name | name }}</li>
+              <li class="list-group-item"><strong>Estado:</strong> {{ ::library.Address.State.initials | uppercase }}</li>
             </ul>
             <a class="btn btn-hotlibrary btn-block" ng-href="#!/usuario/editar/{{library.id}}">Editar</a>
             <button type="button" class="btn btn-hotlibrary btn-block" data-toggle="modal" data-target="#hotModal">Alterar Senha</button>
@@ -29,9 +48,21 @@
         </div>
 
         <div class="panel panel-hotlibrary">
-          <div class="panel-heading text-center">Adicionar um livro</div>
+          <div class="panel-heading text-center"><strong>Adicionar um livro</strong></div>
           <div class="panel-body">
-            Exibir o multi-select com os livros
+            <isteven-multi-select
+              input-model="books"
+              output-model="newBooks"
+              button-label="name"
+              item-label="picture name"
+              max-height="200px";
+              tick-property="isSelected"
+              orientation="vertical"
+              translation="translation">
+            </isteven-multi-select>
+            <button class="btn btn-hotlibrary btn-block" type="button" name="btn_add_book" ng-click="addBook(newBooks)" ng-disabled="disabled">
+              Adicionar <span ng-if="newBooks.length >= 2">livros</span><span ng-if="newBooks.length <= 1">livro</span> <i ng-class="{'fa fa-plus':!disabled,'fa fa-spinner fa-pulse':disabled}"></i>
+            </button>
           </div>
         </div>
       </div>

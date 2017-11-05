@@ -4,8 +4,13 @@ hotlibrary.factory('libraryAPI',function ($http,Application) {
     return $http.get(Application.baseURL + 'biblioteca/' + id);
   }
 
+  var _addBook = function (data) {
+    return $http.post(Application.baseURL + 'biblioteca/adicionar/livros',data);
+  }
+
 
   return {
-    getAll: _getAll
+    getAll: _getAll,
+    addBook: _addBook,
   };
 })

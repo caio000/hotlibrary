@@ -15,8 +15,8 @@ hotlibrary.factory('bookAPI', function($http,Application) {
     // TODO: colocar o url para o serviço de edição.
   }
 
-  var _getAll = function () {
-    return $http.get(Application.baseURL + 'livro/todos');
+  var _getAll = function (params) {
+    return $http.get(Application.baseURL + 'livro/todos',params);
   }
 
   var _getById = function () {

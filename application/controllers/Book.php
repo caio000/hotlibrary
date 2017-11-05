@@ -7,8 +7,36 @@
  */
 class Book extends CI_Controller {
 
+  /**
+   * adiciona um atributo picture com a tag img com a capa do livro.
+   * @author Caio de Freitas Adriano
+   * @since 2017/11/05
+   * @param Array - Vetor com os objetos books
+   * @return Array - Retorna o vetor com os objetos book com o novo atributo
+   * picture.
+   */
+  private function setPicture($books) {
+    foreach ($books as $book) {
+      $book->picture = '<img src="'.base_url('upload/books/'.$book->cover).'">';
+    }
+
+    return $books;
+  }
+
+  /**
+   * Busca todos os livros cadastrados no sistema
+   * @author Caio de Freitas Adriano
+   * @since 2017/11/5
+   * @param Boolean (with_picture) - caso sejá true, será criado um atributo com
+   * a tag img com a capa do livro.
+   * @return Json - retorna um json com os livros.
+   */
   public function getAll () {
+    $params = (object) $this->input->get();
     $books = $this->Book_model->getAll();
+
+    // verifica os parametros da requisição
+    if ($params->with_picture) $books = $this->setPicture($books);
     print(json_encode($books));
   }
 
@@ -88,7 +116,6 @@ class Book extends CI_Controller {
     $config['max_filename'] = 255;              // tamanho máximo do nome do arquivo
     $config['overwrite'] = true;                // permite sobrescrever arquivos de mesmo nome
     $config['file_name'] = filename($_FILES['cover']['name']);
-    // TODO: criar função para retirar caracteres com acentuação
     // carrega a lib de upload
     $this->load->library('upload',$config);
 
