@@ -28,7 +28,7 @@ class User_model extends CI_Model {
    * @return OBJECT - Retorna um objeto com os dados do usuário.
    */
   public function getById ($id) {
-    $this->db->select('User.id, User.name, User.address as Address');
+    $this->db->select('User.id, User.name, User.email, User.address as Address');
     $this->db->where('User.id',$id);
     $query = $this->db->get('User');
 

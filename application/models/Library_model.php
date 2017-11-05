@@ -7,6 +7,11 @@
  */
 class Library_model extends CI_Model {
 
+  public function getBooks($library) {
+    $this->db->where('library',$library->id);
+    return $this->db->get("Library_has_Book")->result();
+  }
+
   /**
    * Faz a persistencia do usuário do tipo biblioteca.
    * @author caio de freitas Adriano

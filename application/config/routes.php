@@ -65,6 +65,8 @@ $route['usuario/desbloquear']['patch'] = 'User/unlock';
 $route['usuario/editar']['patch'] = "User/edit";
 
 $route['valida/token/(:any)'] = 'Token/checkToken/$1';
+// Library routes ==============================================================
+$route['biblioteca/(:num)']['get'] = 'Library/getAll/$1';
 // Book route ==================================================================
 $route['livro/cadastrar']['post'] = 'Book/save';
 $route['livro/upload/capa']['post'] = 'Book/saveCover';

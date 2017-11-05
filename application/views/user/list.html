@@ -31,7 +31,8 @@
         </thead>
         <tbody>
           <tr dir-paginate="user in users | filter:{name:searchFilter} | orderBy:key:direction | itemsPerPage:5">
-            <td><a href="#!/usuario/editar/{{user.id}}">{{ ::user.name }}</a></td>
+            <td ng-if="user.type === 'administrador'"><a ng-href="#!/usuario/editar/{{user.id}}">{{ ::user.name | name }}</a></td>
+            <td ng-if="user.type === 'biblioteca'"><a ng-href="#!/biblioteca/{{user.id}}">{{ ::user.name | name}}</a></td>
             <td>{{ ::user.email }}</td>
             <td>{{ ::user.type | firstToUpper }}</td>
             <td class="text-center"><i ng-class="{'fa fa-unlock-alt text-success': user.isActive == true, 'fa fa-lock text-danger': user.isActive == false}"> {{ ::user.status | uppercase }}</i></td>

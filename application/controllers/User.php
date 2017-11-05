@@ -44,21 +44,24 @@ class User extends CI_Controller {
   public function changePassword () {
     $post = file_get_contents("php://input");
     $user = json_decode($post);
-    $token = $user->token;
-    unset($user->token); // Deleta o atributo token o objeto user.
+    if (isset($user->token)) {
+      $token = $user->token;
+      unset($user->token); // Deleta o atributo token o objeto user.
+    }
 
     // Gera um hash da nova senha
     $user->password = hash('SHA512',$user->password);
 
     // Atualiza os dados do usuário
     $response['result'] = $this->User_model->update($user);
+    $response['user'] = $user;
 
     // gera o log
     $log = createLog($user->id,'Usuário alterou a senha');
     $this->Log_model->insert($log);
 
     // desativa o token
-    $this->ForgotPassword_model->disable($token);
+    if (isset($token)) $this->ForgotPassword_model->disable($token);
     echo json_encode($response);
   }
 
@@ -188,7 +191,7 @@ class User extends CI_Controller {
     $idUser = file_get_contents("php://input");
 
     $result = $this->User_model->setActive($idUser, FALSE);
-    $response['result'] = $result
+    $response['result'] = $result;
 
     $msg = ($result) ? 'Fez o bloqueio de um usuário':'Ocorreu um erro ao bloquear um usuário';
     $log = createLog($token['id'],$msg);

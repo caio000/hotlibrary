@@ -55,6 +55,20 @@ hotlibrary.config(function ($routeProvider, Application) {
     hasMenu: false,
   });
 
+  // Rotas de bibliotecas ======================================================
+  $routeProvider.when('/biblioteca/:id',{
+    templateUrl: Application.baseURL + 'template/view/library-index.html',
+    controller: 'Library',
+    requiresAuthentication: true,
+    hasMenu:true,
+    permissions: [1,2],
+    resolve: {
+      library: function (libraryAPI,$route) {
+        return libraryAPI.getAll($route.current.params.id);
+      }
+    }
+  });
+
   // Rotas de livros ===========================================================
   $routeProvider.when('/livro/cadastrar',{
     templateUrl: Application.baseURL + 'template/view/book-form.html',
