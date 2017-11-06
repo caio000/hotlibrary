@@ -123,7 +123,7 @@ DROP TABLE IF EXISTS "Library_has_Book";
 CREATE TABLE "Library_has_Book" (
   "library"   INTEGER   NOT NULL,
   "book"      INTEGER   NOT NULL,
-  PRIMARY KEY ("library","book"),
+  "deleted"   BOOLEAN   NOT NULL DEFAULT FALSE,
   CONSTRAINT fk_library_has_book_library
     FOREIGN KEY ("library") REFERENCES "Library" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT fk_library_has_book_book

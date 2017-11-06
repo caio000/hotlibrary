@@ -73,6 +73,17 @@ hotlibrary.config(function ($routeProvider, Application) {
   });
 
   // Rotas de livros ===========================================================
+  $routeProvider.when('/livro/detalhe/:id',{
+    templateUrl: Application.baseURL + 'template/view/book-details.html',
+    controller: 'BookDetails',
+    hasMenu: true,
+    permissions: [1,2],
+    resolve: {
+      book: function (bookAPI,$route) {
+        return bookAPI.getById($route.current.params.id);
+      }
+    }
+  });
   $routeProvider.when('/livro/cadastrar',{
     templateUrl: Application.baseURL + 'template/view/book-form.html',
     controller: "BookRegistration",

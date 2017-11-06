@@ -72,6 +72,8 @@ $route['biblioteca/adicionar/livros']['post'] = 'Library/addBooks';
 $route['livro/cadastrar']['post'] = 'Book/save';
 $route['livro/upload/capa']['post'] = 'Book/saveCover';
 $route['livro/todos']['get'] = 'Book/getAll';
+$route['livro/(:num)']['get'] = 'Book/getById/$1';
+$route['livro/deletar/(:num)']['delete'] = 'Book/delete/$1';
 // PublishingCompany routes ====================================================
 $route['editora/todos']['get'] = "PublishingCompany/getAll";
 $route['editora/cadastrar']['post'] = "PublishingCompany/save";

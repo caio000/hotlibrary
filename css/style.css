@@ -1,3 +1,8 @@
+
+.media-object {
+  max-height: 400px;
+}
+
 .panel-hotlibrary {
   border-color: #661500;
 }
@@ -7,22 +12,30 @@
   color: rgb(214, 215, 214);
 }
 
-.thumbnail img {
+.thumbnail-hotlibrary img {
   height: 380px;
 }
 
-.thumbnail {
+.thumbnail-hotlibrary {
   height: 523px;
 }
 
-.thumbnail .btn {
+.caption-with-border {
+  margin-top: 4px;
+  padding: 9px;
+  color: #333;
+  border: 1px solid #cdcaca;
+  border-radius: 4px;
+}
+
+.thumbnail-hotlibrary .btn {
   position: absolute;
   left: 5%;
   top: 92%;
   width: 90%;
 }
 
-.thumbnail:hover {
+.thumbnail-hotlibrary:hover {
   border-color: #661500;
   box-shadow: 0px 5px 10px black;
 }

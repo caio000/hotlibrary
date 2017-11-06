@@ -33,7 +33,7 @@
         <div class="collapse navbar-collapse" id="menu-hotlibrary">
           <ul class="nav navbar-nav">
             <li ng-show="globals.currentUser.level == 1"><a ng-href="#!/usuario">Usuários</a></li>
-            <li ng-show="globals.currentUser.level == 2"><a ng-href="#!/biblioteca/{{globals.currentUser.id}}">Biblioteca</a></li>
+            <li ng-show="globals.currentUser.level == 2"><a ng-href="#!{{globals.currentUser.homePage}}">Biblioteca</a></li>
             <li class="dropdown">
               <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Livros <span class="caret"></span></a>
               <ul class="dropdown-menu dropdown-hotlibrary">
@@ -118,5 +118,6 @@
     <script type="text/javascript" src="/hotlibrary/js/controller/PublishingCompany.js" charset="utf-8"></script>
     <script type="text/javascript" src="/hotlibrary/js/controller/BookList.js" charset="utf-8"></script>
     <script type="text/javascript" src="/hotlibrary/js/controller/Library.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/hotlibrary/js/controller/BookDetails.js" charset="utf-8"></script>
   </body>
 </html>

@@ -9,6 +9,74 @@
   class Book_model extends CI_Model {
 
     /**
+     * altera o status "deleted" do livro no banco de dados
+     * @author Caio de Freitas Adriano
+     * @since 2017/11/06
+     * @param Int - ID do livro
+     * @param Boolean - novo valor do atributo "deleted".
+     * @return Boolean - Retorna true caso o valor seja alterado.
+     */
+    public function setDeleted($id,$value) {
+      $this->db->set('deleted',$value);
+      $this->db->where('id',$id);
+      return $this->db->update('Book');
+    }
+
+    /**
+     * Verifica se existe releções entre o livro informado com alguma biblioteca.
+     * @author Caio de Freitas Adriano
+     * @since 2017/11/06
+     * @param Int - ID do livro
+     * @return Boolean - Retorna true caso exista algum relacionamento.
+     */
+    public function hasLibrary($book) {
+      $this->db->where("book",$book);
+      $query = $this->db->get("Library_has_Book");
+      return ($query->num_rows() >= 1) ? true : false;
+    }
+
+    /**
+     * Busca todos os autores de um livro
+     * @author Caio de Freitas Adriano
+     * @since 2017/11/06
+     * @param Object - Objeto Book com os dados do livro
+     * @return Array - Retorna um vetor com objetos author
+     */
+    public function getAuthors($book) {
+      $this->db->select("Author.*");
+      $this->db->join('Author','Book_Author.author = Author.id');
+      $this->db->where('book',$book->id);
+      return $this->db->get("Book_Author")->result();
+    }
+
+    /**
+     * Busca todas as categorias de um livro.
+     * @author Caio de Freitas Adriano
+     * @since 2017/11/06
+     * @param Object - Objeto book com os dados do livro
+     * @return Array - Retorna um vetor com objetos category com os dados da categoria
+     */
+    public function getCategories($book) {
+      $this->db->select('Category.*');
+      $this->db->join('Category','Category.id = Book_Category.category');
+      $this->db->where('book',$book->id);
+      return $this->db->get("Book_Category")->result();
+    }
+
+    /**
+     * busca um livro no banco de dados.
+     * @author Caio de Freitas Adriano
+     * @since 2017/11/06
+     * @param Int - ID do livro
+     * @return Object - Retorna um objeto com os dados do livro
+     */
+    public function getById($id) {
+      $this->db->where('id',$id);
+      $this->db->where('deleted',false);
+      return $this->db->get("Book")->row();
+    }
+
+    /**
      * Busca todos os livros cadastrados no banco de dados
      * @author Caio de Freitas Adriano
      * @since 2017/11/02

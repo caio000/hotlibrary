@@ -19,8 +19,12 @@ hotlibrary.factory('bookAPI', function($http,Application) {
     return $http.get(Application.baseURL + 'livro/todos',params);
   }
 
-  var _getById = function () {
-    // TODO: Colocar a url para o serviço de buscar um livro
+  var _getById = function (id) {
+    return $http.get(Application.baseURL + 'livro/'+ id);
+  }
+
+  var _delete = function (id) {
+    return $http.delete(Application.baseURL + 'livro/deletar/'+id);
   }
 
   return {
@@ -28,6 +32,7 @@ hotlibrary.factory('bookAPI', function($http,Application) {
     edit: _edit,
     getAll: _getAll,
     getById: _getById,
-    saveCover: _saveCover
+    saveCover: _saveCover,
+    delete: _delete,
   }
 })

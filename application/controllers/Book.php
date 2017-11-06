@@ -8,6 +8,60 @@
 class Book extends CI_Controller {
 
   /**
+   * deleta um livro do sistema
+   * @author Caio de Freitas Adriano
+   * @since 2017/11/06
+   * @param Int - ID do livro
+   * @return Json - retorna um json com o resultado da requisição
+   */
+  public function delete($id) {
+    // pega os dados do usuário que vieram da requisição
+    $token = getToken();
+    $this->auth->setUserLevel($token[3]);
+    $this->auth->setPagePermission([1]);
+    // verifica se o usuário tem permissão para utilizar o serviço
+    if (!$this->auth->hasPermission()) {
+      header('HTTP/1.1 401 Unauthorized');
+      exit();
+    }
+
+    $hasLibrary = $this->Book_model->hasLibrary($id);
+    if (!$hasLibrary) {
+      $result = $this->Book_model->setDeleted($id,true);
+      $msg = ($result) ? 'Livro deletado com sucesso' : 'Ocorreu um erro ao deletar o livro';
+    } else {
+      $result = false;
+      $msg = 'O livro não pode ser deletado';
+    }
+
+    $log = createLog($token[0],$msg);
+    $this->Log_model->insert($log);
+
+    $response['msg'] = $msg;
+    $response['result'] = $result;
+
+    print(json_encode($response));
+  }
+
+  /**
+   * Busca os dados de um livro.
+   * @author Caio de Freitas Adriano
+   * @since 2017/11/06
+   * @param Int - ID do livro
+   * @return Json - Retona um objeto json com os dados do livro.
+   */
+  public function getById ($id) {
+    $this->db->trans_start();
+    $book = $this->Book_model->getById($id);
+    $book->publishingCompany = $this->PublishingCompany_model->getById($book->publishingCompany);
+    $book->categories = $this->Book_model->getCategories($book);
+    $book->authors = $this->Book_model->getAuthors($book);
+    $this->db->trans_complete();
+
+    print(json_encode($book));
+  }
+
+  /**
    * adiciona um atributo picture com a tag img com a capa do livro.
    * @author Caio de Freitas Adriano
    * @since 2017/11/05

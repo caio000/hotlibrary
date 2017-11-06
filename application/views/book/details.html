@@ -1,0 +1,57 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10" style="margin-bottom:2%;">
+    <h2 class="page-header text-center">{{ ::Page.title | name }}</h2>
+
+    <div class="col-lg-10 media">
+      <div class="media-left">
+        <img class="media-object" ng-src="upload/books/{{book.cover}}" alt="">
+      </div>
+      <div class="media-body ">
+        <h3>{{ book.name | name }}</h3>
+        <p>
+          {{book.synopsis}} e vou escrever alguma coisa aleatoria para ver ate onde
+          o meu caption vai expandir, não quero ver bugs nessa porra!!!!<br>
+          quero que fique bem bonito essa merda por que eu odeio mexer no css...
+          o coisa maldita pra dar problema.
+        </p>
+
+        <h3 ng-show="book.authors.length > 1">Autores(as)</h3>
+        <h3 ng-show="book.authors.length <= 1">Autor(a)</h3>
+        <ul>
+          <li ng-repeat="author in book.authors">{{ author.name |name }}</li>
+        </ul>
+
+        <h3>Páginas</h3>
+          <ul>
+            <li>{{ book.pages || 0 }} páginas</li>
+          </ul>
+
+        <h3>Editora</h3>
+        <ul>
+          <li>{{ book.publishingCompany.name | name }}</li>
+        </ul>
+
+        <h3>Data de publicação</h3>
+        <ul>
+          <li>{{ book.publishDate | date : 'dd/MM/yyyy' }}</li>
+        </ul>
+
+        <h3>Edição</h3>
+        <ul>
+          <li>{{ book.edition }}</li>
+        </ul>
+
+        <h3>Categoria</h3>
+        <ul>
+          <li ng-repeat="category in book.categories">{{ category.name |name }}</li>
+        </ul>
+
+        <hot-alert></hot-alert>
+
+        <a class="btn btn-hotlibrary" ng-href="#!/livro/editar/{{book.id}}"><i class="fa fa-pencil"> Editar</i></a>
+        <button class="btn btn-hotlibrary" type="button" name="btn_book_delete" ng-click="delete(book.id)" ng-disabled="btnBookDelete.disabled"><i ng-class="btnBookDelete.icon"></i> Excluir</button>
+      </div>
+    </div>
+
+  </div>
+</div>

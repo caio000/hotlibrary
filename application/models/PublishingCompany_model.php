@@ -8,6 +8,18 @@
 class PublishingCompany_model extends CI_Model {
 
   /**
+   * Busca uma editora pelo ID no banco de dados.
+   * @author Caio de Freitas Adriano
+   * @since 2017/11/06
+   * @param Int - ID da editora
+   * @return Object - Retorna um objeto com os dados da editora.
+   */
+  public function getById($id) {
+    $this->db->where('id',$id);
+    return $this->db->get("PublishingCompany")->row();
+  }
+
+  /**
    * Busca todas as editoras que não foram "deletadas" do banco de dados.
    * @author Caio de Freitas Adriano
    * @since 2017/10/28

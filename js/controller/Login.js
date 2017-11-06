@@ -23,17 +23,19 @@ hotlibrary.controller('Login', function ($scope, $document, Application, Auth, $
         // verifica se retornou um usuário na requisição
         User = response.result;
         if ( User != null ) {
-          Auth.setCredentials(User);
 
           switch (parseInt(User.level)) {
             case 1:
-              $location.path('/usuario');
+              url = '/usuario';
               break;
             case 2:
-              $location.path('/biblioteca/' + User.id);
+              url = '/biblioteca/' + User.id;
               break;
           }
 
+          User.homePage = url;
+          Auth.setCredentials(User);
+          $location.path(url);
         } else {
           $scope.$emit('alert',{type:'danger',msg:'Email ou senha incorretos'});
         }
