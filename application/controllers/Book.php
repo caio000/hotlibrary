@@ -7,6 +7,41 @@
  */
 class Book extends CI_Controller {
 
+  public function edit() {
+    // pega os dados do usuário que vieram da requisição
+    $token = getToken();
+    $this->auth->setUserLevel($token[3]);
+    $this->auth->setPagePermission([1,2]);
+    // verifica se o usuário tem permissão para utilizar o serviço
+    if (!$this->auth->hasPermission()) {
+      header('HTTP/1.1 401 Unauthorized');
+      exit();
+    }
+
+    $data = file_get_contents("php://input");
+    $book = json_decode($data);
+
+    // manipulações no objeto book
+    $book->name = strtolower(trim($book->name));
+    $book->publishDate = brToSqlDate($book->publishDate);
+    if ($book->publishingCompany) $book->publishingCompany = $book->publishingCompany[0]->id;
+
+    $this->db->trans_start();
+    $this->Book_model->update($book);
+    $this->Book_model->clearCategory($book);
+    // adiciona as categorias ao livro
+    foreach ($book->categories as $category) $this->Book_model->setCategory($book,$category);
+    $this->Book_model->clearAuthor($book);
+    // adiciona os autores ao livro
+    foreach ($book->authors as $author) $this->Book_model->setAuthor($book,$author);
+    $this->db->trans_complete();
+
+
+    $response['result'] = false;
+    print(json_encode($response));
+
+  }
+
   /**
    * deleta um livro do sistema
    * @author Caio de Freitas Adriano

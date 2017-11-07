@@ -73,6 +73,27 @@ hotlibrary.config(function ($routeProvider, Application) {
   });
 
   // Rotas de livros ===========================================================
+  $routeProvider.when('/livro/editar/:id',{
+    templateUrl: Application.baseURL + 'template/view/book-form.html',
+    controller: 'BookEdit',
+    hasMenu: true,
+    requiresAuthentication: true,
+    permissions: [1,2],
+    resolve: {
+      authors: function (authorAPI) {
+        return authorAPI.getAll();
+      },
+      publishingCompanies: function(publishingCompanyAPI) {
+        return publishingCompanyAPI.getAll();
+      },
+      categories: function(categoryAPI) {
+        return categoryAPI.getAll();
+      },
+      book: function (bookAPI,$route) {
+        return bookAPI.getById($route.current.params.id);
+      }
+    }
+  });
   $routeProvider.when('/livro/detalhe/:id',{
     templateUrl: Application.baseURL + 'template/view/book-details.html',
     controller: 'BookDetails',

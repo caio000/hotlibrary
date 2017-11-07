@@ -12,7 +12,7 @@ hotlibrary.factory('bookAPI', function($http,Application) {
   }
 
   var _edit = function (book) {
-    // TODO: colocar o url para o serviço de edição.
+    return $http.patch(Application.baseURL + 'livro/editar',book);
   }
 
   var _getAll = function (params) {

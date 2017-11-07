@@ -9,6 +9,44 @@
   class Book_model extends CI_Model {
 
     /**
+     * "Remove" todas as relações entre o livro e seus autores
+     * @author Caio de Freitas Adriano
+     * @since 2017/11/07
+     * @param Object - Objeto Book com os dados do livro
+     * @return Boolean - retorna true caso a remoção ocorra com sucesso.
+     */
+    public function clearAuthor($book){
+      $this->db->set('deleted',true);
+      $this->db->where('book',$book->id);
+      $this->db->update('Book_Author');
+    }
+
+    /**
+     * Remove todos as relações entre o livro e suas categorias
+     * @author Caio de Freitas Adriano
+     * @since 2017/11/07
+     * @param Object - Objeto Book com os dados do livro
+     * @return Boolean - Retorna um boolean true caso a remoção ocorra com sucesso
+     */
+    public function clearCategory($book){
+      $this->db->set('deleted',true);
+      $this->db->where('book',$book->id);
+      $this->db->update('Book_Category');
+    }
+
+    /**
+     * Atualiza os dados do livro no banco de dados
+     * @author Caio de Freitas Adriano
+     * @since 2017/11/07
+     * @param Object - Objeto Book com os novos dados do livro
+     * @return Boolean - Retorna um true caso os dados sejam atulizado com sucesso
+     */
+    public function update($book) {
+      $this->db->where('id',$book->id);
+      return $this->db->update("Book",$book);
+    }
+
+    /**
      * altera o status "deleted" do livro no banco de dados
      * @author Caio de Freitas Adriano
      * @since 2017/11/06
@@ -46,6 +84,7 @@
       $this->db->select("Author.*");
       $this->db->join('Author','Book_Author.author = Author.id');
       $this->db->where('book',$book->id);
+      $this->db->where('Book_Author.deleted',false);
       return $this->db->get("Book_Author")->result();
     }
 
@@ -60,6 +99,7 @@
       $this->db->select('Category.*');
       $this->db->join('Category','Category.id = Book_Category.category');
       $this->db->where('book',$book->id);
+      $this->db->where('Book_Category.deleted',false);
       return $this->db->get("Book_Category")->result();
     }
 

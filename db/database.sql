@@ -134,7 +134,7 @@ DROP TABLE IF EXISTS "Book_Category";
 CREATE TABLE "Book_Category" (
   "book"      INTEGER NOT NULL,
   "category"  INTEGER NOT NULL,
-  PRIMARY KEY ("book","category"),
+  "deleted"   BOOLEAN NOT NULL DEFAULT FALSE,
   CONSTRAINT fk_book_category_book
     FOREIGN KEY ("book") REFERENCES "Book" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT fk_book_category_category
@@ -145,6 +145,7 @@ DROP TABLE IF EXISTS "Book_Author";
 CREATE TABLE "Book_Author" (
   "book"    INTEGER NOT NULL,
   "author"  INTEGER NOT NULL,
+  "deleted"   BOOLEAN NOT NULL DEFAULT FALSE,
   CONSTRAINT fk_book_author_book
     FOREIGN KEY ("book") REFERENCES "Book" ("id"),
   CONSTRAINT fk_book_author_author
