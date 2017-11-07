@@ -66,8 +66,9 @@ $route['usuario/editar']['patch'] = "User/edit";
 
 $route['valida/token/(:any)'] = 'Token/checkToken/$1';
 // Library routes ==============================================================
-$route['biblioteca/(:num)']['get'] = 'Library/getAll/$1';
+$route['biblioteca/(:num)']['get'] = 'Library/getById/$1';
 $route['biblioteca/adicionar/livros']['post'] = 'Library/addBooks';
+$route['biblioteca/deletar/livro/(:num)']['delete'] = 'Library/deleteBook/$1';
 // Book route ==================================================================
 $route['livro/cadastrar']['post'] = 'Book/save';
 $route['livro/upload/capa']['post'] = 'Book/saveCover';

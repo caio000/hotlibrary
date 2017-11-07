@@ -8,6 +8,21 @@
 class Library_model extends CI_Model {
 
   /**
+   * Altera o status de deletado pra true.
+   * @author Caio de Freitas Adriano
+   * @since 2017/11/07
+   * @param Int - ID da biblioteca
+   * @param Int - ID do livro
+   * @return Boolean - Retorna um boolean true caso o status seja alterado com sucesso.
+   */
+  public function deleteBook($library,$book) {
+    $this->db->set('deleted',true);
+    $this->db->where('library',$library);
+    $this->db->where('book',$book);
+    return $this->db->update('Library_has_Book');
+  }
+
+  /**
    * adiciona o vinculo da biblioteca ao livro no banco de dados.
    * @author Caio de Freitas Adriano
    * @since 2017/11/05
@@ -29,6 +44,7 @@ class Library_model extends CI_Model {
   public function getBooks($library) {
     $this->db->select('Book.*');
     $this->db->where('library',$library->id);
+    $this->db->where('Library_has_Book.deleted',false);
     $this->db->join('Book','Book.id = Library_has_Book.book');
     return $this->db->get("Library_has_Book")->result();
   }

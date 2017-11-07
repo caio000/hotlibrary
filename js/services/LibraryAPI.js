@@ -8,9 +8,13 @@ hotlibrary.factory('libraryAPI',function ($http,Application) {
     return $http.post(Application.baseURL + 'biblioteca/adicionar/livros',data);
   }
 
+  var _deleteBook = function (id) {
+    return $http.delete(Application.baseURL + 'biblioteca/deletar/livro/'+id);
+  }
 
   return {
     getAll: _getAll,
     addBook: _addBook,
+    deleteBook: _deleteBook,
   };
 })

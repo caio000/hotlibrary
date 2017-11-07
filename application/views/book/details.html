@@ -9,10 +9,7 @@
       <div class="media-body ">
         <h3>{{ book.name | name }}</h3>
         <p>
-          {{book.synopsis}} e vou escrever alguma coisa aleatoria para ver ate onde
-          o meu caption vai expandir, não quero ver bugs nessa porra!!!!<br>
-          quero que fique bem bonito essa merda por que eu odeio mexer no css...
-          o coisa maldita pra dar problema.
+          {{book.synopsis | firstToUpper}}
         </p>
 
         <h3 ng-show="book.authors.length > 1">Autores(as)</h3>
@@ -49,7 +46,7 @@
         <hot-alert></hot-alert>
 
         <a class="btn btn-hotlibrary" ng-href="#!/livro/editar/{{book.id}}"><i class="fa fa-pencil"> Editar</i></a>
-        <button class="btn btn-hotlibrary" type="button" name="btn_book_delete" ng-click="delete(book.id)" ng-disabled="btnBookDelete.disabled"><i ng-class="btnBookDelete.icon"></i> Excluir</button>
+        <button class="btn btn-hotlibrary" type="button" name="btn_book_delete" ng-click="globals.currentUser.level == 1 ? delete(book.id) : deleteBookFromLibrary(book.id)" ng-disabled="btnBookDelete.disabled"><i ng-class="btnBookDelete.icon"></i> Excluir</button>
       </div>
     </div>
 
