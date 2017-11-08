@@ -7,6 +7,13 @@
  */
 class Book extends CI_Controller {
 
+  /**
+   * Edita os dados de um livro no sistema.
+   * @author Caio de Freitas Adriano
+   * @since 2017/11/07
+   * @param Object - Objeto Book com os dados do livro
+   * @return Json - retorna um json os dados da resposta da requisição
+   */
   public function edit() {
     // pega os dados do usuário que vieram da requisição
     $token = getToken();
@@ -25,6 +32,7 @@ class Book extends CI_Controller {
     $book->name = strtolower(trim($book->name));
     $book->publishDate = brToSqlDate($book->publishDate);
     if ($book->publishingCompany) $book->publishingCompany = $book->publishingCompany[0]->id;
+    $book->cover = filename($book->cover);
 
     $this->db->trans_start();
     $this->Book_model->update($book);
@@ -36,8 +44,14 @@ class Book extends CI_Controller {
     foreach ($book->authors as $author) $this->Book_model->setAuthor($book,$author);
     $this->db->trans_complete();
 
+    $result = $this->db->trans_status();
+    $responseMsg = ($result) ? 'Editou os dados do livro':'Ocorreu um erro ao editar os dados do livro';
 
-    $response['result'] = false;
+    $log = createLog($token[0],$responseMsg);
+    $this->Log_model->insert($log);
+
+    $response['result'] = $result;
+    $response['msg'] = $responseMsg;
     print(json_encode($response));
 
   }

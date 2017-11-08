@@ -237,7 +237,7 @@ class User extends CI_Controller {
     // pega os dados do usuário que vieram da requisição
     $token = getToken();
     $this->auth->setUserLevel($token[3]);
-    $this->auth->setPagePermission([1]);
+    $this->auth->setPagePermission([1,2]);
     // verifica se o usuário tem permissão para utilizar o serviço
     if (!$this->auth->hasPermission()) {
       header('HTTP/1.1 401 Unauthorized');
@@ -258,7 +258,7 @@ class User extends CI_Controller {
     $response['result'] = $result;
 
     $msg = ($result) ? 'Editou os dados do usuário':'Ocorreu um erro ao editar as dados de um usuário';
-    $log = createLog($token['id'],$msg);
+    $log = createLog($token[0],$msg);
     $this->Log_model->insert($log);
 
     print(json_encode($response));

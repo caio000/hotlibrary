@@ -34,7 +34,7 @@ hotlibrary.config(function ($routeProvider, Application) {
     controller: "UserEdit",
     hasMenu: true,
     requiresAuthentication: true,
-    permissions: [1],
+    permissions: [1,2],
     resolve: {
       user: function(UserAPI, $route) {
         return UserAPI.getById($route.current.params.id);

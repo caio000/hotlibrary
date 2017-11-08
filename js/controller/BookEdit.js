@@ -47,10 +47,44 @@ hotlibrary.controller('BookEdit',function ($scope,$document,$filter,bookAPI,book
     if ($scope.bookForm.$valid) {
       $scope.registration = true;
 
+      if (typeof book.cover !== 'string') {
+        var formData = new FormData();
+        var file = book.cover[0];
+        formData.append('cover',file);
+        book.cover = file.name;
+      }
+
       // atualiza os dados do livro
-      bookAPI.edit(book).then(function (){
-        $scope.registration = false;
+      bookAPI.edit(book).then(function (response){
+        if (response.data.result) {
+          // verifica se existe imagem para upload
+          if (file) {
+            // envia a imagem para o upload
+            bookAPI.saveCover(formData).then(function (response) {
+              if (response.data.result)
+                config = {type:'success',msg:'Livro editado com sucesso'};
+              else
+                config = {type:'danger',title:'Ops!',msg:'Ocorreu um erro ao fazer o upoad da imagem'};
+
+              $scope.$emit('alert',config);
+              $scope.registration = false;
+            },function (response){
+              config = {type:'warning',title:'Ops!',msg:'Problemas para se conectar ao servidor, tente novamente mais tarde'};
+              $scope.$emit('alert',config);
+              $scope.registration = false;
+            });
+          } else {
+            config = {type:'success',msg:'Livro editado com sucesso'};
+            $scope.$emit('alert',config);
+            $scope.registration = false;
+          }
+        } else {
+          config = {type:'danger',title:'Ops!',msg:response.msg};
+          $scope.registration = false;
+          $scope.$emit('alert',config);
+        }
       },function () {
+        $scope.$emit('alert',{type:'warning',title:'Ops!',msg:'Problemas para se conectar ao servidor, tente novamente mais tarde'});
         $scope.registration = false;
       });
     }
