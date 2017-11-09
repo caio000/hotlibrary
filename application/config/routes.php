@@ -93,3 +93,4 @@ $route['nivel/todos']['get'] = 'Level/getAll';
 
 ############################### PWA ROUTES #####################################
 $route['mobile']['get'] = 'Template/getTemplate/mobile-index.html';
+$route['usuario/comum/cadastrar']['post'] = 'User/commonUser';

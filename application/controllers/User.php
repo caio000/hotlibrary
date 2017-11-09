@@ -65,6 +65,10 @@ class User extends CI_Controller {
     echo json_encode($response);
   }
 
+  public function commonUser() {
+    $result = $this->save();
+  }
+
   /**
    * Cadastra um usuário no sistema.
    * @author Caio de Freitas
@@ -84,41 +88,14 @@ class User extends CI_Controller {
       exit();
     }
 
+    $result = $this->save();
 
-    // pega os dados da requisição HTTP do angular
-    $post = file_get_contents("php://input");
-
-    $user = json_decode($post);
-
-    $user->password = hash('SHA512',$user->password);
-
-    $this->db->trans_start();
-    $user->Address->city = $this->City_model->insert($user->Address->City);
-    $user->Address->zipcode = $this->Zipcode_model->insert($user->Address->Zipcode);
-    $user->Address->neighborhood = $this->Neighborhood_model->insert($user->Address->Neighborhood);
-    $user->Address->state = $this->State_model->insert($user->Address->State);
-
-    $user->address = $this->Address_model->insert($user->Address);
-    $user->level = $user->Level->id;
-    $this->User_model->insert($user);
-    $user->id = $this->db->insert_id();
-    $this->Library_model->insert($user);
-
-    $this->db->trans_complete();
-
-    if ( !$this->db->trans_status() ) {
+    if ( !$result ) {
       header('HTTP/1.1 500 Ocorreu um erro inesperado. Tente novamente ou entre em contato com o administrador do sistema');
       $log = createLog($token[0], 'Ocorreu um erro ao cadastrar um novo usuário');
       $this->Log_model->insert($log);
       exit();
     }
-
-    $mail = $this->load->view('email/confirmRegistration',null,TRUE);
-    $this->cronomail->setContent($mail);
-    $this->cronomail->setSubject('Acesso ao sistema Hotlibrary');
-    $this->cronomail->to($user->email,$user->name);
-
-    $this->cronomail->send();
 
     $log = createLog($token[0], 'Novo usuário cadastrado no sistema');
     $this->Log_model->insert($log);
@@ -264,6 +241,42 @@ class User extends CI_Controller {
     print(json_encode($response));
   }
 
+  /**
+   * Cadastra um novo usuário no sistema
+   * @author Caio de Freitas Adriano
+   * @since 2017/11/09
+   * @return Boolean - Retorna um boolean true caso o usuário seja cadastrado com
+   * sucesso
+   */
+  private function save () {
+    // pega os dados da requisição HTTP do angular
+    $post = file_get_contents("php://input");
+
+    $user = json_decode($post);
+
+    $user->password = hash('SHA512',$user->password);
+
+    $this->db->trans_start();
+    $user->Address->city = $this->City_model->insert($user->Address->City);
+    $user->Address->zipcode = $this->Zipcode_model->insert($user->Address->Zipcode);
+    $user->Address->neighborhood = $this->Neighborhood_model->insert($user->Address->Neighborhood);
+    $user->Address->state = $this->State_model->insert($user->Address->State);
+
+    $user->address = $this->Address_model->insert($user->Address);
+    $user->level = $user->Level->id;
+    $this->User_model->insert($user);
+    $user->id = $this->db->insert_id();
+    $this->Library_model->insert($user);
+
+    $mail = $this->load->view('email/confirmRegistration',null,TRUE);
+    $this->cronomail->setContent($mail);
+    $this->cronomail->setSubject('Acesso ao sistema Hotlibrary');
+    $this->cronomail->to($user->email,$user->name);
+
+    $this->cronomail->send();
+
+    return $this->db->trans_complete();
+  }
 
 }
 

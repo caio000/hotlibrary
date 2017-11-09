@@ -27,7 +27,7 @@
         </div>
       </div>
     </form>
-    <form ng-show="currentTab === 'formRegistration'" id="formRegistration" name="registration" class="col s12" autocomplete="off" novalidate>
+    <form ng-show="currentTab === 'formRegistration'" id="formRegistration" name="registration" ng-submit="save(User)" class="col s12" autocomplete="off" novalidate>
       <div class="row">
         <div class="input-field col s12">
           <input
@@ -35,7 +35,7 @@
           ng-class="{'valid':registration.name.$valid,'invalid':(registration.$submitted || registration.name.$dirty) && registration.name.$invalid}"
           type="text"
           name="name"
-          ng-model="user.name"
+          ng-model="User.name"
           ng-trim="true"
           ng-required="true"
           ng-minlength="10"
@@ -56,7 +56,7 @@
           id="email"
           type="email"
           name="email"
-          ng-model="user.email"
+          ng-model="User.email"
           ng-not-exist-email
           ng-trim="true"
           ng-required="true"
@@ -78,7 +78,7 @@
           type="password"
           name="password"
           ng-class="{'invalid':(registration.$submitted || registration.password.$dirty) && registration.password.$invalid,'valid':registration.password.$valid}"
-          ng-model="user.password"
+          ng-model="User.password"
           ng-trim="true"
           ng-minlength="8"
           ng-required="true">
@@ -98,7 +98,7 @@
           type="text"
           name="zipcode"
           ng-class="{'invalid':(registration.$submitted || registration.zipcode.$dirty) && registration.zipcode.$invalid,'valid':registration.zipcode.$valid}"
-          ng-model="user.address.zipcode.number"
+          ng-model="User.Address.Zipcode.number"
           get-address-by-zipcode
           ng-pattern="/[0-9]{8}/"
           ng-minlength="8"
@@ -123,7 +123,7 @@
           type="text"
           name="publicPlace"
           ng-class="{'invalid':(registration.$submitted || registration.publicPlace.$dirty) && registration.publicPlace.$invalid,'valid':registration.publicPlace.$valid}"
-          ng-model="user.address.publicPlace"
+          ng-model="User.Address.publicPlace"
           ng-maxlength="100"
           ng-required="true"
           ng-trim="true">
@@ -143,7 +143,7 @@
           type="text"
           name="neighborhood"
           ng-class="{'invalid':(registration.$submitted || registration.neighborhood.$dirty) && registration.neighborhood.$invalid,'valid':registration.neighborhood.$valid}"
-          ng-model="user.address.neighborhood.name"
+          ng-model="User.Address.Neighborhood.name"
           ng-maxlength="100"
           ng-required="true"
           ng-trim="true">
@@ -163,7 +163,7 @@
           type="text"
           name="city"
           ng-class="{'invalid':(registration.$submitted || registration.city.$dirty) && registration.city.$invalid,'valid':registration.city.$valid}"
-          ng-model="user.address.city.name"
+          ng-model="User.Address.City.name"
           ng-maxlength="100"
           ng-required="true"
           ng-trim="true">
@@ -183,7 +183,7 @@
           type="text"
           name="state"
           ng-class="{'invalid':(registration.$submitted || registration.state.$dirty) && registration.state.$invalid,'valid':registration.state.$valid}"
-          ng-model="user.address.state.initials"
+          ng-model="User.Address.State.initials"
           ng-minlength="2"
           ng-maxlength="2"
           ng-pattern="/[A-z]{2}/"
@@ -208,7 +208,7 @@
           name="number"
           min="0"
           ng-class="{'invalid':(registration.$submitted || registration.number.$dirty) && registration.number.$invalid,'valid':registration.number.$valid}"
-          ng-model="user.address.number"
+          ng-model="User.Address.number"
           ng-required="true"
           ng-trim="true">
           <label for="number">Número</label>
@@ -225,5 +225,8 @@
         <button class="btn red accent-4" type="submit" name="btnCreateUser" style="width:100%;">Cadastrar</button>
       </div>
     </form>
+
+    <pre>{{User|json}}</pre>
+
   </div>
 </div>

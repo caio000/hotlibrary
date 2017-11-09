@@ -36,7 +36,12 @@ hotlibrary.factory('UserAPI', function ($http, Application, $base64) {
     return $http.patch(Application.baseURL + "usuario/desbloquear",id);
   }
 
+  var _saveCommon = function (user) {
+    return $http.post(Application.baseURL + 'usuario/comum/cadastrar',user);
+  }
+
   return {
+    saveCommon: _saveCommon,
     saveUser: _saveUser,
     forgotPassword: _forgotPassword,
     existEmail: _existEmail,
