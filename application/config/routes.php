@@ -90,3 +90,6 @@ $route['categoria/todos']['get'] = 'Category/getAll';
 $route['categoria/deletar/(:num)']['delete'] = 'Category/delete/$1';
 // Level routes ================================================================
 $route['nivel/todos']['get'] = 'Level/getAll';
+
+############################### PWA ROUTES #####################################
+$route['mobile']['get'] = 'Template/getTemplate/mobile-index.html';

@@ -26,7 +26,9 @@ class Template extends CI_Controller {
   }
 
   public function index() {
-    $this->load->view('mainPage.html');
+    $isMobile = preg_match('/(iPhone|iPod|iPad|Android|BlackBerry)/',$_SERVER['HTTP_USER_AGENT']);
+    $page = ($isMobile) ? 'mobile/index.html' : 'mainPage.html';
+    $this->load->view($page);
   }
 }
 

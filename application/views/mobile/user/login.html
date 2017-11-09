@@ -1,0 +1,66 @@
+<div class="row">
+  <div class="col s12">
+
+    <ul class="tabs">
+      <li class="tab col s6" ng-click="currentTab = 'formLogin'"><a href="" ng-class="{'active':currentTab === 'formLogin'}">Entrar</a></li>
+      <li class="tab col s6" ng-click="currentTab = 'formRegistration'"><a href="" ng-class="{'active':currentTab === 'formRegistration'}">Criar conta</a></li>
+    </ul>
+
+    <form ng-show="currentTab === 'formLogin'" id="formLogin" class="col s12">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="email" class="validate" type="email" name="email" ng-model="user.email" ng-required="true">
+          <label for="email">Email</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="password" class="validate" type="password" name="password" ng-model="user.password" ng-required="true">
+          <label for="password">Senha</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <button type="submit" class="btn waves-effect waves-light red accent-4" style="width:100%;" name="btnLogin">Entrar</button>
+        </div>
+      </div>
+    </form>
+    <form ng-show="currentTab === 'formRegistration'" id="formRegistration" name="registration" class="col s12" autocomplete="off" novalidate>
+      <div class="row">
+        <div class="input-field col s12">
+          <input
+          id="name"
+          ng-class="{'valid':registration.name.$valid,'invalid':(registration.$submitted || registration.name.$dirty) && registration.name.$invalid}"
+          type="text"
+          name="name"
+          ng-model="user.name"
+          ng-trim="true"
+          ng-required="true"
+          ng-minlength="10"
+          ng-maxlength="50">
+          <label for="name">Nome completo</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input
+          id="email"
+          type="email"
+          name="email"
+          ng-model="user.email"
+          ng-trim="true"
+          ng-required="true"
+          ng-class="{'invalid':(registration.$submitted || registration.email.$dirty) && registration.email.$invalid,'valid':registration.email.$valid}">
+          <label for="email">Email</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <button class="btn red accent-4" type="submit" name="btnCreateUser" style="width:100%;">Cadastrar</button>
+      </div>
+    </form>
+  </div>
+</div>

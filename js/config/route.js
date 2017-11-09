@@ -1,5 +1,11 @@
 hotlibrary.config(function ($routeProvider, Application) {
 
+  // MOBILE ROUTES =============================================================
+  $routeProvider.when('/mobile',{
+    templateUrl: Application.baseURL + 'template/view/mobile-user-login.html',
+    controller: 'mLogin',
+  });
+  // WEB ROUTES ================================================================
   $routeProvider.when('/',{
     templateUrl: Application.baseURL+'template/view/login-login.html',
     controller: 'Login',

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app="hotlibrary">
+  <head>
+    <meta charset="utf-8">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Hotlibrary</title>
+    <!-- Google Icon Font-->
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+     <!-- materialize -->
+     <link rel="stylesheet" href="/hotlibrary/bower_components/materialize/dist/css/materialize.min.css">
+     <!-- My Css -->
+     <link rel="stylesheet" href="/hotlibrary/css/m_style.css">
+  </head>
+  <body>
+
+    <nav>
+      <div class="nav-wrapper red accent-4">
+        <a href="" class="brand-logo">Hotlibrary</a>
+      </div>
+    </nav>
+
+    <main>
+      <div class="container">
+        <ng-view></ng-view>
+      </div>
+    </main>
+
+    <footer class="page-footer red accent-4">
+      <div class="footer-copyrigth">
+        <div class="container">
+          <h5 class="white-text center-align">Hotlibrary</h5>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Jquery Core -->
+    <script type="text/javascript" src="/hotlibrary/bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
+    <!-- Materialize js -->
+    <script type="text/javascript" src="/hotlibrary/bower_components/materialize/dist/js/materialize.min.js" charset="utf-8"></script>
+    <!-- Angular Core -->
+    <script type="text/javascript" src="/hotlibrary/bower_components/angular/angular.min.js" charset="utf-8"></script>
+    <!-- Angular modules -->
+    <script type="text/javascript" src="/hotlibrary/bower_components/angular-route/angular-route.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/hotlibrary/bower_components/angular-base64/angular-base64.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/hotlibrary/bower_components/angular-cookies/angular-cookies.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/hotlibrary/bower_components/angular-messages/angular-messages.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/hotlibrary/bower_components/angular-viacep/dist/angular-viacep.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/hotlibrary/bower_components/angularUtils-pagination/dirPagination.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/hotlibrary/bower_components/isteven-angular-multiselect/isteven-multi-select.js" charset="utf-8"></script>
+    <!-- Angular App -->
+    <script type="text/javascript" src="/hotlibrary/js/app.js" charset="utf-8"></script>
+    <!-- Angular interceptor -->
+    <!-- Angular directives -->
+    <!-- Angular services -->
+    <script type="text/javascript" src="/hotlibrary/js/services/config.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/hotlibrary/js/services/auth.js" charset="utf-8"></script>
+    <!-- Angular config -->
+    <script type="text/javascript" src="/hotlibrary/js/config/route.js" charset="utf-8"></script>
+    <!-- Angular filters -->
+    <!-- Angular controller -->
+    <script type="text/javascript" src="/hotlibrary/js/mobile/controllers/Login.js" charset="utf-8"></script>
+  </body>
+</html>

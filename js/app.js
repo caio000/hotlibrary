@@ -1,6 +1,12 @@
 var hotlibrary = angular.module('hotlibrary',['ngRoute','base64','ngCookies','ngMessages','angular.viacep','angularUtils.directives.dirPagination','isteven-multi-select']);
 
 hotlibrary.run(function ($rootScope, $cookies, $http, $location, Auth, $route) {
+
+  var isMobile = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/);
+  if (isMobile && !window.location.pathname.match(/mobile/g)) {
+    $location.path('/mobile');
+  }
+
   // Pega os dados do usuário no cookie caso exista, caso contrario é atribuido
   // um objeto vazio.
   $rootScope.globals = $cookies.getObject('globals') || {};
