@@ -41,6 +41,12 @@
           ng-minlength="10"
           ng-maxlength="50">
           <label for="name">Nome completo</label>
+          <div ng-messages="registration.name.$error" ng-if="registration.$submitted || registration.name.$dirty">
+            <span class="red-text" ng-message="required"><i class="fa fa-exclamation-circle"></i> Precisamos saber o seu nome</span>
+            <span class="red-text" ng-message="minlength"><i class="fa fa-exclamation-circle"> O nome deve conter no minimo 10 caracteres</i></span>
+            <span class="red-text" ng-message="maxlength"><i class="fa fa-exclamation-circle"> O nome deve conter no máximo 50 caracteres</i></span>
+            <span class="green-text" ng-if="registration.name.$valid"><i class="fa fa-check"></i></span>
+          </div>
         </div>
       </div>
 
@@ -51,10 +57,167 @@
           type="email"
           name="email"
           ng-model="user.email"
+          ng-not-exist-email
           ng-trim="true"
           ng-required="true"
           ng-class="{'invalid':(registration.$submitted || registration.email.$dirty) && registration.email.$invalid,'valid':registration.email.$valid}">
           <label for="email">Email</label>
+          <div ng-messages="registration.email.$error" ng-if="registration.$submitted || registration.email.$dirty">
+            <span ng-message="required" class="red-text"><i class="fa fa-exclamation-circle"> Precisamos saber o seu email</i></span>
+            <span ng-message="email" class="red-text"><i class="fa fa-exclamation-circle"> O email não é válido</i></span>
+            <span ng-message="emailAsync" class="red-text"><i class="fa fa-exclamation-circle"> O email informado já existe</i></span>
+            <span ng-if="registration.email.$valid" class="green-text"><i class="fa fa-check"></i></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input
+          id="password"
+          type="password"
+          name="password"
+          ng-class="{'invalid':(registration.$submitted || registration.password.$dirty) && registration.password.$invalid,'valid':registration.password.$valid}"
+          ng-model="user.password"
+          ng-trim="true"
+          ng-minlength="8"
+          ng-required="true">
+          <label for="password">Senha</label>
+          <div ng-messages="registration.password.$error" ng-if="registration.$submitted || registration.password.$dirty">
+            <span ng-message="required" class="red-text"><i class="fa fa-exclamation-circle"> Você precisa de uma senha</i></span>
+            <span ng-message="minlength" class="red-text"><i class="fa fa-exclamation-circle"> A senha deve conter no minimo 8 caracteres</i></span>
+            <span ng-if="registration.password.$valid" class="green-text"><i class="fa fa-check"></i></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input
+          id="zipcode"
+          type="text"
+          name="zipcode"
+          ng-class="{'invalid':(registration.$submitted || registration.zipcode.$dirty) && registration.zipcode.$invalid,'valid':registration.zipcode.$valid}"
+          ng-model="user.address.zipcode.number"
+          get-address-by-zipcode
+          ng-pattern="/[0-9]{8}/"
+          ng-minlength="8"
+          ng-maxlength="8"
+          ng-required="true"
+          ng-trim="true">
+          <label for="zipcode">Cep</label>
+          <div ng-messages="registration.zipcode.$error" ng-if="registration.$submitted || registration.zipcode.$dirty">
+            <span ng-message="required" class="red-text"><i class="fa fa-exclamation-circle"> Precisamos saber o seu cep</i></span>
+            <span ng-message="minlength" class="red-text"><i class="fa fa-exclamation-circle"> O CEP deve conter 8 caracteres</i></span>
+            <span ng-message="maxlength" class="red-text"><i class="fa fa-exclamation-circle"> O CEP deve conter 8 caracteres</i></span>
+            <span ng-message="pattern" class="red-text"><i class="fa fa-exclamation-circle"> Digite apenas números</i></span>
+            <span ng-if="registration.zipcode.$valid" class="green-text"><i class="fa fa-check"></i></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input
+          id="publicPlace"
+          type="text"
+          name="publicPlace"
+          ng-class="{'invalid':(registration.$submitted || registration.publicPlace.$dirty) && registration.publicPlace.$invalid,'valid':registration.publicPlace.$valid}"
+          ng-model="user.address.publicPlace"
+          ng-maxlength="100"
+          ng-required="true"
+          ng-trim="true">
+          <label for="publicPlace">Endereço</label>
+          <div ng-messages="registration.publicPlace.$error" ng-if="registration.$submitted || registration.publicPlace.$dirty">
+            <span ng-message="required" class="red-text"><i class="fa fa-exclamation-circle"> Precisamos saber o seu endereço</i></span>
+            <span ng-message="maxlength" class="red-text"><i class="fa fa-exclamation-circle"> O endereço deve conter no máximo 100 caracteres</i></span>
+            <span ng-if="registration.publicPlace.$valid" class="green-text"><i class="fa fa-check"></i></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input
+          id="neighborhood"
+          type="text"
+          name="neighborhood"
+          ng-class="{'invalid':(registration.$submitted || registration.neighborhood.$dirty) && registration.neighborhood.$invalid,'valid':registration.neighborhood.$valid}"
+          ng-model="user.address.neighborhood.name"
+          ng-maxlength="100"
+          ng-required="true"
+          ng-trim="true">
+          <label for="neighborhood">Bairro</label>
+          <div ng-messages="registration.neighborhood.$error" ng-if="registration.$submitted || registration.neighborhood.$dirty">
+            <span ng-message="required" class="red-text"><i class="fa fa-exclamation-circle"> Precisamos saber o seu bairro</i></span>
+            <span ng-message="maxlength" class="red-text"><i class="fa fa-exclamation-circle"> O bairro deve conter no máximo 100 caracteres</i></span>
+            <span ng-if="registration.neighborhood.$valid" class="green-text"><i class="fa fa-check"></i></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input
+          id="city"
+          type="text"
+          name="city"
+          ng-class="{'invalid':(registration.$submitted || registration.city.$dirty) && registration.city.$invalid,'valid':registration.city.$valid}"
+          ng-model="user.address.city.name"
+          ng-maxlength="100"
+          ng-required="true"
+          ng-trim="true">
+          <label for="city">Cidade</label>
+          <div ng-messages="registration.city.$error" ng-if="registration.$submitted || registration.city.$dirty">
+            <span ng-message="required" class="red-text"><i class="fa fa-exclamation-circle"> Precisamos saber a sua cidade</i></span>
+            <span ng-message="maxlength" class="red-text"><i class="fa fa-exclamation-circle"> A cidade deve conter no máximo 100 caracteres</i></span>
+            <span ng-if="registration.city.$valid" class="green-text"><i class="fa fa-check"></i></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input
+          id="state"
+          type="text"
+          name="state"
+          ng-class="{'invalid':(registration.$submitted || registration.state.$dirty) && registration.state.$invalid,'valid':registration.state.$valid}"
+          ng-model="user.address.state.initials"
+          ng-minlength="2"
+          ng-maxlength="2"
+          ng-pattern="/[A-z]{2}/"
+          ng-trim="true"
+          ng-required="true">
+          <label for="state">Estado (UF)</label>
+          <div ng-messages="registration.state.$error" ng-if="registration.$submitted || registration.state.$dirty">
+            <span ng-message="required" class="red-text"><i class="fa fa-exclamation-circle"> Precisamos saber o seu estado</i></span>
+            <span ng-message="pattern" class="red-text"><i class="fa fa-exclamation-circle"> Digite apenas caracteres de A-Z</i></span>
+            <span ng-message="minlength" class="red-text"><i class="fa fa-exclamation-circle"> O estado deve possuir apenas 2 caracteres</i></span>
+            <span ng-message="maxlength" class="red-text"><i class="fa fa-exclamation-circle"> O estado deve possuir apenas 2 caracteres</i></span>
+            <span ng-if="registration.state.$valid" class="green-text"><i class="fa fa-check"></i></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input
+          id="number"
+          type="number"
+          name="number"
+          min="0"
+          ng-class="{'invalid':(registration.$submitted || registration.number.$dirty) && registration.number.$invalid,'valid':registration.number.$valid}"
+          ng-model="user.address.number"
+          ng-required="true"
+          ng-trim="true">
+          <label for="number">Número</label>
+          <div ng-messages="registration.number.$error" ng-if="registration.$submitted || registration.number.$dirty">
+            <span ng-message="required" class="red-text"><i class="fa fa-exclamation-circle"> Precisamos saber o número do seu endereço</i></span>
+            <span ng-message="min" class="red-text"><i class="fa fa-exclamation-circle"> O número não pode ser negativo</i></span>
+            <span ng-message="number" class="red-text"><i class="fa fa-exclamation-circle"> Digite apenas números</i></span>
+            <span ng-if="registration.number.$valid" class="green-text"><i class="fa fa-check"></i></span>
+          </div>
         </div>
       </div>
 
