@@ -1,0 +1,14 @@
+{
+  "short_name":"Hotlibrary",
+  "name":"Hotlibrary",
+  "start_url":"http://localhost/hotlibrary",
+  "icons":[
+    {
+      "src":"http://localhost/hotlibrary/img/hotlibrary-logo.png",
+      "type":"image/png",
+      "sizes":"32x32"
+    }
+  ],
+  "background_color":"#D50000",
+  "display":"standalone"
+}
