@@ -1,1 +1,21 @@
+html {
+   font-family: GillSans, Calibri, Trebuchet, sans-serif;
+}
 
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+
+back {
+  float: left;
+  position: absolute;
+  top: 1%;
+  z-index: 2;
+}

@@ -3,7 +3,7 @@ var hotlibrary = angular.module('hotlibrary',['ngRoute','base64','ngCookies','ng
 hotlibrary.run(function ($rootScope, $cookies, $http, $location, Auth, $route) {
 
   var isMobile = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/);
-  if (isMobile && !window.location.pathname.match(/mobile/g)) {
+  if (isMobile && !$location.path().match(/mobile/g)) {
     $location.path('/mobile');
   }
 

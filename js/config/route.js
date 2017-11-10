@@ -5,6 +5,15 @@ hotlibrary.config(function ($routeProvider, Application) {
     templateUrl: Application.baseURL + 'template/view/mobile-user-login.html',
     controller: 'mLogin',
   });
+  $routeProvider.when('/mobile/livros',{
+    templateUrl: Application.baseURL + 'template/view/mobile-book-list.html',
+    controller: 'mBookList',
+    resolve: {
+      books: function (bookAPI){
+        return bookAPI.getAll({fromUserCity:true});
+      }
+    }
+  });
   // WEB ROUTES ================================================================
   $routeProvider.when('/',{
     templateUrl: Application.baseURL+'template/view/login-login.html',

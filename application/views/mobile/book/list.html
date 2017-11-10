@@ -1,0 +1,37 @@
+<back>
+  <a href="">
+    <i class="material-icons waves-effect waves-light waves-circle white-text">arrow_back</i>
+  </a>
+</back>
+
+<div class="row" style="margin-bottom: 0px;">
+  <nav>
+     <div class="nav-wrapper red accent-4">
+       <form>
+         <div class="input-field">
+           <input id="search" type="search" required placeholder="Nome do livro, autor ou categoria" ng-model="bookSearch">
+           <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+           <i class="material-icons">close</i>
+         </div>
+       </form>
+     </div>
+   </nav>
+</div>
+
+<div class="row">
+  <ul class="collection" style="margin-top:0px;">
+    <li class="collection-item avatar" ng-repeat="book in books | filter: bookSearch">
+      <img ng-src="upload/books/{{book.cover}}" alt="" class="circle" style="border-radius:0px;min-height:65px;">
+      <span class="title"><b>{{book.name | name}}</b></span>
+      <p>
+        <b>Autor:</b><br>
+        {{ book.authosString | name }}
+      </p>
+      <p class="truncate">
+        <b>Sinopse:</b><br>
+         {{ book.synopsis | firstToUpper }}
+      </p>
+      <a ng-href="#!/mobile/livro/detalhe/{{book.id}}" class="secondary-content"><i class="material-icons grey-text">list</i></a>
+    </li>
+  </ul>
+</div>

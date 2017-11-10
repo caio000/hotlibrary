@@ -138,6 +138,11 @@ class Book extends CI_Controller {
     $params = (object) $this->input->get();
     $books = $this->Book_model->getAll();
 
+    foreach ($books as $book) {
+      $book->categories = $this->Book_model->getCategories($book);
+      $book->authors = $this->Book_model->getAuthors($book);
+    }
+
     // verifica os parametros da requisição
     if (isset($params->with_picture)) $books = $this->setPicture($books);
     print(json_encode($books));
