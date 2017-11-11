@@ -6,25 +6,49 @@
       <li class="tab col s6" ng-click="currentTab = 'formRegistration'"><a href="" ng-class="{'active':currentTab === 'formRegistration'}">Criar conta</a></li>
     </ul>
 
-    <form ng-show="currentTab === 'formLogin'" id="formLogin" class="col s12">
+    <form ng-submit="login(User)" ng-show="currentTab === 'formLogin'" id="formLogin" name="formLogin" class="col s12">
       <div class="row">
         <div class="input-field col s12">
-          <input id="email" class="validate" type="email" name="email" ng-model="user.email" ng-required="true">
+          <input
+          id="email"
+          ng-class="{'invalid':(formLogin.$submitted || formLogin.email.$dirty) && formLogin.email.$invalid,'valid':formLogin.email.$valid}"
+          type="email"
+          name="email"
+          ng-model="User.email"
+          ng-exist-email="forgotPassword"
+          ng-required="true">
           <label for="email">Email</label>
+          <div ng-messages="formLogin.email.$error" ng-if="formLogin.$submitted || formLogin.email.$dirty">
+            <span ng-message="required" class="red-text"><i class="fa fa-exclamation-circle"> Precisamos saber o seu email</i></span>
+            <span ng-message="email" class="red-text"><i class="fa fa-exclamation-circle"> O email não é válido</i></span>
+            <span ng-message="emailAsync" class="red-text"><i class="fa fa-exclamation-circle"> O email informado não esta cadastrado no sistema</i></span>
+            <span ng-if="formLogin.email.$valid" class="green-text"><i class="fa fa-check"></i></span>
+          </div>
         </div>
       </div>
 
       <div class="row">
         <div class="input-field col s12">
-          <input id="password" class="validate" type="password" name="password" ng-model="user.password" ng-required="true">
+          <input
+          id="password"
+          ng-class="{'invalid':(formLogin.$submitted || formLogin.password.$dirty) && formLogin.password.$invalid,'valid':formLogin.password.$valid}"
+          type="password"
+          name="password"
+          ng-model="User.password"
+          ng-minlength="8"
+          ng-required="true">
           <label for="password">Senha</label>
+          <div ng-messages="formLogin.password.$error" ng-if="formLogin.$submitted || formLogin.password.$dirty">
+            <span ng-message="required" class="red-text"><i class="fa fa-exclamation-circle"> Você precisa de uma senha</i></span>
+            <span ng-message="minlength" class="red-text"><i class="fa fa-exclamation-circle"> A senha deve conter no minimo 8 caracteres</i></span>
+            <span ng-if="formLogin.password.$valid" class="green-text"><i class="fa fa-check"></i></span>
+          </div>
         </div>
       </div>
 
       <div class="row">
         <div class="input-field col s12">
-          <!-- <button type="submit" class="btn waves-effect waves-light red accent-4" style="width:100%;" name="btnLogin">Entrar</button> -->
-          <a href="#!/mobile/livros" class="btn waves-effect waves-light red accent-4">Buscar livros</a>
+          <button type="submit" class="btn waves-effect waves-light red accent-4" style="width:100%;" name="btnLogin">Entrar</button>
         </div>
       </div>
     </form>
@@ -226,8 +250,6 @@
         <button class="btn red accent-4" type="submit" name="btnCreateUser" style="width:100%;">Cadastrar <i ng-class="btnCreateUser.icon"></i></button>
       </div>
     </form>
-
-    <pre>{{User|json}}</pre>
 
   </div>
 </div>

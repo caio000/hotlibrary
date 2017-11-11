@@ -14,6 +14,14 @@ hotlibrary.controller('mLogin',function ($scope,UserAPI){
       }
     };
     $scope.save = _save;
+    $scope.login = _login;
+  }
+
+  var _login = function (user) {
+    console.log('função login');
+    if ($scope.formLogin.$valid) {
+      console.log(user);
+    }
   }
 
   var _save = function (user) {
