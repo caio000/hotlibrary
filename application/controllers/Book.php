@@ -99,12 +99,19 @@ class Book extends CI_Controller {
    * @param Int - ID do livro
    * @return Json - Retona um objeto json com os dados do livro.
    */
-  public function getById ($id) {
+  public function getById ($id,$withLibrary=false) {
     $this->db->trans_start();
     $book = $this->Book_model->getById($id);
     $book->publishingCompany = $this->PublishingCompany_model->getById($book->publishingCompany);
     $book->categories = $this->Book_model->getCategories($book);
     $book->authors = $this->Book_model->getAuthors($book);
+    if ($withLibrary) {
+      $book->libraries = $this->Book_model->getLibraries($book);
+      foreach ($book->libraries as $library) {
+        $library->address = $this->Address_model->getById($library->address);
+        $library->address->City = $this->City_model->getById($library->address->City);
+      }
+    }
     $this->db->trans_complete();
 
     print(json_encode($book));

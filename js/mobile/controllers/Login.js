@@ -3,6 +3,7 @@ hotlibrary.controller('mLogin',function ($scope,$location,UserAPI,Auth){
   var init = function () {
     $scope.currentTab = 'formLogin';
     $scope.btnCreateUser = {icon:'fa fa-paper-plane',disabled:false};
+    $scope.btnLogin = {disabled:false};
     $scope.User = {
       Level:{
         id: 3
@@ -19,6 +20,8 @@ hotlibrary.controller('mLogin',function ($scope,$location,UserAPI,Auth){
 
   var _login = function (user) {
     if ($scope.formLogin.$valid) {
+      $scope.btnLogin.disabled = true;
+      $scope.btnLogin.icon = 'fa fa-spinner fa-pulse';
       Auth.login(user,'Login/client',function (response) {
         user = response.result;
         if (user != null) {

@@ -7,14 +7,27 @@ hotlibrary.config(function ($routeProvider, Application) {
   });
   // Mobile user Routes
   $routeProvider.when('/mobile/user/:id',{
-    
+
   });
   $routeProvider.when('/mobile/livros',{
     templateUrl: Application.baseURL + 'template/view/mobile-book-list.html',
     controller: 'mBookList',
+    requiresAuthentication: true,
+    permissions: [3],
     resolve: {
       books: function (bookAPI){
         return bookAPI.getAll({fromUserCity:true});
+      }
+    }
+  });
+  $routeProvider.when('/mobile/livro/detalhe/:id',{
+    templateUrl: Application.baseURL + 'template/view/mobile-book-details.html',
+    controller: 'mBookDetails',
+    requiresAuthentication: true,
+    permissions: [3],
+    resolve: {
+      book: function (bookAPI,$route) {
+        return bookAPI.getById($route.current.params.id+'/true');
       }
     }
   });

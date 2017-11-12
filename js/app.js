@@ -23,9 +23,11 @@ hotlibrary.run(function ($rootScope, $cookies, $http, $location, Auth, $route) {
     if ($location.path() == '/mobile' && $rootScope.globals.currentUser) {
       $location.path($rootScope.globals.currentUser.homePage);
     }
-
-    if (!Auth.checkAuthForView(next))
+    
+    if (!Auth.checkAuthForView(next) && !$location.path().match(/mobile/g))
       $location.path('/');
+    else if (!Auth.checkAuthForView(next) && $location.path().match(/mobile/g))
+      $location.path('/mobile');
     else if (!Auth.userHasPermissionForView(next))
       $location.path('/erro/acesso_negado');
   });

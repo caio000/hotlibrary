@@ -1,0 +1,60 @@
+<back>
+  <a href="#!/mobile/livros">
+    <i class="material-icons waves-effect waves-light waves-circle white-text">arrow_back</i>
+  </a>
+</back>
+
+<div class="row">
+  <div class="container">
+    <div class="col s12">
+      <div class="card">
+        <div class="card-image">
+          <img ng-src="upload/books/{{book.cover}}" alt="">
+        </div>
+        <div class="card-content">
+          <h5>{{ book.name | name }}</h5>
+          <p>
+            {{ book.synopsis }}
+          </p>
+
+          <h5 ng-show="book.authors.length <= 1">Autor(a)</h5>
+          <h5 ng-show="book.authors.length > 1">Autores(as)</h5>
+          <p ng-repeat="author in book.authors">{{ author.name | name }}</p>
+
+          <h5>Páginas</h5>
+          <p>{{ book.pages }} páginas</p>
+
+          <h5>Editora</h5>
+          <p>{{ book.publishingCompany.name | name }}</p>
+
+          <h5>Data de publicação</h5>
+          <p>{{ book.publishDate | date:'dd/MM/yyyy' }}</p>
+
+          <h5>Edição</h5>
+          <p>{{ book.edition }}</p>
+
+          <h5>Categoria</h5>
+          <p ng-repeat="category in book.categories">{{ category.name | name }}</p>
+
+          <h5>Disponível em</h5>
+          <table>
+            <thead>
+              <tr>
+                <th>Biblioteca</th>
+                <th>Cidade</th>
+              </tr>
+              <tr ng-repeat="library in book.libraries">
+                <td>{{ library.name | name }}</td>
+                <td>{{ library.address.City.name | name }}</td>
+              </tr>
+            </thead>
+          </table>
+
+        </div>
+        <div class="card-action">
+          <a href="" class="btn red accent-4" style="width:100%" ng-click="load(book)">Solicitar empréstimo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

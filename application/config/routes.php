@@ -73,7 +73,7 @@ $route['biblioteca/deletar/livro/(:num)']['delete'] = 'Library/deleteBook/$1';
 $route['livro/cadastrar']['post'] = 'Book/save';
 $route['livro/upload/capa']['post'] = 'Book/saveCover';
 $route['livro/todos']['get'] = 'Book/getAll';
-$route['livro/(:num)']['get'] = 'Book/getById/$1';
+$route['livro/(:num)/(:any)']['get'] = 'Book/getById/$1/$2';
 $route['livro/deletar/(:num)']['delete'] = 'Book/delete/$1';
 $route['livro/editar']['patch'] = 'Book/edit';
 // PublishingCompany routes ====================================================

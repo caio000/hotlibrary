@@ -89,6 +89,22 @@
     }
 
     /**
+     * Busca todas as bibliotecas relacinadas com um livro.
+     * @author Caio de Freitas Adriano
+     * @since 2017/11/12
+     * @param Object - Objeto Book com os dados do livro
+     * @return Array - Retona um vetor de objetos Library com os dados das
+     * bibliotecas.
+     */
+    public function getLibraries($book){
+      $this->db->select('User.*');
+      $this->db->join('Library','Library.id = Library_has_Book.library');
+      $this->db->join('User','User.id = Library.id');
+      $this->db->where('Library_has_Book.book',$book->id);
+      return $this->db->get('Library_has_Book')->result();
+    }
+
+    /**
      * Busca todas as categorias de um livro.
      * @author Caio de Freitas Adriano
      * @since 2017/11/06
