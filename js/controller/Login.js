@@ -19,7 +19,7 @@ hotlibrary.controller('Login', function ($scope, $document, Application, Auth, $
     $scope.btnLogin = true;
 
     if (formValid) {
-      Auth.login(User, function (response) {
+      Auth.login(User, 'Login/administration', function (response) {
         // verifica se retornou um usuário na requisição
         User = response.result;
         if ( User != null ) {

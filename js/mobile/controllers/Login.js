@@ -1,4 +1,4 @@
-hotlibrary.controller('mLogin',function ($scope,UserAPI){
+hotlibrary.controller('mLogin',function ($scope,$location,UserAPI,Auth){
 
   var init = function () {
     $scope.currentTab = 'formLogin';
@@ -18,9 +18,17 @@ hotlibrary.controller('mLogin',function ($scope,UserAPI){
   }
 
   var _login = function (user) {
-    console.log('função login');
     if ($scope.formLogin.$valid) {
-      console.log(user);
+      Auth.login(user,'Login/client',function (response) {
+        user = response.result;
+        if (user != null) {
+          user.homePage = 'mobile/livros'; // FIXME: alterar para rota do usuário
+          Auth.setCredentials(user);
+          $location.path(user.homePage);
+        } else {
+          Materialize.toast('Email ou senha incorretos',3000);
+        }
+      });
     }
   }
 

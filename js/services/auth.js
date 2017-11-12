@@ -2,14 +2,14 @@ hotlibrary.factory('Auth',function ($http, Application, $base64, $cookies, $root
 
   var service = {};
 
-  var _login = function (User, callback) {
-    _validate(User).then(function success (response) {
+  var _login = function (User, loginFunction, callback) {
+    _validate(User,loginFunction).then(function success (response) {
       callback(response.data);
     });
   }
 
-  var _validate = function (User) {
-    return $http.post(Application.baseURL + 'Login/administration',User);
+  var _validate = function (User,loginFunction) {
+    return $http.post(Application.baseURL + loginFunction,User);
   }
 
   var _logout = function () {

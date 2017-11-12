@@ -20,6 +20,10 @@ hotlibrary.run(function ($rootScope, $cookies, $http, $location, Auth, $route) {
     $rootScope.globals.Page = {background: theme};
     $rootScope.globals.Page.showMenu = next.hasMenu;
 
+    if ($location.path() == '/mobile' && $rootScope.globals.currentUser) {
+      $location.path($rootScope.globals.currentUser.homePage);
+    }
+
     if (!Auth.checkAuthForView(next))
       $location.path('/');
     else if (!Auth.userHasPermissionForView(next))

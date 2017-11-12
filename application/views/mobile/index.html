@@ -24,6 +24,10 @@
       </div>
     </nav>
 
+    <logout ng-if="globals.currentUser" ng-controller="Menu" ng-click="logout()">
+      <i class="material-icons white-text waves-efect">exit_to_app</i>
+    </logout>
+
     <main>
       <ng-view></ng-view>
     </main>
@@ -81,6 +85,7 @@
     <script type="text/javascript" src="/hotlibrary/js/filters/nameFilter.js" charset="utf-8"></script>
     <!-- Angular controller -->
     <script type="text/javascript" src="/hotlibrary/js/mobile/controllers/Login.js" charset="utf-8"></script>
-    <script src="/hotlibrary/js/mobile/controllers/BookList.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/hotlibrary/js/mobile/controllers/BookList.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/hotlibrary/js/controller/Menu.js" charset="utf-8"></script>
   </body>
 </html>
