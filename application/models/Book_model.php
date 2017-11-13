@@ -101,6 +101,7 @@
       $this->db->join('Library','Library.id = Library_has_Book.library');
       $this->db->join('User','User.id = Library.id');
       $this->db->where('Library_has_Book.book',$book->id);
+      $this->db->where('Library_has_Book.deleted',false);
       return $this->db->get('Library_has_Book')->result();
     }
 

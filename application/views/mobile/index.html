@@ -30,9 +30,7 @@
       <i class="material-icons white-text waves-efect">exit_to_app</i>
     </logout>
 
-    <main>
-      <ng-view></ng-view>
-    </main>
+    <ng-view></ng-view>
 
     <footer class="page-footer red accent-4">
       <div class="footer-copyrigth">
@@ -59,6 +57,8 @@
     <!-- Angular App -->
     <script type="text/javascript" src="/hotlibrary/js/app.js" charset="utf-8"></script>
     <!-- Angular interceptor -->
+    <script type="text/javascript" src="/hotlibrary/js/interceptors/error.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/hotlibrary/js/interceptors/viaCep.js" charset="utf-8"></script>
     <!-- Angular directives -->
     <script type="text/javascript" src="/hotlibrary/js/directive/existEmail.js" charset="utf-8"></script>
     <!-- <script type="text/javascript" src="/hotlibrary/js/directive/compareTo.js" charset="utf-8"></script> -->
@@ -82,6 +82,7 @@
     <script type="text/javascript" src="/hotlibrary/js/services/LibraryAPI.js" charset="utf-8"></script>
     <!-- Angular config -->
     <script type="text/javascript" src="/hotlibrary/js/config/route.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/hotlibrary/js/config/interceptor.js" charset="utf-8"></script>
     <!-- Angular filters -->
     <script type="text/javascript" src="/hotlibrary/js/filters/firstToUpper.js" charset="utf-8"></script>
     <script type="text/javascript" src="/hotlibrary/js/filters/nameFilter.js" charset="utf-8"></script>

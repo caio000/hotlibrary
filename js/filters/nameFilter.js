@@ -1,5 +1,6 @@
 hotlibrary.filter('name', function() {
   return function (input) {
+    if (!input) { return input; }
     input = input.toLowerCase();
     var name = input.split(" ");
 

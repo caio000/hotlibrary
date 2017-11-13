@@ -1,3 +1,33 @@
+@keyframes animation-right-to-center {
+  /*from {opacity: 1;}
+  to {opacity: 0;}*/
+  from {transform: translate3d(0,0,0);}
+  to {transform: translate3d(100%,0,0);}
+}
+
+@keyframes animation-left-to-center {
+  /*from {opacity: 1;}
+  to {opacity: 0;}*/
+  from {transform: translate3d(0,0,0);}
+  to {transform: translate3d(-100%,0,0);}
+}
+
+.loading-transition-right-to-center {
+  animation-name: animation-right-to-center;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+  animation-direction: reverse;
+  animation-timing-function: ease-in-out;
+}
+
+.loading-transition-left-to-center {
+  animation-name: animation-left-to-center;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+  animation-direction: reverse;
+  animation-timing-function: ease-in-out;
+}
+
 html {
    font-family: GillSans, Calibri, Trebuchet, sans-serif;
 }
