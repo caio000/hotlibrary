@@ -29,6 +29,8 @@ hotlibrary.controller('mLogin',function ($scope,$location,UserAPI,Auth){
           Auth.setCredentials(user);
           $location.path(user.homePage);
         } else {
+          $scope.btnLogin.disabled = false;
+          delete $scope.btnLogin.icon
           Materialize.toast('Email ou senha incorretos',3000);
         }
       });
