@@ -37,23 +37,26 @@
             <h5>Categoria</h5>
             <p ng-repeat="category in book.categories">{{ category.name | name }}</p>
 
-            <h5>Disponível em</h5>
-            <table>
-              <thead>
-                <tr>
-                  <th>Biblioteca</th>
-                  <th>Cidade</th>
-                </tr>
-                <tr ng-repeat="library in book.libraries">
-                  <td>{{ library.name | name }}</td>
-                  <td>{{ library.address.City.name | name }}</td>
-                </tr>
-              </thead>
-            </table>
 
-          </div>
-          <div class="card-action">
-            <a href="" class="btn red accent-4" style="width:100%" ng-click="load(book)">Solicitar empréstimo</a>
+            <h5>Disponível em</h5>
+            <div class="row">
+              <form name="formLoan" class="col s12" ng-submit="makeLoan(loan)" novalidate>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <select name="library" ng-model="loan.library" ng-options="library.name + ' - ' + library.address.City.name | name for library in book.libraries" ng-required="true">
+                      <option value="" disabled selected>Selecione uma biblioteca</option>
+                    </select>
+                    <div ng-messages="formLoan.library.$error" ng-if="formLoan.$submitted">
+                      <span class="red-text" ng-message="required">Selecione uma biblioteca</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <button class="waves-effect waves-light btn red accent-4" style="width:100%" type="submit" name="btnLoan" ng-disabled="btnLoan.disabled">Solicitar empréstimo</button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>

@@ -79,6 +79,14 @@ CREATE TABLE "Library" (
     FOREIGN KEY ("id") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
+CREATE TABLE "Client" (
+  "id"      INT   NOT NULL,
+  "notLoan" DATE      NULL,
+  PRIMARY KEY ("id"),
+  CONSTRAINT client_user
+    FOREIGN KEY ("id") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
 DROP TABLE IF EXISTS "Author";
 CREATE TABLE "Author" (
   "id"      SERIAL        NOT NULL,
@@ -150,6 +158,14 @@ CREATE TABLE "Book_Author" (
     FOREIGN KEY ("book") REFERENCES "Book" ("id"),
   CONSTRAINT fk_book_author_author
     FOREIGN KEY ("author") REFERENCES "Author" ("id")
+);
+
+CREATE TABLE "Loan" (
+  "client"      INT   NOT NULL,
+  "library"     INT   NOT NULL,
+  "book"        INT   NOT NULL,
+  "loanDate"    DATE      NULL,
+  "returnDate"  DATE      NULL
 );
 
 DROP TABLE IF EXISTS "Log";

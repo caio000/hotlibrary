@@ -146,5 +146,7 @@ $autoload['model'] = array(
   'Author_model',
   'Category_model',
   'PublishingCompany_model',
-  'Book_model'
+  'Book_model',
+  'Client_model',
+  'Loan_model'
 );
