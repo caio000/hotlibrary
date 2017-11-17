@@ -38,9 +38,8 @@
       }
 
       // verifica se o usuário não é da mesma cidade da biblioteca
-      if (!$loan->library->address->City->id === $user->address->City->id) {
+      if ($loan->library->address->City->id !== $user->address->City->id) {
         header('HTTP/1.1 202 Accepted');
-        echo "cidade diferente";
         $log = createLog($user->id,'Ocorreu um erro ao solicitar emprestimo de um livro: biblioteca não é da mesma cidade do cliente');
         $this->Log_model->insert($log);
 
