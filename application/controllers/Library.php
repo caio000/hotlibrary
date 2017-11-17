@@ -7,6 +7,26 @@
  */
 class Library extends CI_Controller {
 
+  public function getNotification($id) {
+    // pega os dados do usuário que vieram da requisição
+    $token = getToken();
+    $this->auth->setUserLevel($token[3]);
+    $this->auth->setPagePermission([2]);
+    // verifica se o usuário tem permissão para utilizar o serviço
+    if (!$this->auth->hasPermission()) {
+      header('HTTP/1.1 202 Unauthorized');
+      exit();
+    }
+    $notifications = $this->Loan_model->notificationFrom($id);
+
+    foreach ($notifications as $notification) {
+      $notification->client = $this->Client_model->getById($notification->client);
+      $notification->book = $this->Book_model->getById($notification->book);
+    }
+
+    print(json_encode($notifications));
+  }
+
   /**
    * Remove um livro da biblioteca
    * @author Caio de Freitas Adriano

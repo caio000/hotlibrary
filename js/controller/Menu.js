@@ -1,4 +1,6 @@
-hotlibrary.controller("Menu", function ($scope,Auth,$location) {
+hotlibrary.controller("Menu", function ($scope,$interval,$rootScope,Auth,$location,libraryAPI) {
+
+  $scope.notifications = {};
 
   $scope.logout = function () {
     Auth.logout();
@@ -6,4 +8,11 @@ hotlibrary.controller("Menu", function ($scope,Auth,$location) {
     $location.path(url);
   }
 
+  if ($rootScope.globals.currentUser.level == 2) {
+    $interval(function(){
+      libraryAPI.getNotification($rootScope.globals.currentUser.id).then(function (response) {
+        $scope.notifications = response.data;
+      });
+    },3000);
+  }
 });

@@ -8,6 +8,19 @@
   class Loan_model extends CI_Model {
 
     /**
+     * Busca todas as solicitações de emprestimo (não confirmadas) de uma biblioteca
+     * @author Caio de Freitas Adriano
+     * @since 2017/11/17
+     * @param Int - ID da biblioteca
+     * @return Array - retorna um vetor com as solicitações.
+     */
+    public function notificationFrom($library) {
+      $this->db->where('library',$library);
+      $this->db->where('loanDate',null);
+      return $this->db->get("Loan")->result();
+    }
+
+    /**
      * Busca o número de solicitações de empréstimo em aberto de um usuário
      * @author Caio de Freitas Adriano
      * @since 2017/11/16

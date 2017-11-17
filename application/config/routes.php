@@ -72,6 +72,7 @@ $route['valida/token/(:any)'] = 'Token/checkToken/$1';
 $route['biblioteca/(:num)']['get'] = 'Library/getById/$1';
 $route['biblioteca/adicionar/livros']['post'] = 'Library/addBooks';
 $route['biblioteca/deletar/livro/(:num)']['delete'] = 'Library/deleteBook/$1';
+$route['biblioteca/notificacoes/(:num)']['get'] = 'Library/getNotification/$1';
 // Book route ==================================================================
 $route['livro/cadastrar']['post'] = 'Book/save';
 $route['livro/upload/capa']['post'] = 'Book/saveCover';
