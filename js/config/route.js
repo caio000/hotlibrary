@@ -122,7 +122,7 @@ hotlibrary.config(function ($routeProvider, Application) {
         return categoryAPI.getAll();
       },
       book: function (bookAPI,$route) {
-        return bookAPI.getById($route.current.params.id);
+        return bookAPI.getById($route.current.params.id+'/false');
       }
     }
   });
@@ -133,7 +133,7 @@ hotlibrary.config(function ($routeProvider, Application) {
     permissions: [1,2],
     resolve: {
       book: function (bookAPI,$route) {
-        return bookAPI.getById($route.current.params.id);
+        return bookAPI.getById($route.current.params.id+'/false');
       }
     }
   });
