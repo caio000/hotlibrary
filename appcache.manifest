@@ -1,0 +1,17 @@
+CACHE MANIFEST
+
+CACHE:
+/hotlibrary
+/hotlibrary/css/style.css
+/hotlibrary/css/m_style.css
+/hotlibrary/index.php/template/view/mobile-user-login.html
+/hotlibrary/index.php/template/view/mobile-book-details.html
+
+NETWORK:
+*
+
+
+SETTINGS:
+prefer-online
+
+# hash: 5bb26e876b0097e53cf3b4fc6efffac33ceb68cac1983a6c4518f6f97dc10372
