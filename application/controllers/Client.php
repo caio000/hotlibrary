@@ -1,8 +1,99 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
   /**
-   *
+   *  Essa classe possui todos os serviços relacionados ao cliente
+   * @author Caio de Freitas Adriano
+   * @since 2017/11/15
    */
   class Client extends CI_Controller {
+
+    /**
+     * Busca todos os empréstimos até a data atual
+     * @author Caio de Freitas Adriano
+     * @since 2017/11/19
+     */
+    public function getLoanHistory() {
+      // pega os dados do usuário que vieram da requisição
+      $token = getToken();
+      $this->auth->setUserLevel($token[3]);
+      $this->auth->setPagePermission([3]);
+      // verifica se o usuário tem permissão para utilizar o serviço
+      if (!$this->auth->hasPermission()) {
+        header('HTTP/1.1 401 Unauthorized');
+        exit();
+      }
+
+      $loans = $this->Client_model->getLoanHistory($token[0]);
+      foreach ($loans as $loan) $loan->book = $this->Book_model->getById($loan->book);
+      print(json_encode($loans));
+    }
+
+    /**
+     * Busca todos os emprestimos cancelados pela biblioteca
+     * @author Caio de Freitas Adriano
+     * @since 2017/11/19
+     * @param INT - ID do cliente
+     * @return Json - Retorna um json com os objetos Loan (empréstimo)
+     */
+    public function getCanceledLoan() {
+      // pega os dados do usuário que vieram da requisição
+      $token = getToken();
+      $this->auth->setUserLevel($token[3]);
+      $this->auth->setPagePermission([3]);
+      // verifica se o usuário tem permissão para utilizar o serviço
+      if (!$this->auth->hasPermission()) {
+        header('HTTP/1.1 401 Unauthorized');
+        exit();
+      }
+
+      $loans = $this->Client_model->getCanceledLoan($token[0]);
+      foreach ($loans as $loan) $loan->book = $this->Book_model->getById($loan->book);
+      print(json_encode($loans));
+    }
+
+    /**
+     *  Busca todas os empréstimos em aberto
+     * @author Caio de Freitas Adriano
+     * @since 2017/11/19
+     */
+    public function getOpenedLoan() {
+      // pega os dados do usuário que vieram da requisição
+      $token = getToken();
+      $this->auth->setUserLevel($token[3]);
+      $this->auth->setPagePermission([3]);
+      // verifica se o usuário tem permissão para utilizar o serviço
+      if (!$this->auth->hasPermission()) {
+        header('HTTP/1.1 401 Unauthorized');
+        exit();
+      }
+
+      $loans = $this->Client_model->getOpenedLoan($token[0]);
+      foreach ($loans as $loan) $loan->book = $this->Book_model->getById($loan->book);
+      print(json_encode($loans));
+    }
+
+    /**
+     * Busca os livros que o cliente pegou empréstado no momento
+     * @author Caio de Freitas Adriano
+     * @since 2017/11/19
+     */
+    public function myBooks () {
+      // pega os dados do usuário que vieram da requisição
+      $token = getToken();
+      $this->auth->setUserLevel($token[3]);
+      $this->auth->setPagePermission([3]);
+      // verifica se o usuário tem permissão para utilizar o serviço
+      if (!$this->auth->hasPermission()) {
+        header('HTTP/1.1 401 Unauthorized');
+        exit();
+      }
+
+      $loans = $this->Client_model->getMyBooks($token[0]);
+
+      foreach ($loans as $loan) {
+        $loan->book = $this->Book_model->getById($loan->book);
+      }
+      print(json_encode($loans));
+    }
 
     /**
      * Cria a solicitação de emprestimo no sistema.

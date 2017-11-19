@@ -1,0 +1,67 @@
+<a  class="btn red accent-4" style="width:100%;" href="#!/mobile/livros">Procurar Livros</a>
+<div class="loading-transition-right-to-center">
+  <div class="row">
+    <h3 class="center-align">Página principal</h3>
+
+    <ul class="collapsible popout" data-collapsible="accordion">
+      <li>
+        <div class="collapsible-header"><i class="fa fa-book"></i>Meus livros</div>
+        <div class="collapsible-body">
+          <p ng-show="client.currentLoan.length == 0">Você não tem nenhum livro empréstado</p>
+          <div ng-repeat="currentLoan in client.currentLoan" class="card">
+            <div class="card-image">
+              <img ng-src="upload/books/{{currentLoan.book.cover}}" alt="">
+            </div>
+            <div class="card-content">
+              <h5>{{ currentLoan.book.name | name }}</h5>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="collapsible-header"><i class="fa fa-book"></i>Solicitações de empréstimos em aberto</div>
+        <div class="collapsible-body">
+          <p ng-show="client.openedLoan.length == 0">Você não possui empréstimos em aberto</p>
+          <div ng-repeat="loan in client.openedLoan" class="card">
+            <div class="card-image">
+              <img ng-src="upload/books/{{loan.book.cover}}" alt="">
+            </div>
+            <div class="card-content">
+              <h5>{{ loan.book.name | name }}</h5>
+              <p class="red-text"><b>Aguardando confirmação da biblioteca</b></p>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="collapsible-header"><i class="fa fa-book"></i>Solicitações de empréstimos canceladas</div>
+        <div class="collapsible-body">
+          <p ng-show="client.canceledLoan.length == 0">Você não possui empréstimos cancelados</p>
+          <div ng-repeat="loan in client.canceledLoan" class="card">
+            <div class="card-image">
+              <img ng-src="upload/books/{{ loan.book.cover }}" alt="">
+            </div>
+            <div class="card-content">
+              <h5>{{ loan.book.name | name }}</h5>
+              <p class="red-text"><b>Aguardando confirmação da biblioteca</b></p>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="collapsible-header"><i class="fa fa-book"></i>Historico de empréstimo</div>
+        <div class="collapsible-body">
+          <p ng-show="client.loanHistory.length == 0">Você não possui histórico de empréstimo</p>
+          <div ng-repeat="loan in client.loanHistory" class="card">
+            <div class="card-image">
+              <img ng-src="upload/books/{{ loan.book.cover }}" alt="">
+            </div>
+            <div class="card-content">
+              <h5>{{ loan.book.name | name }}</h5>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

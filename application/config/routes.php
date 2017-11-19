@@ -66,6 +66,10 @@ $route['usuario/editar']['patch'] = "User/edit";
 
 
 $route['cliente/solicitar/emprestimo']['post'] = "Client/loan";
+$route['cliente/meus/livros']['get'] = "Client/myBooks";
+$route['cliente/meus/emprestimos/em/aberto']['get'] = "Client/getOpenedLoan";
+$route['cliente/meus/emprestimos/cancelados']['get'] = "Client/getCanceledLoan";
+$route['cliente/meu/historico/emprestimos']['get'] = "Client/getLoanHistory";
 
 $route['valida/token/(:any)'] = 'Token/checkToken/$1';
 // Library routes ==============================================================

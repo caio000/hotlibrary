@@ -25,7 +25,7 @@ hotlibrary.controller('mLogin',function ($scope,$location,UserAPI,Auth){
       Auth.login(user,'Login/client',function (response) {
         user = response.result;
         if (user != null) {
-          user.homePage = 'mobile/livros'; // FIXME: alterar para rota do usuário
+          user.homePage = 'mobile/usuario/' + user.id;
           Auth.setCredentials(user);
           $location.path(user.homePage);
         } else {

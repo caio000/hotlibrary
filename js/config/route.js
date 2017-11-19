@@ -6,8 +6,25 @@ hotlibrary.config(function ($routeProvider, Application) {
     controller: 'mLogin',
   });
   // Mobile user Routes
-  $routeProvider.when('/mobile/user/:id',{
-
+  $routeProvider.when('/mobile/usuario/:id',{
+    templateUrl: Application.baseURL + 'template/view/mobile-client-index.html',
+    controller: 'mClient',
+    requiresAuthentication: true,
+    permissions: [3],
+    resolve: {
+      currentLoan: function (clientAPI) {
+        return clientAPI.myBooks();
+      },
+      openedLoan: function (clientAPI) {
+        return clientAPI.myOpenedLoan();
+      },
+      canceledLoan: function (clientAPI) {
+        return clientAPI.myCanceledLoan();
+      },
+      loanHistory: function (clientAPI) {
+        return clientAPI.myLoanHistory();
+      }
+    }
   });
   $routeProvider.when('/mobile/livros',{
     templateUrl: Application.baseURL + 'template/view/mobile-book-list.html',
