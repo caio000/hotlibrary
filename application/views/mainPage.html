@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="hotlibrary">
+<html ng-app="hotlibrary" lang="br">
   <head>
     <meta charset="utf-8">
     <title>Hotlibrary</title>
@@ -20,47 +20,84 @@
   </head>
   <body ng-class="globals.Page.background">
 
-    <nav class="navbar navbar-hotlibrary" ng-if="globals.Page.showMenu" ng-controller="Menu">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu-hotlibrary" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand">Hotlibrary</a>
-        </div>
+    <div ng-controller="Menu">
+      <nav class="navbar navbar-hotlibrary" ng-if="globals.Page.showMenu">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu-hotlibrary" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">Hotlibrary</a>
+          </div>
 
-        <div class="collapse navbar-collapse" id="menu-hotlibrary">
-          <ul class="nav navbar-nav">
-            <li class="dropdown">
-              <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-globe fa-lg"><span class="badge hotlibrary">{{notifications.length}}</span></i></a>
-              <ul class="dropdown-menu dropdown-hotlibrary">
-                <li ng-repeat="notification in notifications track by notification.client.id">
-                  <a href="">{{notification.client.name | name }} quer o livro "{{ notification.book.name | name }}" empréstado</a>
-                </li>
-              </ul>
-            </li>
-            <li ng-show="globals.currentUser.level == 1"><a ng-href="#!/usuario">Usuários</a></li>
-            <li ng-show="globals.currentUser.level == 2"><a ng-href="#!{{globals.currentUser.homePage}}">Biblioteca</a></li>
-            <li class="dropdown">
-              <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Livros <span class="caret"></span></a>
-              <ul class="dropdown-menu dropdown-hotlibrary">
-                <li ng-show="globals.currentUser.level == 1"><a href="#!/livro">Todos os livros</a></li>
-                <li><a href="#!/livro/cadastrar">Cadastrar Livro</a></li>
-                <li><a href="#!/categoria">Categorias</a></li>
-                <li><a href="#!/autor">Autores</a></li>
-                <li><a href="#!/editora">Editoras</a></li>
-              </ul>
-            </li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a ng-click="logout()"><i class="fa fa-sign-out" aria-hidden="true"> Sair</i></a></li>
-          </ul>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
-    </nav>
+          <div class="collapse navbar-collapse" id="menu-hotlibrary">
+            <ul class="nav navbar-nav">
+              <li class="dropdown" ng-if="globals.currentUser.level == 2">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-globe fa-lg"><span class="badge hotlibrary">{{notifications.length}}</span></i></a>
+                <ul class="dropdown-menu dropdown-hotlibrary">
+                  <li ng-repeat="notification in notifications track by notification.id">
+                    <button
+                      type="button"
+                      class="btn btn-hotlibrary btn-block"
+                      data-toggle="modal"
+                      data-target="#modalConfirmLoan"
+                      ng-click="setCurrentNotification(notification)">
+                      {{notification.client.name | name }} quer o livro "{{ notification.book.name | name }}" empréstado
+                    </button>
+                  </li>
+                </ul>
+              </li>
+              <li ng-show="globals.currentUser.level == 1"><a ng-href="#!/usuario">Usuários</a></li>
+              <li ng-show="globals.currentUser.level == 2"><a ng-href="#!{{globals.currentUser.homePage}}">Biblioteca</a></li>
+              <li class="dropdown">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Livros <span class="caret"></span></a>
+                <ul class="dropdown-menu dropdown-hotlibrary">
+                  <li ng-show="globals.currentUser.level == 1"><a href="#!/livro">Todos os livros</a></li>
+                  <li><a href="#!/livro/cadastrar">Cadastrar Livro</a></li>
+                  <li><a href="#!/categoria">Categorias</a></li>
+                  <li><a href="#!/autor">Autores</a></li>
+                  <li><a href="#!/editora">Editoras</a></li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a ng-click="logout()"><i class="fa fa-sign-out" aria-hidden="true"> Sair</i></a></li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+      </nav>
+      <hot-modal id="modalConfirmLoan">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Confirmar empréstimo</h4>
+        </div>
+        <div class="modal-body">
+          <div class="col-md-12">
+            <form class="form-horizontal" name="confirmLoan" ng-submit="confirmLoanFun(currentNotification,confirmLoan)" novalidate>
+              <div class="form-group" ng-class="{ 'has-error': (confirmLoan.$submitted || confirmLoan.returnDate.$dirty) && confirmLoan.returnDate.$invalid, 'has-success': confirmLoan.returnDate.$valid }">
+                <label class="control-label" for="returnDate">Data de entrega</label>
+                <input id="returnDate" class="form-control" type="date" name="returnDate" ng-model="currentNotification.returnDate" ng-required="true" min="{{today | date:'yyyy-MM-dd'}}">
+                <div ng-messages="confirmLoan.returnDate.$error" ng-if="confirmLoan.$submitted || confirmLoan.returnDate.$dirty">
+                  <span class="help-block" ng-message="required"><i class="fa fa-exclamation-circle"></i> Selecione a data de entrega do livro</span>
+                  <span class="help-block" ng-if="confirmLoan.returnDate.$valid"><i class="fa fa-check"></i></span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <button class="btn btn-hotlibrary" type="submit" name="btnConfirmLoan" ng-disabled="btnConfirmLoan.disabled">Sim <i ng-class="btnConfirmLoan.icon"></i></button>
+                <button class="btn btn-hotlibrary" type="submit" name="btnCancelLoan">Não</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer"></div>
+      </hot-modal>
+      <hot-alert></hot-alert>
+    </div>
 
     <div id="page" class="container-fluid">
       <ng-view></ng-view>

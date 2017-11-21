@@ -15,10 +15,17 @@ hotlibrary.factory('libraryAPI',function ($http,Application) {
   var _getNotification = function (id){
     return $http.get(Application.baseURL + "biblioteca/notificacoes/" + id);
   }
+
+  var _confirmLoan = function (loan) {
+    return $http.patch(Application.baseURL + "biblioteca/confirmar/emprestimo",loan);
+  }
+
+
   return {
     getAll: _getAll,
     addBook: _addBook,
     deleteBook: _deleteBook,
     getNotification: _getNotification,
+    confirmLoan: _confirmLoan,
   };
 })

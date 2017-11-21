@@ -8,6 +8,18 @@
   class Loan_model extends CI_Model {
 
     /**
+     * Atualiza os dados do objeto loan
+     * @author Caio de Freitas Adriano
+     * @since 2017/11/21
+     * @param Object - Objeto loan (Empréstimo)
+     * @return BOOLEAN - Retorna true caso os dados sejam atualizados com sucesso
+     */
+    public function update($loan) {
+      $this->db->where('id',$loan->id);
+      return $this->db->update('Loan',$loan);
+    }
+
+    /**
      * Busca todas as solicitações de emprestimo (não confirmadas) de uma biblioteca
      * @author Caio de Freitas Adriano
      * @since 2017/11/17

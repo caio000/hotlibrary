@@ -161,11 +161,19 @@ CREATE TABLE "Book_Author" (
 );
 
 CREATE TABLE "Loan" (
-  "client"      INT   NOT NULL,
-  "library"     INT   NOT NULL,
-  "book"        INT   NOT NULL,
-  "loanDate"    DATE      NULL,
-  "returnDate"  DATE      NULL
+  "id"          SERIAL  NOT NULL,
+  "client"      INT     NOT NULL,
+  "library"     INT     NOT NULL,
+  "book"        INT     NOT NULL,
+  "loanDate"    DATE        NULL,
+  "returnDate"  DATE        NULL,
+  PRIMARY KEY ("id"),
+  CONSTRAINT fk_loan_client
+  FOREIGN KEY ("client") REFERENCES "Client" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT fk_loan_library
+  FOREIGN KEY ("library") REFERENCES "Library" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT fk_loan_book
+  FOREIGN KEY ("book") REFERENCES "Book" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS "Log";

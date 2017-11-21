@@ -7,6 +7,47 @@
  */
 class Library extends CI_Controller {
 
+  /**
+   * confirma a solicitação de emprestimo de um livro
+   * @author Caio de Freitas Adriano
+   * @since 2017/11/21
+   */
+  public function confirmLoan() {
+    // pega os dados do usuário que vieram da requisição
+    $token = getToken();
+    $this->auth->setUserLevel($token[3]);
+    $this->auth->setPagePermission([2]);
+    // verifica se o usuário tem permissão para utilizar o serviço
+    if (!$this->auth->hasPermission()) {
+      header('HTTP/1.1 202 Unauthorized');
+      exit();
+    }
+
+    $post = file_get_contents("php://input");
+    $loan = json_decode($post);
+
+    $loan->loanDate = date('Y-m-d');
+    $loan->returnDate = brToSqlDate($loan->returnDateTxt);
+    unset($loan->returnDateTxt);
+
+    $result = $this->Loan_model->update($loan);
+
+    $logMsg = ($result) ? 'Biblioteca confirmou o empréstimo de um livro' : 'Ocorreu um erro ao confirmar empréstimo de um livro';
+    $log = createLog($token[0],$logMsg);
+    $this->Log_model->insert($log);
+
+    $response['result'] = $result;
+    $response['msg'] = ($result) ? 'Livro empréstado com sucesso' : 'Ocorreu um erro, tente novamente mais tarde';
+
+    print(json_encode($response));
+  }
+
+  /**
+   * Busca as notificações de uma biblioteca.
+   * @author Caio de Freitas Adriano
+   * @since 2017/11/21
+   * @param INT - ID da biblioteca
+   */
   public function getNotification($id) {
     // pega os dados do usuário que vieram da requisição
     $token = getToken();
