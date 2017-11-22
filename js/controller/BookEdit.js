@@ -99,6 +99,11 @@ hotlibrary.controller('BookEdit',function ($scope,$document,$filter,bookAPI,book
   }
 
   var _preSelectedField = function (myElements,fieldElements) {
+    var hasNullElemnt = myElements.some(function (element) {
+      return element == null;
+    });
+
+    if (hasNullElemnt) return fieldElements;
     // gera um array com os id's dos elementos
     var indexes = myElements.map(function(element){
       return element.id;

@@ -1,3 +1,9 @@
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .badge.hotlibrary{
     background-color: #D7DDD5;
     color: #8B1E01;
