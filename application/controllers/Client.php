@@ -139,7 +139,7 @@
       }
 
       // verifica se o usuário possui mais de dois emprestimos em aberto
-      if ($this->Loan_model->numOpenLoan($user) >= 2) {
+      if ($this->Loan_model->numOpenLoan($user) >= 2) { // FIXME: não existe emprestimos em aberto, porem está caindo nesse erro
         header("HTTP/1.1 202 Accepted");
         $log = createLog($user->id,'Ocorreu um erro ao solicitar emprestimo de um livro: possui dois emprestimos em aberto');
         $this->Log_model->insert($log);

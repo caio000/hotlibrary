@@ -88,7 +88,7 @@
 
               <div class="form-group">
                 <button class="btn btn-hotlibrary" type="submit" name="btnConfirmLoan" ng-disabled="btnConfirmLoan.disabled">Sim <i ng-class="btnConfirmLoan.icon"></i></button>
-                <button class="btn btn-hotlibrary" type="submit" name="btnCancelLoan">Não</button>
+                <button class="btn btn-hotlibrary" type="button" name="btnCancelLoan" ng-click="cancelLoanFun(currentNotification)" ng-disabled="btnCancelLoan.disabled">Não <i ng-class="btnCancelLoan.icon"></i></button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
               </div>
             </form>

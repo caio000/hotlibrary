@@ -8,6 +8,50 @@
 class Library extends CI_Controller {
 
   /**
+   * Cancela a solicitaçõo de umpréstimo de um livro.
+   * @author Caio de Freitas Adriano
+   * @since 2017/11/22
+   * @param Object - Recebe um objeto Loan (empréstimo) com os dados de emprestimo.
+   * @return Json - Retorna um json com os dados de resposta da requisição.
+   */
+  public function cancelLoan () {
+    // pega os dados do usuário que vieram da requisição
+    $token = getToken();
+    $this->auth->setUserLevel($token[3]);
+    $this->auth->setPagePermission([2]);
+    // verifica se o usuário tem permissão para utilizar o serviço
+    if (!$this->auth->hasPermission()) {
+      header('HTTP/1.1 202 Unauthorized');
+      exit();
+    }
+
+    $post = file_get_contents("php://input");
+    $loan = json_decode($post);
+
+    $loan->loanDate = date('Y-m-d');
+    $result = $this->Loan_model->update($loan);
+
+    if ($result) {
+      $html = $this->load->view('email/cancelLoan',compact('loan'),TRUE);
+
+      $this->cronomail->setContent($html);
+      $this->cronomail->setSubject('Hotlibrary - empréstimo cancelado');
+      $this->cronomail->to($loan->client->email,$loan->client->name);
+      $this->cronomail->send();
+    }
+
+    $logMsg = ($result) ? 'Biblioteca não empréstou um livro' : 'Ocorreu um erro ao cancelar o empréstimo';
+    $responseMsg = ($result) ? 'Empréstimo recusado com sucesso' : 'Ocorreu um erro ao cancelar o empréstimo';
+
+    $log = createLog($token[0],$logMsg);
+    $this->Log_model->insert($log);
+
+    $response['msg'] = $responseMsg;
+    $response['result'] = $result;
+    print(json_encode($response));
+  }
+
+  /**
    * confirma a solicitação de emprestimo de um livro
    * @author Caio de Freitas Adriano
    * @since 2017/11/21

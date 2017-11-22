@@ -78,6 +78,7 @@ $route['biblioteca/adicionar/livros']['post'] = 'Library/addBooks';
 $route['biblioteca/deletar/livro/(:num)']['delete'] = 'Library/deleteBook/$1';
 $route['biblioteca/notificacoes/(:num)']['get'] = 'Library/getNotification/$1';
 $route['biblioteca/confirmar/emprestimo']['patch'] = 'Library/confirmLoan';
+$route['biblioteca/cancelar/emprestimo']['patch'] = 'Library/cancelLoan';
 // Book route ==================================================================
 $route['livro/cadastrar']['post'] = 'Book/save';
 $route['livro/upload/capa']['post'] = 'Book/saveCover';

@@ -20,6 +20,10 @@ hotlibrary.factory('libraryAPI',function ($http,Application) {
     return $http.patch(Application.baseURL + "biblioteca/confirmar/emprestimo",loan);
   }
 
+  var _cancelLoan = function (loan) {
+    return $http.patch(Application.baseURL + 'biblioteca/cancelar/emprestimo',loan);
+  }
+
 
   return {
     getAll: _getAll,
@@ -27,5 +31,6 @@ hotlibrary.factory('libraryAPI',function ($http,Application) {
     deleteBook: _deleteBook,
     getNotification: _getNotification,
     confirmLoan: _confirmLoan,
+    cancelLoan:_cancelLoan,
   };
 })
