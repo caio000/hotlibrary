@@ -98,8 +98,7 @@
 
         <div class="form-group" ng-class="{'has-success':bookForm.synopsis.$dirty && bookForm.synopsis.$valid}">
           <label class="control-label" for="synopsis">Sinopse:</label>
-          <textarea id="synopsis" class="form-control" name="synopsis" rows="8" ng-trim="true" ng-model="book.synopsis" maxlength="255"></textarea>
-          <span ng-if="bookForm.synopsis.$dirty && bookForm.synopsis.$valid" class="pull-left help-block"><i class="fa fa-check"></i></span><span class="pull-right" style="color:#333;">{{ 255 - book.synopsis.length }}</span>
+          <textarea id="synopsis" class="form-control" name="synopsis" rows="8" ng-trim="true" ng-model="book.synopsis"></textarea>
         </div>
       </div>
 

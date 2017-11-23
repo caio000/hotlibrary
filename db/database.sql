@@ -120,7 +120,7 @@ CREATE TABLE "Book" (
   "cover"             VARCHAR(255)    NULL      DEFAULT 'default.jpg',
   "edition"           INTEGER         NULL,
   "publishingCompany" INTEGER         NULL,
-  "synopsis"          VARCHAR(250)    NULL,
+  "synopsis"          TEXT            NULL,
   "deleted"           BOOLEAN         NOT NULL  DEFAULT FALSE,
   PRIMARY KEY ("id"),
   CONSTRAINT fk_book_publishingCompany
