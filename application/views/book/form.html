@@ -16,7 +16,7 @@
 
         <div class="form-group">
           <label for="author" class="label-control">Autor:</label>
-          <small>Caso não encontre o(a) autor(a) <a href="#!/autor">clique aqui!</a></small>
+          <small>Caso não encontre o(a) autor(a) <a href="" data-toggle="modal" data-target="#modalAuthorRegistration" type="button" name="btnAuthorModel">clique aqui!</a></small>
           <br>
           <isteven-multi-select
             input-model="authors"
@@ -34,7 +34,7 @@
 
         <div class="form-group">
           <label for="publishingCompany">Editora:</label>
-          <small>Caso não encontre a editora <a href="#!/editora">clique aqui!</a></small>
+          <small>Caso não encontre a editora <a href="" data-toggle="modal" data-target="#modalPublishingCompanyRegistration" type="button">clique aqui!</a></small>
           <br>
           <isteven-multi-select
             input-model="publishingCompanies"
@@ -50,7 +50,7 @@
 
         <div class="form-group">
           <label for="categories">Categoria:</label>
-          <small>Caso não encontre a categoria <a href="#!/categoria">clique aqui!</a></small>
+          <small>Caso não encontre a categoria <a href="" data-toggle="modal" data-target="#modalCategoryRegistration" type="button">clique aqui!</a></small>
           <br>
           <isteven-multi-select
             input-model="categories"
@@ -111,7 +111,7 @@
 
       <div class="col-md-12">
         <div class="form-group">
-          <hot-alert></hot-alert>
+          <hot-alert id="hotAlert"></hot-alert>
         </div>
 
         <div class="form-group">
@@ -121,3 +121,93 @@
     </form>
   </div>
 </div>
+
+<hot-modal id="modalAuthorRegistration">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title">Cadastrar autor(a)</h4>
+  </div>
+  <div class="modal-body">
+    <div class="col-md-12">
+      <form ng-submit="authorRegistration(author,formAuthor)" class="form-horizontal" name="formAuthor" autocomplete="off" novalidate>
+        <div class="form-group" ng-class="{'has-error': (formAuthor.$submitted || formAuthor.name.$dirty) && formAuthor.name.$invalid, 'has-success':formAuthor.name.$valid}">
+          <label for="name" class="control-label">Autor:</label>
+          <input id="name" class="form-control" type="text" name="name" only-letters="" ng-model="author.name" ng-maxlength="100" ng-required="true" placeholder="EX:... Machado de Assis">
+          <div ng-messages="formAuthor.name.$error" ng-if="formAuthor.$submitted || formAuthor.name.$dirty">
+            <span class="help-block" ng-message="required"><i class="fa fa-exclamation-circle"> O campo autor é obrigatório</i></span>
+            <span class="help-block" ng-message="onlyLetters"><i class="fa fa-exclamation-circle"> O campo autor aceita apenas letras</i></span>
+            <span class="help-block" ng-message="maxlength"><i class="fa fa-exclamation-circle"> O nome do autor deve possuir no maximo 100 caracteres</i></span>
+            <span class="help-block" ng-if="formAuthor.name.$valid"><i class="fa fa-check"></i></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <button class="btn btn-hotlibrary btn-block" type="submit" name="btnAuthorRegistration" ng-disabled="btnAuthorRegistration.disabled">Cadastrar <i ng-class="btnAuthorRegistration.icon"></i></button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+
+  </div>
+</hot-modal>
+
+<hot-modal id="modalPublishingCompanyRegistration">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title">Cadastrar editora</h4>
+  </div>
+  <div class="modal-body">
+    <div class="col-md-12">
+      <form ng-submit="publishingCompanyRegistration(publishingCompany,formPublishingCompany)" class="form-horizontal" name="formPublishingCompany" autocomplete="off" novalidate>
+        <div class="form-group" ng-class="{'has-error': (formPublishingCompany.$submitted || formPublishingCompany.name.$dirty) && formPublishingCompany.name.$invalid, 'has-success':formPublishingCompany.name.$valid}">
+          <label for="name" class="control-label">Editora:</label>
+          <input id="name" class="form-control" type="text" name="name" only-letters="" ng-model="publishingCompany.name" ng-maxlength="100" ng-required="true" placeholder="Ex..: NerdBooks">
+          <div ng-messages="formPublishingCompany.name.$error" ng-if="formPublishingCompany.$submitted || formPublishingCompany.name.$dirty">
+            <span class="help-block" ng-message="required"><i class="fa fa-exclamation-circle"> O campo editora é obrigatório</i></span>
+            <span class="help-block" ng-message="onlyLetters"><i class="fa fa-exclamation-circle"> O campo editora aceita apenas letras</i></span>
+            <span class="help-block" ng-message="maxlength"><i class="fa fa-exclamation-circle"> A editora deve possuir no maximo 100 caracteres</i></span>
+            <span class="help-block" ng-if="formPublishingCompany.name.$valid"><i class="fa fa-check"></i></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <button class="btn btn-hotlibrary btn-block" type="submit" name="btnPublishingCompanyRegistration" ng-disabled="btnPublishingCompanyRegistration.disabled">Cadastrar <i ng-class="btnPublishingCompanyRegistration.icon"></i></button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+
+  </div>
+</hot-modal>
+
+<hot-modal id="modalCategoryRegistration">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h4 class="modal-title">Cadastrar categoria</h4>
+  </div>
+  <div class="modal-body">
+    <div class="col-md-12">
+      <form ng-submit="categoryRegistration(category,formCategory)" class="form-horizontal" name="formCategory" autocomplete="off" novalidate>
+        <div class="form-group" ng-class="{'has-error': (formCategory.$submitted || formCategory.name.$dirty) && formCategory.name.$invalid, 'has-success':formCategory.name.$valid}">
+          <label for="name" class="control-label">Categoria:</label>
+          <input id="name" class="form-control" type="text" name="name" only-letters="" ng-model="category.name" ng-maxlength="50" ng-required="true">
+          <div ng-messages="formCategory.name.$error" ng-if="formCategory.$submitted || formCategory.name.$dirty">
+            <span class="help-block" ng-message="required"><i class="fa fa-exclamation-circle"> O campo categoria é obrigatório</i></span>
+            <span class="help-block" ng-message="onlyLetters"><i class="fa fa-exclamation-circle"> O campo categoria aceita apenas letras</i></span>
+            <span class="help-block" ng-message="maxlength"><i class="fa fa-exclamation-circle"> A categoria deve possuir no maximo 50 caracteres</i></span>
+            <span class="help-block" ng-if="formCategory.name.$valid"><i class="fa fa-check"></i></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <button class="btn btn-hotlibrary btn-block" type="submit" name="btnCategoryRegistration" ng-disabled="btnCategoryRegistration.disabled">Cadastrar <i ng-class="btnCategoryRegistration.icon"></i></button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-footer">
+
+  </div>
+</hot-modal>

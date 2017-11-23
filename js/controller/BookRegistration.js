@@ -1,4 +1,4 @@
-hotlibrary.controller('BookRegistration',function ($scope,$document,authors,publishingCompanies,categories,bookAPI,$filter) {
+hotlibrary.controller('BookRegistration',function ($scope,$document,$location,$anchorScroll,authors,publishingCompanies,categories,bookAPI,publishingCompanyAPI,authorAPI,categoryAPI,$filter) {
 
   var init = function () {
     $document.find("#cover").fileinput({
@@ -36,6 +36,120 @@ hotlibrary.controller('BookRegistration',function ($scope,$document,authors,publ
         nothingSelected:'Selecione a categoria',
       }
     };
+
+    $scope.btnAuthorRegistration = {icon:'fa fa-plus',disabled:false};
+    $scope.authorRegistration = _authorRegistration;
+
+    $scope.btnCategoryRegistration = {icon:'fa fa-plus',disabled:false};
+    $scope.categoryRegistration = _categoryRegistration;
+
+    $scope.btnPublishingCompanyRegistration = {icon:'fa fa-plus',disabled:false};
+    $scope.publishingCompanyRegistration = _publishingCompanyRegistration;
+  }
+
+  var _publishingCompanyRegistration = function (publishingCompany,form) {
+    if (form.$valid) {
+      $scope.btnPublishingCompanyRegistration.disabled = true;
+      $scope.btnPublishingCompanyRegistration.icon = 'fa fa-spinner fa-pulse';
+
+      publishingCompanyAPI.save(publishingCompany).then(function success (response) {
+        if (response.data.result) {
+          config = {type:'success',msg:'Editora cadastrada com sucesso'};
+
+          // recarrega a lista de editoras
+          publishingCompanyAPI.getAll().then(function(response) {
+            $scope.publishingCompanies = _setFilter(response.data);
+          });
+        } else {
+          config = {type:'danger',title:'Ops!',msg:'Ocorreu um erro ao cadastrar a editora'};
+        }
+
+        $scope.btnPublishingCompanyRegistration.disabled = false;
+        $scope.btnPublishingCompanyRegistration.icon = 'fa fa-plus';
+
+
+        $document.find("#modalPublishingCompanyRegistration").modal('hide');
+        $scope.$emit('alert',config);
+        $location.hash('hotAlert');
+        $anchorScroll();
+      }, function error (response) {
+        $scope.btnPublishingCompanyRegistration.disabled = false;
+        $scope.btnPublishingCompanyRegistration.icon = 'fa fa-plus';
+
+        $document.find("#modalPublishingCompanyRegistration").modal('hide');
+        $scope.$emit('alert',{type:'warning',title:'Ops!',msg:'Problemas para se conectar ao servidor, tente novamente mais tarde'});
+      });
+    }
+  }
+
+  var _categoryRegistration = function (category,form) {
+    if (form.$valid) {
+      $scope.btnCategoryRegistration.disabled = true;
+      $scope.btnCategoryRegistration.icon = 'fa fa-spinner fa-pulse';
+
+      categoryAPI.save(category).then(function success (response) {
+        if (response.data.result) {
+          config = {type:'success',msg:'categoria cadastrada com sucesso'};
+
+          // recarrega a lista de categorias
+          categoryAPI.getAll().then(function(response) {
+            $scope.categories = _setFilter(response.data);
+          });
+        } else {
+          config = {type:'danger',title:'Ops!',msg:'Ocorreu um erro ao cadastrar a categoria'};
+        }
+
+        $scope.btnCategoryRegistration.disabled = false;
+        $scope.btnCategoryRegistration.icon = 'fa fa-plus';
+
+
+        $document.find("#modalCategoryRegistration").modal('hide');
+        $scope.$emit('alert',config);
+        $location.hash('hotAlert');
+        $anchorScroll();
+      }, function error (response) {
+        $scope.btnCategoryRegistration.disabled = false;
+        $scope.btnCategoryRegistration.icon = 'fa fa-plus';
+
+        $document.find("#modalCategoryRegistration").modal('hide');
+        $scope.$emit('alert',{type:'warning',title:'Ops!',msg:'Problemas para se conectar ao servidor, tente novamente mais tarde'});
+      });
+    }
+  }
+
+  var _authorRegistration = function (author,form) {
+    if (form.$valid) {
+      $scope.btnAuthorRegistration.disabled = true;
+      $scope.btnAuthorRegistration.icon = 'fa fa-spinner fa-pulse';
+
+      authorAPI.save(author).then(function success (response) {
+        if (response.data.result) {
+          config = {type:'success',msg:'Autor(a) cadastrado com sucesso'};
+
+          // recarrega a lista de autores
+          authorAPI.getAll().then(function(response) {
+            $scope.authors = _setFilter(response.data);
+          });
+        } else {
+          config = {type:'danger',title:'Ops!',msg:'Ocorreu um erro ao cadastrar o(a) autor(a)'};
+        }
+
+        $scope.btnAuthorRegistration.disabled = false;
+        $scope.btnAuthorRegistration.icon = 'fa fa-plus';
+
+
+        $document.find("#modalAuthorRegistration").modal('hide');
+        $scope.$emit('alert',config);
+        $location.hash('hotAlert');
+        $anchorScroll();
+      }, function error (response) {
+        $scope.btnAuthorRegistration.disabled = false;
+        $scope.btnAuthorRegistration.icon = 'fa fa-plus';
+
+        $document.find("#modalAuthorRegistration").modal('hide');
+        $scope.$emit('alert',{type:'warning',title:'Ops!',msg:'Problemas para se conectar ao servidor, tente novamente mais tarde'});
+      });
+    }
   }
 
   // Busca o filtro "name" para ser aplicado em uma lista
