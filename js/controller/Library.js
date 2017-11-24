@@ -47,6 +47,11 @@ hotlibrary.controller('Library',function ($scope,$document,$filter,books,library
               $scope.library.books.push(book);
             });
 
+            // limpa o multiselect
+            $scope.books.forEach(function (book) {
+              book.isSelected = false;
+            });
+
           } else {
             config = {type:'danger',title:'Ops',msg:'Ocorreu um problema para adicionar o livro'};
           }
