@@ -4,7 +4,7 @@ hotlibrary.controller('User', function ($scope, UserAPI, $timeout, userLevel, vi
     $scope.Page = {title:'Hotlibrary - Cadastrar Usuário'};
     $scope.btnNewUser = {};
     $scope.levels = userLevel.data;
-    $scope.User = {Address:{City:{}, Zipcode:{}, Neighborhood:{}, State:{}}};
+    $scope.User = _userFactory();
     $scope.submit = false;
   }
 
@@ -15,7 +15,7 @@ hotlibrary.controller('User', function ($scope, UserAPI, $timeout, userLevel, vi
       UserAPI.saveUser(User).then(function success (response) {
         $scope.$emit('alert',{type:'success',title:'',msg:'Usuário cadastrado com sucesso!'});
         $scope.submit = false;
-        delete $scope.User;
+        $scope.User = _userFactory();
         $scope.newUser.$setPristine();
       }, function error (response) {
         $scope.$emit('alert',{type:'danger',title:'Ops!',msg:'Não foi possivel cadastrar o usuário, tente novamente mais tarde.'});
@@ -23,6 +23,10 @@ hotlibrary.controller('User', function ($scope, UserAPI, $timeout, userLevel, vi
       });
 
     }
+  }
+
+  var _userFactory = function () {
+    return {Address:{City:{}, Zipcode:{}, Neighborhood:{}, State:{}}};
   }
 
   init();
