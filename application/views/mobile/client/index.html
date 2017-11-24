@@ -14,6 +14,7 @@
             </div>
             <div class="card-content">
               <h5>{{ currentLoan.book.name | name }}</h5>
+              <p>Devolver esse livro em: <b>{{currentLoan.returnDate | date:'dd/MM/yyyy'}}</b></p>
             </div>
           </div>
         </div>
@@ -43,7 +44,7 @@
             </div>
             <div class="card-content">
               <h5>{{ loan.book.name | name }}</h5>
-              <p class="red-text"><b>Aguardando confirmação da biblioteca</b></p>
+              <p class="red-text"><b>Sua solicitação foi recusada pela biblioteca</b></p>
             </div>
           </div>
         </div>

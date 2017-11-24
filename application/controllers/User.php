@@ -266,7 +266,15 @@ class User extends CI_Controller {
     $user->level = $user->Level->id;
     $this->User_model->insert($user);
     $user->id = $this->db->insert_id();
-    $this->Library_model->insert($user);
+
+    switch ($user->level) {
+      case 2:
+        $this->Library_model->insert($user);
+        break;
+      case 3:
+        $this->Client_model->insert($user);
+        break;
+    }
 
     $mail = $this->load->view('email/confirmRegistration',null,TRUE);
     $this->cronomail->setContent($mail);

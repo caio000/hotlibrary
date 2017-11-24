@@ -8,6 +8,17 @@
   class Client_model extends CI_Model {
 
     /**
+     * Faz a persistencia de um novo cliente na base de dados
+     * @author Caio de Freitas Adriano
+     * @since 2017/11/24
+     * @param Object - Objeto User com os dados do usuário (cliente)
+     * @return Boolean - Retorna um true caso o objeto seja persistido com sucesso
+     */
+    public function insert($user) {
+      return $this->db->insert("Client",['id'=>$user->id]);
+    }
+
+    /**
      * Busca todos os emprestimos até a data atual
      * @author Caio de Freitas Adriano
      * @since 2017/11/19

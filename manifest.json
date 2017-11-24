@@ -4,9 +4,9 @@
   "start_url":"http://localhost/hotlibrary",
   "icons":[
     {
-      "src":"http://localhost/hotlibrary/img/hotlibrary-logo.png",
+      "src":"http://localhost/hotlibrary/img/mobileLogo.png",
       "type":"image/png",
-      "sizes":"32x32"
+      "sizes":"128x128"
     }
   ],
   "background_color":"#D50000",

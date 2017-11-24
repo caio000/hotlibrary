@@ -41,10 +41,10 @@
      */
     public function numOpenLoan($client) {
       $this->db->where('client',$client->id);
+      $this->db->where('loanDate',null);
       $this->db->where('returnDate',null);
       $query = $this->db->get("Loan");
 
-      // echo $this->db->last_query();
       return $query->num_rows();
     }
 
